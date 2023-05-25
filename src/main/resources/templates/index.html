@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>TradeWave</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="/js/script.js"></script>
+</head>
+<body>
+<header>
+    <a th:href="@{/}" class="logo">TradeWave</a>
+    <ul>
+        <li><a th:href="@{/register}" ><span></span>Register</a></li>
+        <li><a th:href="@{/login}" ><span></span>Log In</a></li>
+    </ul>
+</header>
+<section>
+    <img src="/images/background.jpg" id="background">
+    <img src="/images/icons/icon.svg" id="icon">
+    <h2 id="text">Welcome to our <br>stock trading platform!</h2>
+    <a href="#sec" id="btn">Explore</a>
+
+</section>
+<div class="sec" id="sec">
+    <h2>Competition Rules!</h2>
+    <p><span class="title">Duration:</span><br></br> The competition will run for six weeks.<br><br/>
+        <span class="title">Initial funds:</span><br></br>RM50,000/account.<br></br>
+        <span class="title">Tradable assets:</span><br></br> Participants can trade stocks listed on Bursa Malaysia. You can
+        view the list of stocks <a href="https://www.malaysiastock.biz/Listed-Companies.aspx" target="_blank" id="here">HERE.</a><br></br>
+        <span class="title"> Trading hours:</span><br></br>Participants can place trades anytime during the trading week
+        (Monday to Friday), during regular market hours (9:00 AM - 12:30 PM and 2:30PM - 5:00 PM MST).<br></br>
+        <span class="title">Trading restrictions:</span><br></br><span style="font-size: 30px; vertical-align: middle;">i.</span>&nbsp;&nbsp;&nbsp;Participants are not allowed to trade on margin or short sell a stock.<br></br>
+
+        <span style="font-size: 30px; vertical-align: middle;">ii.</span>&nbsp; Participants' account balance must be less than 50% by 5:00 PM daily to
+        encourage active trading. If their balance is greater than or equal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to 50%,
+        they will be disqualified from the competition.</span><br></br>
+
+        <span class="title">Scoring system:</span><br></br> Participants will earn points based on their profit and loss (P&L)
+        during the competition period. The formula for calculating points is as follows:
+        <br></br>
+        <span id="points">Points = (P&L / Starting Account Balance) x 100. </span><br></br>
+        <span class="title">Leaderboard:</span><br></br> The app will display a leaderboard that shows the top 10
+        participants ranked by their total points earned during the competition period.<br></br>
+        <span class="title">Notifications:</span><br></br>Participants will receive notifications when they enter or exit a
+        position, and when their P&L crosses certain thresholds (e.g., RM1000 profit or
+        RM500 loss). <br></br>
+        <span class="title">Analytics and reporting:</span><br></br> The app provides participants with access to a
+        dashboard where they can view their P&L, account balance, open positions, and
+        trade history. Participants can also generate reports that show their performance
+        metrics during the competition period.
+    </p>
+</div>
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+    </div>
+    <p>©2023 TradeWave. All rights reserved.</p></footer>
+</body>
+</html>

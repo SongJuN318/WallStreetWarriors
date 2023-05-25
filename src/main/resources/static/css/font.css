@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Wave-Font';
+    src: url("../images/font/wave.ttf")
+}
+
+@font-face {
+    font-family: 'Welcome-Font';
+    src: url("../images/font/welcome.otf");
+}
+
+@font-face {
+    font-family: 'Title-Font';
+    src: url("../images/font/title.otf");
+}
+
