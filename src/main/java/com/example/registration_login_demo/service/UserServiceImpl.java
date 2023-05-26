@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
+        user.setId(userDto.getId());
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
@@ -61,6 +62,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public User findUserById(long id) {
+        return userRepository.findById(id);
+    }
 
     @Override
     public List<UserDto> findAllUsers() {
@@ -76,6 +81,7 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(str[0]);
         userDto.setLastName(str[1]);
         userDto.setEmail(user.getEmail());
+        userDto.setId(user.getId());
         return userDto;
     }
 
@@ -99,7 +105,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        // Assuming you have a UserRepository and a RoleRepository
+
+// Retrieve the user by ID
+        User user = userRepository.findById(id).orElse(null);
+
+// Check if the user exists
+        if (user != null) {
+            // Delete the associated roles first
+            List<Role> roles = user.getRoles();
+            for (Role role : roles) {
+                // Delete the role
+                roleRepository.delete(role);
+            }
+
+            // Delete the user
+            userRepository.delete(user);
+        }
+
     }
 
 }

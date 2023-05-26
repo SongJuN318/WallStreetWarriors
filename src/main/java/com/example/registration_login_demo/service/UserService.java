@@ -9,7 +9,6 @@ import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.entity.User;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface UserService {
@@ -17,7 +16,7 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-
+    User findUserById(long id);
 
     List<UserDto> findAllUsers();
 

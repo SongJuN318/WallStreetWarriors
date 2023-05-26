@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
+    <link href="#" rel="shortcut icon">
     <meta charset="UTF-8">
     <title>Registration and Login System</title>
     <link crossorigin="anonymous"
@@ -35,6 +36,7 @@
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
+            <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -43,6 +45,7 @@
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>

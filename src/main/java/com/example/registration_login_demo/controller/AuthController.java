@@ -76,7 +76,7 @@ public class AuthController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+    public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/users";
     }
