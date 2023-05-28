@@ -33,6 +33,10 @@ header .logo {
     font-family: 'Wave-Font';
 }
 
+.logo:hover {
+    color: #fff;
+}
+
 
 ul {
     display: flex;
@@ -52,14 +56,17 @@ ul li a {
     padding: 6px 15px;
     border-radius: 25px;
     text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
 
 }
 
-a:not(.logo):not(#btn):not(#here):hover {
+a:not(.logo):not(#btn):not(#here):not(#sign):not(.btn.btn-primary):not(#noeffect):hover {
 
     background: #00ff99;
     box-shadow: 0 0 10px #00ff99, 0 0 40px #00ff99, 0 0 80px #00ff99;
     transition-delay: 0.35s; /* can change lower*/
+    color: #fff;
+
 
 }
 
@@ -85,6 +92,7 @@ a:hover span:nth-child(1) {
 
 }
 
+
 section {
     position: relative;
     width: 100%;
@@ -106,12 +114,11 @@ section::before {
     bottom: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(to top, #031e25, transparent);
     z-index: 1000;
 }
 
 section img {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -120,85 +127,34 @@ section img {
     pointer-events: none;
 }
 
-
-#text {
-    margin-bottom: -8%;
-    position: absolute;
-    color: #fff;
-    white-space: nowrap;
-    font-size: 5.5vw;
-    z-index: 9;
-    text-align: center;
+.alert.alert-danger, .alert.alert-success, .text-center, .alert.alert-info {
     font-family: 'Welcome-Font';
+}
+
+.form-label {
+    font-family: 'Title-Font';
+    font-size: 1.2em;
+}
+
+#sign {
+
+    font-family: 'Title-Font';
+    margin-left: 20px;
+    transform: translateY(-100px);
+    font-size: 1em;
 
 }
 
-#btn {
-    text-decoration: none;
-    display: inline-block;
-    padding: 8px 45px;
-    border-radius: 40px;
-    background: #fff;
-    color: #2b1055;
-    font-size: 2em;
-    z-index: 9;
-    transform: translateY(220px);
-}
-
-#btn:hover {
-
-    background: #ffffff;
-    box-shadow: 0 0 10px #00ff99, 0 0 40px #00ff99, 0 0 80px #00ff99;
-}
-
-.sec {
-    position: relative;
-    padding: 100px;
-    background: #031e25;
-    margin-bottom: 10px;
-}
-
-.sec h2 {
-    font-size: 4em;
-    margin-top: -50px;
-    margin-bottom: 10px;
+.btn.btn-primary {
+    border-radius: 25px;
     color: #fff;
-    text-align: center;
-    border-bottom: 2px dashed #fff;
-    text-transform: uppercase;
 
-
-}
-
-.sec p {
-    font-size: 1.45em;
-    color: #fff;
-    text-align: left;
-
-}
-
-.title {
-    font-family: 'Welcome-Font';
-    font-size: 1.4em;
-    display: block;
-    margin-bottom: -45px;
-
-}
-
-#points {
-    display: inline-block;
-    font-size: 30px;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: rgb(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 8px 45px;
-    transform: translateX(175px);
-    margin-bottom: 20px;
 }
 
 footer {
+    margin-top: 90px;
     position: relative;
+    bottom: 0;
     width: 100%;
     background: #3586ff;
     min-height: 100px;
@@ -213,6 +169,7 @@ footer p {
     font-size: 1.5em;
     font-family: 'Welcome-Font';
     color: white;
+    z-index: 10000;
 
 }
 
@@ -222,7 +179,7 @@ footer .wave {
     left: 0;
     width: 100%;
     height: 100px;
-    background: url("/static/images/wave.png");
+    background: url("../images/wave.png");
     background-size: 1000px 100px;
 }
 
@@ -261,5 +218,13 @@ footer .wave#wave2 {
     }
 }
 
+.container {
+    margin-top: 60px;
+    z-index: 10000;
 
 
+}
+
+#sign, #noeffect {
+    letter-spacing: 1.5px;
+}
