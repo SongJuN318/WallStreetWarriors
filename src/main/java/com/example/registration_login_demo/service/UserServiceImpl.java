@@ -105,14 +105,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        // Assuming you have a UserRepository and a RoleRepository
 
-// Retrieve the user by ID
+        // Retrieve the user by ID
         User user = userRepository.findById(id).orElse(null);
 
-// Check if the user exists
+        // Check if the user exists
         if (user != null) {
-            // Delete the associated roles first
             List<Role> roles = user.getRoles();
             for (Role role : roles) {
                 // Delete the role

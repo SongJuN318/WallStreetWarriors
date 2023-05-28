@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock List</title>
+</head>
+<body>
+<h1>Stock List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Symbol</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="stock : ${stocks}">
+        <td th:text="${stock.symbol}"></td>
+        <td th:text="${stock.name}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${error}" th:text="${error}"></p>
+</body>
+</html>

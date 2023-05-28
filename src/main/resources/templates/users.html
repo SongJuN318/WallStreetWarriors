@@ -33,6 +33,11 @@
     <div class="row col-md-10">
         <h2>List of Registered Users</h2>
     </div>
+    <div th:if="${param.success}">
+        <div class="alert alert-info">
+            You have successfully deleted the user!
+        </div>
+    </div>
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
@@ -50,7 +55,7 @@
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
             <td>
-                <form method="post" th:action="@{/delete/{id}(id=${user.id})}">
+                <form th:action="@{/delete/{id}(id=${user.id})}">
                     <input name="_method" type="hidden" value="delete"/>
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
