@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Detail</title>
+</head>
+<body>
+<h1>Stock Detail</h1>
+<table>
+    <tr>
+        <th>Stock Code:</th>
+        <td th:text="${stock.stockCode}"></td>
+    </tr>
+    <tr>
+        <th>Change:</th>
+        <td th:text="${stock.change}"></td>
+    </tr>
+    <tr>
+        <th>Percentage Change:</th>
+        <td th:text="${stock.percentageChange}"></td>
+    </tr>
+    <tr>
+        <th>Volume ('00):</th>
+        <td th:text="${stock.volume}"></td>
+    </tr>
+    <tr>
+        <th>Buy Volume ('00):</th>
+        <td th:text="${stock.buyVolume}"></td>
+    </tr>
+    <tr>
+        <th>Buy:</th>
+        <td th:text="${stock.buy}"></td>
+    </tr>
+    <tr>
+        <th>Sell:</th>
+        <td th:text="${stock.sell}"></td>
+    </tr>
+    <tr>
+        <th>Sell Volume ('00):</th>
+        <td th:text="${stock.sellVolume}"></td>
+    </tr>
+    <tr>
+        <th>LACP:</th>
+        <td th:text="${stock.lacp}"></td>
+    </tr>
+    <tr>
+        <th>Open:</th>
+        <td th:text="${stock.open}"></td>
+    </tr>
+    <tr>
+        <th>High:</th>
+        <td th:text="${stock.high}"></td>
+    </tr>
+    <tr>
+        <th>Low:</th>
+        <td th:text="${stock.low}"></td>
+    </tr>
+</table>
+</body>
+</html>

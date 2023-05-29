@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Search Stocks</h1>
-<form action="/search" method="post">
+<form action="/search">
     <label for="symbol">Enter Symbol:</label>
     <input id="symbol" name="symbol" required type="text">
     <button type="submit">Search</button>
@@ -22,7 +22,9 @@
     </thead>
     <tbody>
     <tr th:each="stock : ${stocks}">
-        <td th:text="${stock.symbol}"></td>
+        <td>
+            <a th:href="@{/stock/{symbol}(symbol=${stock.symbol})}" th:text="${stock.symbol}"></a>
+        </td>
         <td th:text="${stock.name}"></td>
     </tr>
     <tr th:if="${stocks.size() == 0}">
