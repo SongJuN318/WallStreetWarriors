@@ -31,4 +31,4 @@ Instruction: To create the software according to the requirements. The platform 
 ## Running the App
 1. Configure MySQL database - change the MySQL username and password as per your MySQL installation on your machine
 2. Run the main class. 
-3. Run [localhost:8080] at your browser.
+3. Run <http://localhost:8080> at your browser.
