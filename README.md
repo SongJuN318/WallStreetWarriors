@@ -1,5 +1,6 @@
 # Wall Street Warriors (Stock Trading Platform)
 This repository is created as part of the UM WIA1002 Data Structure assignment. 
+
 Instruction: To create the software according to the requirements. The platform allowed young people to compete against each other in real-time using virtual funds to buy and sell stocks, while learning valuable lessons about finance and investing.
 
 ## Assignment Requirement 
