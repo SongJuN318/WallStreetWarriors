@@ -13,3 +13,8 @@
     src: url("../images/font/title.otf");
 }
 
+@font-face {
+    font-family: 'Homepage-Font';
+    src: url("../images/font/homepage.otf");
+}
+

@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
-let background = document.getElementById('background');
-let moon = document.getElementById('moon');
-let mountains = document.getElementById('mountains');
-let text = document.getElementById('text');
-let btn = document.getElementById('btn');
-let mountains2 = document.getElementById('mountains2');
-let header = document.querySelector('header');
-  });
+document.addEventListener('DOMContentLoaded', function () {
+    let background = document.getElementById('background');
+    let moon = document.getElementById('moon');
+    let mountains = document.getElementById('mountains');
+    let text = document.getElementById('text');
+    let btn = document.getElementById('btn');
+    let mountains2 = document.getElementById('mountains2');
+    let header = document.querySelector('header');
+});
 
 
 window.addEventListener('scroll', function () {

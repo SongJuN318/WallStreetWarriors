@@ -12,11 +12,9 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -83,5 +81,27 @@ public class AuthController {
         userService.deleteUser(id);
         return "redirect:/users?success";
     }
-    
+
+    @GetMapping("/homepage")
+    public String homepage(Model model, Principal principal) {
+        String username = currentUserName(principal); // Call the /username endpoint to get the email
+        model.addAttribute("profileName", username);
+        return "homepage";
+    }
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Principal principal) {
+        User user = userService.findUserByEmail(principal.getName());
+        String profileName = user.getName();
+        return profileName;
+    }
+
+    @RequestMapping(value = "/uid", method = RequestMethod.GET)
+    @ResponseBody
+    public long currentUserId(Principal principal) {
+        User user = userService.findUserByEmail(principal.getName());
+        long profileName = user.getId();
+        return profileName;
+    }
 }

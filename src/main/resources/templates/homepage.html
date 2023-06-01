@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/js/scriptHomepage.js"></script>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/homepage.css" rel="stylesheet">
+    <title>TradeWave</title>
+</head>
+<body>
+<div class="container">
+    <p class="title">Trade Smarter, <br>Trade Faster with <br>Tradewave!</p>
+    <div class="flex-container">
+        <div class="flex-box" id="stocks">
+            <img src="/images/icons/stocks.png">
+            <p>Stocks</p>
+        </div>
+        <div class="flex-box" id="search">
+            <img src="/images/icons/search.png">
+            <p>Search</p>
+        </div>
+        <div class="flex-box" id="leaderboard">
+            <img src="/images/icons/leaderboard.png">
+            <p>Leaderboard</p>
+
+        </div>
+        <div class="flex-box" id="buy">
+            <img src="/images/icons/buy.png">
+            <p>Buy</p>
+
+        </div>
+        <div class="flex-box" id="sell">
+            <img src="/images/icons/sell.png">
+            <p>Sell</p>
+
+        </div>
+        <div class="flex-box" id="report">
+            <img src="/images/icons/report.png">
+            <p>Report</p>
+        </div>
+    </div>
+
+    <header>
+        <a class="logo" href="#">TradeWave</a>
+        <ul>
+            <li><p id="profileName" th:text="${profileName}">Profile Name</p></li>
+        </ul>
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <h2>Profile Name</h2>
+                </div>
+                <hr>
+
+                <a class="sub-menu-link" href="#">
+                    <img src="/images/icons/dashboard.png">
+                    <p>Dashboard</p>
+                    <span>></span>
+                </a>
+                <a class="sub-menu-link" href="#">
+                    <img src="/images/icons/settings.png">
+                    <p>Settings</p>
+                    <span>></span>
+                </a>
+                <a class="sub-menu-link" href="/logout">
+                    <img src="/images/icons/logout.png">
+                    <p>Log Out</p>
+                    <span>></span>
+                </a>
+            </div>
+        </div>
+    </header>
+</div>
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+    </div>
+    <p>©2023 TradeWave. All rights reserved.</p></footer>
+</body>
+</html>

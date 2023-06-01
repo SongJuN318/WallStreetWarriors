@@ -25,7 +25,10 @@
         <td>
             <a th:href="@{/stock/{symbol}(symbol=${stock.symbol})}" th:text="${stock.symbol}"></a>
         </td>
-        <td th:text="${stock.name}"></td>
+        <td>
+            <a th:href="@{/stock/{symbol}(symbol=${stock.symbol})}" th:text="${stock.name}"></a>
+            
+        </td>
     </tr>
     <tr th:if="${stocks.size() == 0}">
         <td colspan="2">No matching stocks found.</td>

@@ -16,9 +16,12 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
+    User findUserByName(String name);
+
     User findUserById(long id);
 
     List<UserDto> findAllUsers();
 
     void deleteUser(Long id);
+
 }
