@@ -5,7 +5,6 @@
 package com.example.registration_login_demo.config;
 
 
-import com.example.registration_login_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +28,6 @@ public class SpringSecurity {
 
     @Autowired
     private UserDetailsService userDetailsService;
-    private UserService userService;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {

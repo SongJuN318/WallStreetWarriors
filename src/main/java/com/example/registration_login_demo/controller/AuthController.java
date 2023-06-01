@@ -101,7 +101,7 @@ public class AuthController {
     @ResponseBody
     public long currentUserId(Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
-        long profileName = user.getId();
-        return profileName;
+        long userId = user.getId();
+        return userId;
     }
 }
