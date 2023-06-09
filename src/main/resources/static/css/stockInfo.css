@@ -1,0 +1,208 @@
+@import url(./font.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -10px;
+}
+
+header .logo {
+    color: #fff;
+    font-weight: 100;
+    text-decoration: none;
+    font-size: 2.5em;
+    letter-spacing: 10px;
+    font-family: 'Wave-Font';
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    color: #fff;
+    height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.video-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: brightness(30%);
+}
+
+.container {
+    margin-top: 35px;
+    max-width: 1250px;
+    padding: 15px;
+    margin-bottom: 130px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(34, 34, 34, 0.8);
+    border-radius: 5px;
+    position: relative;
+    border-radius: 20px;
+}
+
+h1 {
+    text-align: center;
+    padding: 8px;
+    font-size: 2em;
+    font-family: 'Welcome-Font';
+
+}
+
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #444;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    table-layout: fixed;
+    padding: 20px;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    background-color: #555;
+    border-bottom: 1px solid #666;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #333;
+}
+
+tr:hover {
+    background-color: #666;
+}
+
+.container {
+    background-color: #222;
+}
+
+h1 {
+    color: #fff;
+}
+
+
+footer {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    background: #3586ff;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+footer p {
+    font-size: 1.5em;
+    font-family: 'Welcome-Font';
+    color: white;
+
+}
+
+footer .wave {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(./wave.png);
+    background-size: 1000px 100px;
+}
+
+footer .wave#wave1 {
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 3s linear infinite;
+
+}
+
+footer .wave#wave2 {
+    z-index: 999;
+    opacity: 0.65;
+    bottom: 10px;
+    animation: animateWave_02 3s linear infinite;
+
+}
+
+
+@keyframes animateWave {
+    0% {
+        background-position-x: 1000px;
+    }
+
+    100% {
+        background-position-x: 0px;
+    }
+}
+
+@keyframes animateWave_02 {
+    0% {
+        background-position-x: 0px;
+    }
+
+    100% {
+        background-position-x: 1000px;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    font-family: 'Welcome-Font';
+    color: #fff;
+}
+
+input,
+button {
+    padding: 4px;
+    font-size: 1em;
+    font-family: 'Welcome-Font';
+    color: #000000;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+button {
+    cursor: pointer;
+}
