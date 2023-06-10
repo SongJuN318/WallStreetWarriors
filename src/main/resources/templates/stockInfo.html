@@ -3,6 +3,11 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="/css/stockInfo.css">
+    <style>
+        .buy-button {
+            margin-left: 15px;
+        }
+    </style>
     <title>Stock Information</title>
 </head>
 
@@ -23,6 +28,7 @@
         <form action="/search" method="post">
             <input type="text" name="stockCode" placeholder="Enter Stock Code">
             <button type="submit">Search</button>
+            <button type="button" class="buy-button">Buy</button>
         </form>
 
         <table class="stock-table">
