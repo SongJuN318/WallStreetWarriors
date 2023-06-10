@@ -17,7 +17,7 @@ import com.example.registration_login_demo.entity.Notification;
 import com.example.registration_login_demo.entity.UserSettings;
 
 public class ThresholdChecker {
-    public void startChecking(UserSettings userSettings) {
+    public void startChecking(String userSettings) {
         try {
             SchedulerFactory schedulerFactory = new StdSchedulerFactory();
             Scheduler scheduler = schedulerFactory.getScheduler();
