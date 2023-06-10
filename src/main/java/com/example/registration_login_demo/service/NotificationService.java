@@ -6,7 +6,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
-import com.example.registration_login_demo.dto.NotificationDto;
+import com.example.registration_login_demo.entity.Notification;
 
 @Service
 public class NotificationService {
@@ -16,7 +16,7 @@ public class NotificationService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendNotification(NotificationDto notification) {
+    public void sendNotification(Notification notification) {
         MimeMessage mail = new MimeMessage(javaMailSender);
 
         try {
