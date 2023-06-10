@@ -20,7 +20,8 @@ public class NotificationService {
         MimeMessage mail = new MimeMessage(javaMailSender);
 
         try {
-            mail.setRecipient(javax.mail.Message.RecipientType.TO, new javax.mail.internet.InternetAddress(notification.getUserEmail()));
+            mail.setRecipient(javax.mail.Message.RecipientType.TO,
+                    new javax.mail.internet.InternetAddress(notification.getUserEmail()));
             mail.setSubject(notification.getSubject());
             mail.setText(notification.getMessage());
         } catch (MessagingException e) {
