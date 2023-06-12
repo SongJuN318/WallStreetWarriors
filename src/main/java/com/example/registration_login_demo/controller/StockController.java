@@ -1,11 +1,15 @@
 package com.example.registration_login_demo.controller;
 
-import com.example.registration_login_demo.dto.SearchDetailDto;
-import com.example.registration_login_demo.dto.StockDto;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,8 +18,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.example.registration_login_demo.dto.StockDto;
+import com.example.registration_login_demo.dto.StockInfoDto;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 
 @Controller
 public class StockController {
@@ -105,74 +117,83 @@ public class StockController {
         return "search";
     }
 
-    @GetMapping("/stock/{symbol}")
-    public String searchStockDetails(@PathVariable String symbol, Model model) {
+    @PostMapping("/search")
+    public String performSearch(@RequestParam("stockCode") String stockCode, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("stockCode", stockCode);
+        return "redirect:/stock/{stockCode}";
+    }
+
+    @GetMapping("/stock/{stockCode}")
+    public String showStockInfo(@PathVariable("stockCode") String stockCode, Model model) {
+        List<StockInfoDto> stockInfoList = getStockInfoDto(stockCode);
+        model.addAttribute("stockInfo", stockInfoList);
+        model.addAttribute("stockCode", stockCode);
+        return "stockInfo";
+    }
+
+    private List<StockInfoDto> getStockInfoDto(String stockCode) {
         try {
-            String url = "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code=" + symbol;
+            String url = "https://www.bursamalaysia.com/trade/trading_resources/listing_directory/company-profile?stock_code="
+                    + stockCode;
             Document doc = Jsoup.connect(url).get();
 
-            Elements stockDataElements = doc.select("div.col-md-4 table.table-striped tbody tr");
+            List<StockInfoDto> StockInfoDtoList = new ArrayList<>();
 
-            // Create a SearchDetailDto object
-            SearchDetailDto searchDetailDto = new SearchDetailDto();
-
-            int index = 0;
-            for (Element element : stockDataElements) {
-                Element labelElement = element.selectFirst("th");
-                Element valueElement = element.selectFirst("td");
-
-                if (labelElement != null && valueElement != null) {
-                    String value = valueElement.text();
-
-                    switch (index) {
-                        case 0:
-                            searchDetailDto.setStockCode(value);
-                            break;
-                        case 1:
-                            searchDetailDto.setChange(value);
-                            break;
-                        case 2:
-                            searchDetailDto.setPercentageChange(value);
-                            break;
-                        case 3:
-                            searchDetailDto.setVolume(value);
-                            break;
-                        case 4:
-                            searchDetailDto.setBuyVolume(value);
-                            break;
-                        case 5:
-                            searchDetailDto.setBuy(value);
-                            break;
-                        case 6:
-                            searchDetailDto.setSell(value);
-                            break;
-                        case 7:
-                            searchDetailDto.setSellVolume(value);
-                            break;
-                        case 8:
-                            searchDetailDto.setLacp(value);
-                            break;
-                        case 9:
-                            searchDetailDto.setOpen(value);
-                            break;
-                        case 10:
-                            searchDetailDto.setHigh(value);
-                            break;
-                        case 11:
-                            searchDetailDto.setLow(value);
-                            break;
-                    }
-                    index++;
+            Element titleElement = doc.selectFirst("title");
+            if (titleElement != null) {
+                String title = titleElement.text();
+                String[] parts = title.split(" - ");
+                if (parts.length >= 2) {
+                    String symbol = parts[0];
+                    String stockName = extractStockName(parts[1]);
+                    StockInfoDtoList.add(new StockInfoDto("Symbol", symbol));
+                    StockInfoDtoList.add(new StockInfoDto("Stock Name", stockName));
                 }
             }
 
-            model.addAttribute("stock", searchDetailDto);
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "An error occurred while fetching stock details.");
-        }
+            Elements stockStatusElements = doc.select("h3.h5.bold.mb-0 > span");
+            for (Element element : stockStatusElements) {
+                String className = element.className();
+                String value = element.nextSibling().toString().trim();
 
-        return "searchDetail";
+                if (className.equals("nochange")) {
+                    StockInfoDtoList.add(new StockInfoDto("Last Done", "⬌ " + value));
+                } else if (className.equals("up")) {
+                    StockInfoDtoList.add(new StockInfoDto("Last Done", "🠕 " + value));
+                } else if (className.equals("down")) {
+                    StockInfoDtoList.add(new StockInfoDto("Last Done", "🠗 " + value));
+                }
+            }
+
+            Elements stockDataElements = doc.select("div.col-md-4 table.table-striped tbody tr");
+            for (Element element : stockDataElements) {
+                Element labelElement = element.selectFirst("th");
+                Element valueElement = element.selectFirst("td");
+                if (labelElement != null && valueElement != null) {
+                    String label = labelElement.text();
+                    String value = valueElement.text();
+                    if (!label.equals("Stock Code")) {
+                        StockInfoDtoList.add(new StockInfoDto(label, value));
+                    }
+                }
+            }
+
+            return StockInfoDtoList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
+
+    private String extractStockName(String title) {
+        Pattern pattern = Pattern.compile("(.*)\\s\\(.*\\)");
+        Matcher matcher = pattern.matcher(title);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return title;
+    }
 }
+}
+

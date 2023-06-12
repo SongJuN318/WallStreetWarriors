@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/stockInfo.css">
+    <style>
+        .buy-button {
+            margin-left: 15px;
+        }
+    </style>
+    <title>Stock Information</title>
+</head>
+
+<body>
+    <header>
+        <a class="logo" href="#">TradeWave</a>
+    </header>
+    <div class="video-bg-container">
+        <video class="video-bg" autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-the-stock-market-trend-on-screen-9607-large.mp4"
+                type="video/mp4">
+        </video>
+    </div>
+
+    <div class="container">
+        <h1>Stock Information</h1>
+
+        <form action="/search" method="post">
+            <input type="text" name="stockCode" placeholder="Enter Stock Code">
+            <button type="submit">Search</button>
+            <button type="button" class="buy-button">Buy</button>
+        </form>
+
+        <table class="stock-table">
+            <thead>
+                <tr>
+                    <th>Stock Code</th>
+                    <th th:text="${stockCode}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="info : ${stockInfo}">
+                    <td th:text="${info.label}"></td>
+                    <td th:text="${info.value}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+        </div>
+        <p>©2023 TradeWave. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
