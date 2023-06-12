@@ -10,8 +10,9 @@
 </head>
 <body>
 <div class="container">
-    <p class = "title">Trade Smarter, <br>Trade Faster with <br><span class = "tradewave">Tradewave!</span></p>
-    <p class = "title" id = "subTitle">Experience the Thrill of Trading and Compete for Prizes on<br>Tradewave - <span class = "malaysia">Malaysia's #1 Stock Trading Platform!</p>
+    <p class="title">Trade Smarter, <br>Trade Faster with <br><span class="tradewave">Tradewave!</span></p>
+    <p class="title" id="subTitle">Experience the Thrill of Trading and Compete for Prizes on<br>Tradewave - <span
+            class="malaysia">Malaysia's #1 Stock Trading Platform!</span></p>
     <div class="flex-container">
         <div class="flex-box" id="stocks">
             <img src="/images/icons/stocks.png">
@@ -50,7 +51,7 @@
         <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
                 <div class="user-info">
-                    <h2>Profile Name</h2>
+                    <h2 th:text="${profileName}">Profile Name</h2>
                 </div>
                 <hr>
 

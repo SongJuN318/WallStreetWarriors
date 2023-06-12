@@ -2,6 +2,7 @@ package com.example.registration_login_demo.controller;
 
 import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.entity.User;
+import com.example.registration_login_demo.repository.BuyUserRepository;
 import com.example.registration_login_demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,11 @@ public class AuthController {
 
     private UserService userService;
 
-    public AuthController(UserService userService) {
+    private BuyUserRepository buyUserRepository;
+
+    public AuthController(UserService userService, BuyUserRepository buyUserRepository) {
         this.userService = userService;
+        this.buyUserRepository = buyUserRepository;
     }
 
     // handler method to handle home page request
@@ -39,8 +43,8 @@ public class AuthController {
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-            BindingResult result,
-            Model model) {
+                               BindingResult result,
+                               Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
