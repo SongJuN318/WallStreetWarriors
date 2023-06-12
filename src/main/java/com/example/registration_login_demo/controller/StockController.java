@@ -21,13 +21,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.registration_login_demo.dto.StockDto;
 import com.example.registration_login_demo.dto.StockInfoDto;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 
 @Controller
 public class StockController {
@@ -176,6 +185,7 @@ public class StockController {
         }
     }
 
+
     private String extractStockName(String title) {
         Pattern pattern = Pattern.compile("(.*)\\s\\(.*\\)");
         Matcher matcher = pattern.matcher(title);
@@ -185,3 +195,5 @@ public class StockController {
         return title;
     }
 }
+}
+
