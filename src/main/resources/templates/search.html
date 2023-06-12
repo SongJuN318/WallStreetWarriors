@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Search Stocks</title>
+    <link rel="stylesheet" href="/css/styleSearch.css">
 </head>
+<div class="container">
+<header>
+    <a class="logo" href="#">TradeWave</a>
+</header>
 <body>
 <h1>Search Stocks</h1>
 <form action="/search">
@@ -36,5 +41,13 @@
     </tbody>
 </table>
 <p th:if="${error}" th:text="${error}"></p>
+</div>
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+    </div>
+    <p>©2023 TradeWave. All rights reserved.</p>
+</footer>
 </body>
 </html>
