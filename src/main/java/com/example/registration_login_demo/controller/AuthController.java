@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.example.registration_login_demo.controller;
-
 
 import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.entity.User;
@@ -44,8 +39,8 @@ public class AuthController {
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-                               BindingResult result,
-                               Model model) {
+            BindingResult result,
+            Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
