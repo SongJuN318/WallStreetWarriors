@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Controller
 public class StockController {
@@ -172,8 +174,5 @@ public class StockController {
 
         return "searchDetail";
     }
+
 }
-
-
-
-

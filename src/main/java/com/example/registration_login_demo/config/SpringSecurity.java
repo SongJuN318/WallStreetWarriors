@@ -49,7 +49,8 @@ public class SpringSecurity {
                                         "/search/**",
                                         "/stock/**",
                                         "/homepage/**",
-                                        "/username").permitAll()
+                                        "/username/**",
+                                        "/buy/{symbol}").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
                 ).formLogin(
