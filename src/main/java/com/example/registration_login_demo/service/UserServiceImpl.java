@@ -6,8 +6,10 @@ package com.example.registration_login_demo.service;
 
 
 import com.example.registration_login_demo.dto.UserDto;
+import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.entity.Role;
 import com.example.registration_login_demo.entity.User;
+import com.example.registration_login_demo.repository.BuyUserRepository;
 import com.example.registration_login_demo.repository.RoleRepository;
 import com.example.registration_login_demo.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,13 +25,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private BuyUserRepository buyUserRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           BuyUserRepository buyUserRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.buyUserRepository = buyUserRepository;
     }
 
     @Override
@@ -40,7 +45,6 @@ public class UserServiceImpl implements UserService {
         user.setId(userDto.getId());
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
         Role role;
         if (userDto.getPassword().equals("adminadmin")) {
             role = roleRepository.findByName("ROLE_ADMIN");
@@ -54,8 +58,18 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+        initializeFunds(user);
+
     }
 
+    private void initializeFunds(User user) {
+        BuyUser buyUser = new BuyUser();
+        buyUser.setUser(user);
+        buyUser.setCurrentFund(50000.0);
+        buyUser.setPnl(0.0);
+        buyUser.setPoint(0.0);
+        buyUserRepository.save(buyUser);
+    }
 
     @Override
     public User findUserByEmail(String email) {
@@ -121,7 +135,10 @@ public class UserServiceImpl implements UserService {
                 // Delete the role
                 roleRepository.delete(role);
             }
-
+            BuyUser buyUser = user.getBuyUser();
+            if (buyUser != null) {
+                buyUserRepository.delete(buyUser);
+            }
             // Delete the user
             userRepository.delete(user);
         }

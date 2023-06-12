@@ -31,7 +31,5 @@ public class Buy {
 
     @Column(name = "buy_price")
     private double buyPrice;
-
-    // Constructors, getters, and setters
-    // Getters and setters
+    
 }
