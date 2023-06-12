@@ -162,18 +162,18 @@ button {
 }
 
 .flex-container {
-    width: 50%;
+    width: 40%;
     height: auto;
     display: flex;
     margin-right: 40px;
-    margin-left: 20px;
+    margin-left: 110px;
     flex-direction: row;
     flex-wrap: wrap;
     transform: translateY(-250px);
 }
 
 .flex-box {
-    width: 190px;
+    width: 250px;
     height: 100px;
     background: #3E3255;
     color: #fff;
