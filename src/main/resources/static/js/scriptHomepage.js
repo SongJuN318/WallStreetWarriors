@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let leaderboard = document.getElementById("leaderboard");
     leaderboard.addEventListener("click", function () {
-        window.location.href = "https://icons8.com/icons/set/stocks";
+        window.location.href = "/leaderboard";
     });
 
     let report = document.getElementById("report");
