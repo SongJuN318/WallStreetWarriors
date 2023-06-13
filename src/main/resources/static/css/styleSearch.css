@@ -15,7 +15,7 @@ body {
 
 .container {
     width: 100%;
-    background: #0F002B;    
+    background: #21094e;    
     background-position: center;
     background-size: cover;
     background-position-y: 80px;
@@ -141,19 +141,21 @@ input
 {
     height: 35px;
     font-family: 'Welcome-Font';
+    font-size: 0.8em;
 }
 
 button
 {
+    font-family: 'Welcome-Font';
     height: 30px;
-    padding: 3px;
+    padding: 5px;
 }
 
 table 
 {
     margin: auto;
     font-size: 1.2em;
-    margin-bottom: -350px;
+    margin-bottom: -560px;
 }
 
 th,td

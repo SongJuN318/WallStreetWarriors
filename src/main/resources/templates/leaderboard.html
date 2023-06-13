@@ -14,7 +14,7 @@
     <link rel="stylesheet" th:href="@{/css/styleUsers.css}">
 <style>
     body{
-        background-color: #0F002B;
+        background-color: #21094e;
     }
 
     h2 {
@@ -52,8 +52,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr class = "details" th:each="user : ${users}">
-                <td th:text="${user.id}"></td>          <!--Change this to RANK 1,2,3,4...-->
+            <tr class = "details" th:each="user, userStat : ${users}" th:limit="10">        <!--Change this line too-->
+                <td th:text="${userStat.index + 1}"></td>          <!--Change this to RANK 1,2,3,4...-->
                 <td th:text="${user.firstName}"></td>   <!--Change this to NAME-->
                 <td th:text="${user.email}"></td>       <!--Change this to POINTS-->
             </tr>
