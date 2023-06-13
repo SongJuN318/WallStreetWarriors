@@ -235,8 +235,18 @@ footer .wave#wave2 {
     font-family: 'Welcome-Font';
 }
 
+.noUsers{
+    font-family: 'Welcome-Font';
+    color: #fff;
+}
+
 .details {
     font-family: 'Title-Font';
     letter-spacing: 1.5px;
     font-size: 1.3em;
+}
+
+.table.table-bordered.table-hover
+{
+    background: #3E3255;
 }
