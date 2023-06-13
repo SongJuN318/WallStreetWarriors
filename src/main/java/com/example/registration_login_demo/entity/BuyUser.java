@@ -29,7 +29,7 @@ public class BuyUser {
     @Column(name = "PnL")
     private Double pnl;
 
-    @Column(name = "Point")
+    @Column(name = "Points")
     private Double point;
 
 }
