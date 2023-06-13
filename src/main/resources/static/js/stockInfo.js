@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let buyButton = document.getElementsByClassName("buy-button");
+    let buyButton = document.getElementById("buy-button");
     buyButton.addEventListener("click", function () {
-        window.location.href = "/buy/{symbol}(symbol=${stock.symbol})";
+        let stockCode = /*[[${stockCode}]]*/ '';
+        window.location.href = '/buy/' + stockCode;
     });
-})
+});

@@ -4,13 +4,12 @@ import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -41,17 +40,32 @@ public class BuyController {
         return "buy";
     }
 
+    //    @PostMapping("/{symbol}/save")
+//    public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal principal, Model model) {
+//        buyPendingOrderDTO.setSymbol(symbol);
+//        long currentUserId = authController.currentUserId(principal);
+//        buyPendingOrderDTO.setUserId(currentUserId);
+//        model.addAttribute("buyStock", buyPendingOrderDTO);
+//        boolean isSuccess = buyService.executeBuyOrder(buyPendingOrderDTO);
+//        Map<String, Object> response = new HashMap<>();
+//        if (isSuccess)
+//            return "redirect:/buy/{symbol}?success";
+//        else
+//            return "redirect:/buy/{symbol}?pending";
+//    }
     @PostMapping("/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
         long currentUserId = authController.currentUserId(principal);
         buyPendingOrderDTO.setUserId(currentUserId);
         model.addAttribute("buyStock", buyPendingOrderDTO);
-        boolean isSuccess = buyService.executeBuyOrder(buyPendingOrderDTO);
-        Map<String, Object> response = new HashMap<>();
-        if (isSuccess)
+        ResponseEntity<String> responseEntity = buyService.executeBuyOrder(buyPendingOrderDTO);
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            model.addAttribute("successMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?success";
-        else
+        } else {
+            model.addAttribute("errorMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?pending";
+        }
     }
 }

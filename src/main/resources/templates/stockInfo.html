@@ -3,11 +3,6 @@
 
 <head>
     <link href="/css/stockInfo.css" rel="stylesheet" type="text/css">
-    <style>
-        .buy-button {
-            margin-left: 15px;
-        }
-    </style>
     <title>Stock Information</title>
 </head>
 
@@ -28,8 +23,16 @@
     <form action="/search" method="post">
         <input name="stockCode" placeholder="Enter Stock Code" type="text">
         <button type="submit">Search</button>
-        <button class="buy-button" type="button">Buy</button>
-        <script src="/js/stockInfo.js"></script>
+        <button id="buy-button" type="button">Buy</button>
+        <script th:inline="javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                let buyButton = document.getElementById("buy-button");
+                buyButton.addEventListener("click", function () {
+                    let stockCode = /*[[${stockCode}]]*/ '';
+                    window.location.href = '/buy/' + stockCode;
+                });
+            });
+        </script>
     </form>
 
     <table class="stock-table">
@@ -55,5 +58,4 @@
     <p>©2023 TradeWave. All rights reserved.</p>
 </footer>
 </body>
-
 </html>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/WallStreetWarriors/src/main/resources/static/js/buy.js"></script>
+    <script src="/js/buy.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/WallStreetWarriors/src/main/resources/static/css/styleBuy.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/styleBuy.css" rel="stylesheet">
     <title>TradeWave</title>
 </head>
 <div class="video-bg-container">
-    <video class="video-bg" autoplay muted loop>
+    <video autoplay class="video-bg" loop muted>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-the-stock-market-trend-on-screen-9607-large.mp4"
-            type="video/mp4">
+                type="video/mp4">
     </video>
 </div>
 <div class="container">
@@ -19,12 +19,14 @@
     </header>
     <div th:if="${param.success}">
         <div class="alert alert-info">
-            You have successfully buy the stock!
+            You have successfully bought the stock!
+            <p th:text="${successMessage}"></p>
         </div>
     </div>
     <div th:if="${param.pending}">
-        <div class="alert alert-info">
-            The stock is added into pending order!
+        <div class="alert alert-danger">
+            The stock is added to the pending order!
+            <p th:text="${errorMessage}"></p>
         </div>
     </div>
     <div class="flex-container">
@@ -45,7 +47,7 @@
                             name="lots"
                             placeholder="1-5 Lots Only"
                             th:field="*{lots}"
-                            type="text"/>
+                            type="text">
                 </li>
                 <li>
                     <label for="buyPrice">Price:</label>
@@ -69,5 +71,4 @@
     </div>
     <p>©2023 TradeWave. All rights reserved.</p>
 </footer>
-</body>
 </html>

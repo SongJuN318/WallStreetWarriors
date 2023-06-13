@@ -11,10 +11,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Service
@@ -34,7 +37,12 @@ public class BuyService {
         this.buyUserRepository = buyUserRepository;
     }
 
-    public boolean executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
+    public ResponseEntity<String> executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
+        if (!isTradingHours()) {
+            System.out.println("Trading is currently closed. Buy order cannot be executed.");
+            return ResponseEntity.badRequest().body("Trading is currently closed. Buy order cannot be executed.");
+        }
+
         BuyPendingOrder buyPendingOrder = new BuyPendingOrder();
         BuyUser user = buyUserRepository.getById(String.valueOf(buyPendingOrderDTO.getUserId()));
         buyPendingOrder.setUser(user);
@@ -56,31 +64,77 @@ public class BuyService {
             double acceptableRange = buyPrice * 0.01;
             double lowerLimit = buyPrice - acceptableRange;
             double upperLimit = buyPrice + acceptableRange;
-            double userFunds = user.getCurrentFund(); // Fetch the current of the user.
-            System.out.println("Current fund of use: " + userFunds);
+            double userFunds = user.getCurrentFund();
+            System.out.println("Current fund of user: " + userFunds);
 
-            // Check if the buy price is within the acceptable range
             if (isBuyPriceWithinRange(buyPendingOrder, lowerLimit, upperLimit)) {
-                double totalCost = calculateTotalCost(buyPendingOrder); // Calculate the totalcost needed for the buy lots
+                double totalCost = calculateTotalCost(buyPendingOrder);
                 System.out.println("Total cost: " + totalCost);
 
                 if (isSufficientFunds(totalCost, userFunds)) {
                     executeBuyOrder(buyPendingOrder, totalCost, userFunds);
-                    System.out.println("Order executed successfully.");
-                    return true;
+                    return ResponseEntity.ok("Order executed successfully.");
                 } else {
-                    System.out.println("Insufficient funds to execute the buy order.");
-                    return false;
+                    return ResponseEntity.badRequest().body("Insufficient funds to execute the buy order.");
                 }
             } else {
-                System.out.println("Buy price is not within the acceptable range.");
-                return false;
+                return ResponseEntity.badRequest().body("Buy price is not within the acceptable range.");
             }
         } else {
-            System.out.println("Failed to fetch the Buy value for symbol: " + buyPendingOrderDTO.getSymbol());
-            return false;
+            return ResponseEntity.badRequest().body("Failed to fetch the Buy value for symbol: " + buyPendingOrderDTO.getSymbol());
         }
     }
+//    public boolean executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
+//        if (!isTradingHours()) {
+//            System.out.println("Trading is currently closed. Buy order cannot be executed.");
+//            return false;
+//        }
+//        BuyPendingOrder buyPendingOrder = new BuyPendingOrder();
+//        BuyUser user = buyUserRepository.getById(String.valueOf(buyPendingOrderDTO.getUserId()));
+//        buyPendingOrder.setUser(user);
+//
+//        buyPendingOrder.setSymbol(buyPendingOrderDTO.getSymbol());
+//        buyPendingOrder.setLots(buyPendingOrderDTO.getLots());
+//        buyPendingOrder.setBuyPrice((float) buyPendingOrderDTO.getBuyPrice());
+//        buyPendingOrder.setOrderPendingTime(LocalDateTime.now());
+//
+//        System.out.println("Symbol: " + buyPendingOrderDTO.getSymbol());
+//        System.out.println("Buy Price: " + buyPendingOrderDTO.getBuyPrice());
+//        System.out.println("User id: " + buyPendingOrderDTO.getUserId());
+//
+//        buyPendingOrderRepository.save(buyPendingOrder);
+//
+//        Optional<String> buyValue = fetchBuyValue(buyPendingOrderDTO.getSymbol());
+//        if (buyValue.isPresent()) {
+//            double buyPrice = Double.parseDouble(buyValue.get());
+//            double acceptableRange = buyPrice * 0.01;
+//            double lowerLimit = buyPrice - acceptableRange;
+//            double upperLimit = buyPrice + acceptableRange;
+//            double userFunds = user.getCurrentFund(); // Fetch the current of the user.
+//            System.out.println("Current fund of use: " + userFunds);
+//
+//            // Check if the buy price is within the acceptable range
+//            if (isBuyPriceWithinRange(buyPendingOrder, lowerLimit, upperLimit)) {
+//                double totalCost = calculateTotalCost(buyPendingOrder); // Calculate the totalcost needed for the buy lots
+//                System.out.println("Total cost: " + totalCost);
+//
+//                if (isSufficientFunds(totalCost, userFunds)) {
+//                    executeBuyOrder(buyPendingOrder, totalCost, userFunds);
+//                    System.out.println("Order executed successfully.");
+//                    return true;
+//                } else {
+//                    System.out.println("Insufficient funds to execute the buy order.");
+//                    return false;
+//                }
+//            } else {
+//                System.out.println("Buy price is not within the acceptable range.");
+//                return false;
+//            }
+//        } else {
+//            System.out.println("Failed to fetch the Buy value for symbol: " + buyPendingOrderDTO.getSymbol());
+//            return false;
+//        }
+//    }
 
     // Check if the buy price is within the acceptable range.
     private boolean isBuyPriceWithinRange(BuyPendingOrder buyPendingOrder, double lowerLimit, double upperLimit) {
@@ -148,4 +202,14 @@ public class BuyService {
         }
     }
 
+    private boolean isTradingHours() {
+        DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
+        LocalTime currentTime = LocalTime.now();
+
+        boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
+        boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
+        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
+
+        return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
+    }
 }
