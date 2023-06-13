@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BuyPendingOrderDTO {
 
-    private String userId;
+    private long userId;
     private String symbol;
     private int lots;
     private double buyPrice;

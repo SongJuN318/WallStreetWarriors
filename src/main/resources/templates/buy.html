@@ -14,35 +14,60 @@
     </video>
 </div>
 <div class="container">
-<header>
-    <a class="logo" href="#">TradeWave</a>
-</header>
-<body>  
-    <div class="flex-container">
-        <p class = "buy">Buy</p>
-        <hr>
-        <ul>
-            <li><label for="Name">(Stock)</label></li>
-            <li><label for="Market">(Price)</label></li>
-            <li><label for="Lots">Lots:</label>
-                <input type="text" id="Lots" name="Lots" placeholder="1-5 Lots Only"></li>
-                <li><label for="Price">Price:</label>
-                    <input type="text" id="Price" name="Price" placeholder="1% Within Market Price"></li>
-                <li><label for="tPrice">Total Price: (Total Price)</label></li>
-                    <button id="btn">BUY</button>
-        </ul>
-    </div>
-    </div>
-    <footer>
-        <div class="waves">
-            <div class="wave" id="wave1"></div>
-            <div class="wave" id="wave2"></div>
-
-
-
-
+    <header>
+        <a class="logo" href="/homepage">TradeWave</a>
+    </header>
+    <div th:if="${param.success}">
+        <div class="alert alert-info">
+            You have successfully buy the stock!
         </div>
-        <p>©2023 TradeWave. All rights reserved.</p>
-    </footer>
+    </div>
+    <div th:if="${param.pending}">
+        <div class="alert alert-info">
+            The stock is added into pending order!
+        </div>
+    </div>
+    <div class="flex-container">
+        <p class="buy">Buy</p>
+        <hr>
+        <form
+                method="post"
+                th:action="@{'/buy/' + ${symbol}+'/save'}"
+                th:object="${buyStock}"
+        >
+            <ul>
+                <li><label id="symbol" th:text="${symbol}">(Stock)</label></li>
+                <li><label id="marketPrice" th:text="${marketPrice}">(Market Price)</label></li>
+                <li>
+                    <label>Lots:</label>
+                    <input
+                            id="lots"
+                            name="lots"
+                            placeholder="1-5 Lots Only"
+                            th:field="*{lots}"
+                            type="text"/>
+                </li>
+                <li>
+                    <label for="buyPrice">Price:</label>
+                    <input
+                            id="buyPrice"
+                            name="buyPrice"
+                            placeholder="1% Within Market Price"
+                            th:field="*{buyPrice}"
+                            type="text">
+                </li>
+                <button id="btn" type="submit">BUY</button>
+            </ul>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+    </div>
+    <p>©2023 TradeWave. All rights reserved.</p>
+</footer>
 </body>
 </html>
