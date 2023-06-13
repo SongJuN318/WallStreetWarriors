@@ -7,25 +7,15 @@ import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
 import com.example.registration_login_demo.repository.BuyRepository;
 import com.example.registration_login_demo.repository.BuyUserRepository;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import java.io.BufferedReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Optional;
-import org.springframework.http.ResponseEntity;
 
 @Service
 public class BuyService {
@@ -46,7 +36,7 @@ public class BuyService {
 
     public boolean executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
         BuyPendingOrder buyPendingOrder = new BuyPendingOrder();
-        BuyUser user = buyUserRepository.getById(buyPendingOrderDTO.getUserId());
+        BuyUser user = buyUserRepository.getById(String.valueOf(buyPendingOrderDTO.getUserId()));
         buyPendingOrder.setUser(user);
 
         buyPendingOrder.setSymbol(buyPendingOrderDTO.getSymbol());
