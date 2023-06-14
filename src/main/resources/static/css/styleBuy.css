@@ -213,6 +213,7 @@ label[for = "tPrice"] {
 }
 
 
+
     .alert {
         position: absolute;
         font-size: 1.2em;
@@ -228,4 +229,5 @@ label[for = "tPrice"] {
         /* left: 85%; */
         /* transform: translate(-50%, -50%); */
         z-index: 2;
+
 }

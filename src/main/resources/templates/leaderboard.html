@@ -52,9 +52,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr class = "details" th:each="user, userStat : ${users}" th:limit="10">        <!--Change this line too-->
+            <tr class = "details" th:each="user, userStat : ${users}" >        <!--Change this line too-->
                 <td th:text="${userStat.index + 1}"></td>          <!--Change this to RANK 1,2,3,4...-->
-                <td th:text="${usernames[userStat.index+1]}"></td>   <!--Change this to NAME-->
+                <td th:text="${usernames[userStat.index]}"></td>   <!--Change this to NAME-->
                 <td th:text="${user.point}"></td>       <!--Change this to POINTS-->
             </tr>
             <tr th:if="${#lists.isEmpty(users)}">

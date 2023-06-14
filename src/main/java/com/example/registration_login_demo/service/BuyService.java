@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,11 @@ public class BuyService {
         if (!isTradingHours()) {
             System.out.println("Trading is currently closed. Buy order cannot be executed.");
             return ResponseEntity.badRequest().body("A");
+        }
+
+        if (buyPendingOrderDTO.getBuyPrice() <= 0 || buyPendingOrderDTO.getLots() <= 0) {
+            System.out.println("Buy price or buy lots are invalid");
+            return ResponseEntity.badRequest().body("Buy price or buy lots is invalid.");
         }
 
         BuyPendingOrder buyPendingOrder = new BuyPendingOrder();
@@ -98,7 +104,7 @@ public class BuyService {
         return buyPendingOrder.getBuyPrice() * pricePerLots;
     }
 
-    // Check if the user has sufficient fund to pay the totalcost for buying lots.
+    // Check if the user has sufficient fund to pay the total cost for buying lots.
     private boolean isSufficientFunds(double totalCost, double userFunds) {
         return totalCost <= userFunds;
     }
@@ -164,7 +170,8 @@ public class BuyService {
     }
 
     public List<BuyUser> getTopUsersByPoints(int limit) {
-        return buyUserRepository.findTopNByOrderByPointDesc(limit);
+        List<BuyUser> allUsers = buyUserRepository.findAll();
+        allUsers.sort(Comparator.comparing(BuyUser::getPoint).reversed());
+        return allUsers.subList(0, Math.min(limit, allUsers.size()));
     }
 }
-

@@ -45,7 +45,7 @@ public class BuyController {
 
     @PostMapping("/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
-            @PathVariable String symbol, Principal principal, Model model) {
+                                  @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
         long currentUserId = authController.currentUserId(principal);
         buyPendingOrderDTO.setUserId(currentUserId);
@@ -74,6 +74,4 @@ public class BuyController {
         model.addAttribute("users", topUsers);
         return "leaderboard";
     }
-
 }
-
