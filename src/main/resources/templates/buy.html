@@ -18,9 +18,9 @@
         <a class="logo" href="/homepage">TradeWave</a>
     </header>
 
-
+ 
     <div class="flex-container">
-        <div class="alert" th:if="${param.success}">
+        <div class = "alert" th:if="${param.success}">
 
             <div class="alert alert-info">
                 You have successfully bought the stock!
@@ -50,13 +50,14 @@
                 th:object="${buyStock}"
         >
             <ul>
-                <li><label id="symbol" th:text="${symbol}">(Stock)</label></li>
-                <li><label id="marketPrice" th:text="${marketPrice}">(Market Price)</label></li>
+                <li><label id="symbol">Stock Symbol: <span th:text="${symbol}"></span></label></li>
+                <li><label id="marketPrice">Market Price: <span th:text="${marketPrice}"></span></label></li>
                 <li>
                     <label>Lots:</label>
                     <input
                             id="lots"
                             name="lots"
+                            oninput="calculateTotalPrice()"
                             placeholder="1-5 Lots Only"
                             th:field="*{lots}"
                             type="text">
@@ -66,10 +67,12 @@
                     <input
                             id="buyPrice"
                             name="buyPrice"
+                            oninput="calculateTotalPrice()"
                             placeholder="1% Within Market Price"
                             th:field="*{buyPrice}"
                             type="text">
                 </li>
+                <li><label for="">Total Price:</label><input type="text" id= "totalPrice" name = ""></li>
                 <button id="btn" type="submit">BUY</button>
             </ul>
         </form>

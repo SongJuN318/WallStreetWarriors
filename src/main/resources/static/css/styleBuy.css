@@ -131,7 +131,7 @@ footer .wave#wave2 {
     background: #3E3255;
     padding: 50px 15px;
     margin: 0 80px;
-    transform: translateY(-330px);
+    transform: translateY(-350px);
     position: relative;
     align-items: center;
     text-align: center;
@@ -213,19 +213,21 @@ label[for = "tPrice"] {
 }
 
 
-.alert {
-    position: absolute;
-    font-size: 1.2em;
-    top: 25%;
-    right: 3%;
-    border-radius: 25px;
-    background: #463565;
-    padding: 10px;
-    color: #fff;
-    text-align: center;
-    font-family: 'Welcome-Font';
-    /* top: 43%; */
-    /* left: 85%; */
-    /* transform: translate(-50%, -50%); */
-    z-index: 2;
+
+    .alert {
+        position: absolute;
+        font-size: 1.2em;
+        top: 25%;
+        right: 3%;
+        border-radius: 25px;
+        background: #463565;    
+        padding: 10px;
+        color: #fff;
+        text-align: center;
+        font-family: 'Welcome-Font';
+        /* top: 43%; */
+        /* left: 85%; */
+        /* transform: translate(-50%, -50%); */
+        z-index: 2;
+
 }
