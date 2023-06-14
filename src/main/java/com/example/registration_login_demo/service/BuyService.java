@@ -162,8 +162,9 @@ public class BuyService {
 
         return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
     }
+
+    public List<BuyUser> getTopUsersByPoints(int limit) {
+        return buyUserRepository.findTopNByOrderByPointDesc(limit);
+    }
 }
-//     public List<BuyUser> getTopUsersByPoints(int limit) {
-//         return buyUserRepository.findTopNByOrderByPointDesc(limit);
-//     }
-// }
+
