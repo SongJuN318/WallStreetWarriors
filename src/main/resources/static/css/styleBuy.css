@@ -213,19 +213,19 @@ label[for = "tPrice"] {
 }
 
 
-.alert 
-{
-
-    position: fixed;
-    font-size: 1.2em;
-    border-radius: 25px;
-    background: #463565;
-    padding: 10px;
-    color: #fff;
-    text-align: center;
-    font-family: 'Welcome-Font';
-    top: 43%;
-    left: 85%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+    .alert {
+        position: absolute;
+        font-size: 1.2em;
+        top: 25%;
+        right: 3%;
+        border-radius: 25px;
+        background: #463565;
+        padding: 10px;
+        color: #fff;
+        text-align: center;
+        font-family: 'Welcome-Font';
+        /* top: 43%; */
+        /* left: 85%; */
+        /* transform: translate(-50%, -50%); */
+        z-index: 2;
 }

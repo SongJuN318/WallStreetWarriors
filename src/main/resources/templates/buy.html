@@ -18,29 +18,30 @@
         <a class="logo" href="/homepage">TradeWave</a>
     </header>
 
-    <div class = "alert" th:if="${param.success}">
-
-        <div class="alert alert-info">
-            You have successfully bought the stock!
-            <p th:text="${successMessage}"></p>
-        </div>
-    </div>
-    <div class="alert" th:if="${param.marketClosed}">
-        <div class="alert alert-info">
-            Trading is currently closed. Buy order cannot be executed.
-        </div>
-    </div>
-    <div class="alert" th:if="${param.insufficientFunds}">
-        <div class="alert alert-info">
-            Insufficient funds to execute the buy order.
-        </div>
-    </div>
-    <div class="alert" th:if="${param.notInRange}">
-        <div class="alert alert-info">
-            Buy price is not within the acceptable range.
-        </div>
-    </div>
+    
     <div class="flex-container">
+        <div class = "alert" th:if="${param.success}">
+
+            <div class="alert alert-info">
+                You have successfully bought the stock!
+                <p th:text="${successMessage}"></p>
+            </div>
+        </div>
+        <div class="alert" th:if="${param.marketClosed}">
+            <div class="alert alert-info">
+                Trading is currently closed. Buy order cannot be executed.
+            </div>
+        </div>
+        <div class="alert" th:if="${param.insufficientFunds}">
+            <div class="alert alert-info">
+                Insufficient funds to execute the buy order.
+            </div>
+        </div>
+        <div class="alert" th:if="${param.notInRange}">
+            <div class="alert alert-info">
+                Buy price is not within the acceptable range.
+            </div>
+        </div>
         <p class="buy">Buy</p>
         <hr>
         <form
