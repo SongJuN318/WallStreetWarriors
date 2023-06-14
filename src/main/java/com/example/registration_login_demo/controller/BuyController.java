@@ -74,5 +74,4 @@ public class BuyController {
         model.addAttribute("users", topUsers);
         return "leaderboard";
     }
-
 }
