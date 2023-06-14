@@ -1,6 +1,7 @@
 package com.example.registration_login_demo.controller;
 
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
+import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -67,5 +69,12 @@ public class BuyController {
             model.addAttribute("errorMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?pending";
         }
+    }
+
+    @GetMapping("/leaderboard")
+    public String showLeaderboard(Model model) {
+        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
+        model.addAttribute("users", topUsers);
+        return "leaderboard";
     }
 }

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -211,5 +212,9 @@ public class BuyService {
         boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
 
         return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
+    }
+
+    public List<BuyUser> getTopUsersByPoints(int limit) {
+        return buyUserRepository.findTopNByOrderByPointDesc(limit);
     }
 }
