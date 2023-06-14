@@ -36,6 +36,11 @@ public class AuthController {
         return "leaderboard";
     }
 
+     @GetMapping("/sellList")
+    public String sellList() {
+        return "sellList";
+    }
+
     // handler method to handle user registration form request
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
