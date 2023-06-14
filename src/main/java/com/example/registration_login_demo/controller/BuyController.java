@@ -42,8 +42,10 @@ public class BuyController {
         return "buy";
     }
 
+
     @PostMapping("/{symbol}/save")
-    public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal principal, Model model) {
+    public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
+            @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
         long currentUserId = authController.currentUserId(principal);
         buyPendingOrderDTO.setUserId(currentUserId);
@@ -63,6 +65,7 @@ public class BuyController {
         }
     }
 
+
     @GetMapping("/leaderboard")
     public String showLeaderboard(Model model) {
         List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
@@ -71,4 +74,6 @@ public class BuyController {
         model.addAttribute("users", topUsers);
         return "leaderboard";
     }
+
 }
+

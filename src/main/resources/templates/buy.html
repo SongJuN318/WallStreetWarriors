@@ -17,7 +17,9 @@
     <header>
         <a class="logo" href="/homepage">TradeWave</a>
     </header>
-    <div class="alert" th:if="${param.success}">
+
+    <div class = "alert" th:if="${param.success}">
+
         <div class="alert alert-info">
             You have successfully bought the stock!
             <p th:text="${successMessage}"></p>
@@ -56,7 +58,7 @@
                             name="lots"
                             placeholder="1-5 Lots Only"
                             th:field="*{lots}"
-                            type="text">
+                            type="text"> 
                 </li>
                 <li>
                     <label for="buyPrice">Price:</label>

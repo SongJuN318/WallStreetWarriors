@@ -212,7 +212,10 @@ label[for = "tPrice"] {
     font-size: 0.9em;
 }
 
-.alert {
+
+.alert 
+{
+
     position: fixed;
     font-size: 1.2em;
     border-radius: 25px;
