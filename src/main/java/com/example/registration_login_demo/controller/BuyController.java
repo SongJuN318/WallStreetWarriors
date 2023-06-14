@@ -42,21 +42,7 @@ public class BuyController {
         return "buy";
     }
 
-    // @PostMapping("/{symbol}/save")
-    // public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody
-    // BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal
-    // principal, Model model) {
-    // buyPendingOrderDTO.setSymbol(symbol);
-    // long currentUserId = authController.currentUserId(principal);
-    // buyPendingOrderDTO.setUserId(currentUserId);
-    // model.addAttribute("buyStock", buyPendingOrderDTO);
-    // boolean isSuccess = buyService.executeBuyOrder(buyPendingOrderDTO);
-    // Map<String, Object> response = new HashMap<>();
-    // if (isSuccess)
-    // return "redirect:/buy/{symbol}?success";
-    // else
-    // return "redirect:/buy/{symbol}?pending";
-    // }
+
     @PostMapping("/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
             @PathVariable String symbol, Principal principal, Model model) {
@@ -65,19 +51,29 @@ public class BuyController {
         buyPendingOrderDTO.setUserId(currentUserId);
         model.addAttribute("buyStock", buyPendingOrderDTO);
         ResponseEntity<String> responseEntity = buyService.executeBuyOrder(buyPendingOrderDTO);
+        String message = responseEntity.getBody();
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             model.addAttribute("successMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?success";
         } else {
-            model.addAttribute("errorMessage", responseEntity.getBody());
-            return "redirect:/buy/{symbol}?pending";
+//            model.addAttribute("errorMessage", responseEntity.getBody());
+            if (message.equalsIgnoreCase("A"))
+                return "redirect:/buy/{symbol}?marketClosed";
+            else if (message.equalsIgnoreCase("B")) {
+                return "redirect:/buy/{symbol}?insufficientFunds";
+            } else return "redirect:/buy/{symbol}?notInRange";
         }
     }
+
+
+    @GetMapping("/leaderboard")
+    public String showLeaderboard(Model model) {
+        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
+        List<String> usernames = userService.getUsernamesForBuyUsers(topUsers);
+        model.addAttribute("usernames", usernames);
+        model.addAttribute("users", topUsers);
+        return "leaderboard";
+    }
+
 }
-// @GetMapping("/leaderboard")
-// public String showLeaderboard(Model model) {
-// List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
-// model.addAttribute("users", topUsers);
-// return "leaderboard";
-// }
-// }
+
