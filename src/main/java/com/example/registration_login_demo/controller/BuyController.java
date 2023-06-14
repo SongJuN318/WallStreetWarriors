@@ -42,21 +42,24 @@ public class BuyController {
         return "buy";
     }
 
-    //    @PostMapping("/{symbol}/save")
-//    public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal principal, Model model) {
-//        buyPendingOrderDTO.setSymbol(symbol);
-//        long currentUserId = authController.currentUserId(principal);
-//        buyPendingOrderDTO.setUserId(currentUserId);
-//        model.addAttribute("buyStock", buyPendingOrderDTO);
-//        boolean isSuccess = buyService.executeBuyOrder(buyPendingOrderDTO);
-//        Map<String, Object> response = new HashMap<>();
-//        if (isSuccess)
-//            return "redirect:/buy/{symbol}?success";
-//        else
-//            return "redirect:/buy/{symbol}?pending";
-//    }
-    @PostMapping("/{symbol}")
-    public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal principal, Model model) {
+    // @PostMapping("/{symbol}/save")
+    // public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody
+    // BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal
+    // principal, Model model) {
+    // buyPendingOrderDTO.setSymbol(symbol);
+    // long currentUserId = authController.currentUserId(principal);
+    // buyPendingOrderDTO.setUserId(currentUserId);
+    // model.addAttribute("buyStock", buyPendingOrderDTO);
+    // boolean isSuccess = buyService.executeBuyOrder(buyPendingOrderDTO);
+    // Map<String, Object> response = new HashMap<>();
+    // if (isSuccess)
+    // return "redirect:/buy/{symbol}?success";
+    // else
+    // return "redirect:/buy/{symbol}?pending";
+    // }
+    @PostMapping("/{symbol}/save")
+    public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
+            @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
         long currentUserId = authController.currentUserId(principal);
         buyPendingOrderDTO.setUserId(currentUserId);
@@ -70,11 +73,11 @@ public class BuyController {
             return "redirect:/buy/{symbol}?pending";
         }
     }
-
-    @GetMapping("/leaderboard")
-    public String showLeaderboard(Model model) {
-        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
-        model.addAttribute("users", topUsers);
-        return "leaderboard";
-    }
 }
+// @GetMapping("/leaderboard")
+// public String showLeaderboard(Model model) {
+// List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
+// model.addAttribute("users", topUsers);
+// return "leaderboard";
+// }
+// }

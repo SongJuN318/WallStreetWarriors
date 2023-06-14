@@ -135,6 +135,7 @@ footer .wave#wave2 {
     position: relative;
     align-items: center;
     text-align: center;
+    z-index: 1;
 
 }
 
@@ -213,8 +214,16 @@ label[for = "tPrice"] {
 
 .alert 
 {
-    z-index: 1000;
-    font-size: 1.5em;
-    background: #fff;
+    position: fixed;
+    font-size: 1.2em;
+    border-radius: 25px;
+    background: #463565;
     padding: 10px;
+    color: #fff;
+    text-align: center;
+    font-family: 'Welcome-Font';
+    top: 40%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }

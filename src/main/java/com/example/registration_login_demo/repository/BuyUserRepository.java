@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface BuyUserRepository extends JpaRepository<BuyUser, String> {
     // Add custom query methods if needed
-    List<BuyUser> findTopNByOrderByPointDesc(int limit);
+    // List<BuyUser> findTopNByOrderByPointDesc(int limit);
 }
