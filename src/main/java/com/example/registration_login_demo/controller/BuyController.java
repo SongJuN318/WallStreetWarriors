@@ -2,6 +2,7 @@ package com.example.registration_login_demo.controller;
 
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.service.BuyService;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,31 +21,36 @@ import org.springframework.web.servlet.ModelAndView;
 public class BuyController {
 
     private final BuyService buyService;
+    private final AuthController authController;
 
-    @Autowired
-    public BuyController(BuyService buyService) {
+    public BuyController(BuyService buyService, AuthController authController) {
         this.buyService = buyService;
+        this.authController = authController;
     }
 
     @GetMapping("/{symbol}")
-    public ModelAndView showBuyPage(@PathVariable String symbol) {
-        ModelAndView modelAndView = new ModelAndView("buy.html");
-        modelAndView.addObject("symbol", symbol);
-        return modelAndView;
+    public String showBuyPage(@PathVariable String symbol) {
+        return "buy";
     }
 
     @PostMapping("/{symbol}")
-    public ResponseEntity<Map<String, Object>> executeBuyOrder(@RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol) {
-        buyPendingOrderDTO.setSymbol(symbol);
-        boolean isSuccess = buyService.executeBuyOrder(buyPendingOrderDTO);
+    public ResponseEntity<Map<String, Object>> executeBuyOrder(
+            @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
+            @PathVariable String symbol,
+            Principal principal
+    ) {
+        // Rest of the code
+        ResponseEntity<String> executionResult = buyService.executeBuyOrder(buyPendingOrderDTO);
         Map<String, Object> response = new HashMap<>();
-        if (isSuccess) {
+
+        if (executionResult.getStatusCode().is2xxSuccessful()) {
             response.put("success", true);
-            response.put("message", "Buy order executed successfully.");
+            response.put("message", executionResult.getBody());
         } else {
             response.put("success", false);
-            response.put("message", "Buy order execution failed.");
+            response.put("message", executionResult.getBody());
         }
+
         return ResponseEntity.ok().body(response);
     }
 }

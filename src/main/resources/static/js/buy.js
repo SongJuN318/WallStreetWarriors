@@ -22,17 +22,17 @@ function executeBuyOrder(event) {
             "Content-Type": "application/json"
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showPopup(lots, buyPrice);
-        } else {
-            alert("Buy order execution failed.");
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showPopup(lots, buyPrice);
+                } else {
+                    alert("Buy order execution failed.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
 }
 
 function showPopup(lots, price) {

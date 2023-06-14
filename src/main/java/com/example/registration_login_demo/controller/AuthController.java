@@ -103,6 +103,4 @@ public class AuthController {
         long userId = user.getId();
         return userId;
     }
-    
-    
 }
