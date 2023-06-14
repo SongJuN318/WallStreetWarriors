@@ -15,6 +15,7 @@ import com.example.registration_login_demo.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -145,4 +146,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    public List<String> getUsernamesForBuyUsers(List<BuyUser> buyUsers) {
+        List<String> usernames = new ArrayList<>();
+        for (BuyUser buyUser : buyUsers) {
+            Long userId = buyUser.getUser().getId();
+            User user = userRepository.findById(userId).orElse(null);
+            if (user != null) {
+                usernames.add(user.getName());
+            }
+        }
+        return usernames;
+    }
 }

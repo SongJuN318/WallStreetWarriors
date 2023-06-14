@@ -1,8 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let button =document.getElementById('btn');
-    button.addEventListener('click', showPopup)
+    let urlParams = new URLSearchParams(window.location.search);
+    let successParam = urlParams.get('success');
 
-    function showPopup(){
-        alert("You have successfully bought the stock!");
+    if (successParam === 'true') {
+        showPopup('Buy order executed successfully.');
+    } else if (successParam === 'false') {
+        showPopup('Buy order execution failed.');
+    }
+
+    function showPopup(message) {
+        alert(message);
     }
 });

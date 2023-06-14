@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/WallStreetWarriors/src/main/resources/static/js/buy.js"></script>
+    <script src="/js/buy.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/WallStreetWarriors/src/main/resources/static/css/styleBuy.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/css/styleBuy.css" rel="stylesheet">
     <title>TradeWave</title>
 </head>
 <div class="video-bg-container">
-    <video class="video-bg" autoplay muted loop>
+    <video autoplay class="video-bg" loop muted>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-the-stock-market-trend-on-screen-9607-large.mp4"
-            type="video/mp4">
+                type="video/mp4">
     </video>
 </div>
 <div class="container">
-<header>
-    <a class="logo" href="#">TradeWave</a>
-</header>
-<body>  
+    <header>
+        <a class="logo" href="/homepage">TradeWave</a>
+    </header>
+
+
     <div class="flex-container">
-        <p class = "buy">Buy</p>
-        <hr>
-        <ul>
-            <li><label for="Name">(Stock)</label></li>
-            <li><label for="Market">(Price)</label></li>
-            <li><label for="Lots">Lots:</label>
-                <input type="text" id="Lots" name="Lots" placeholder="1-5 Lots Only"></li>
-                <li><label for="Price">Price:</label>
-                    <input type="text" id="Price" name="Price" placeholder="1% Within Market Price"></li>
-                <li><label for="tPrice">Total Price: (Total Price)</label></li>
-                    <button id="btn">BUY</button>
-        </ul>
-    </div>
-    </div>
-    <footer>
-        <div class="waves">
-            <div class="wave" id="wave1"></div>
-            <div class="wave" id="wave2"></div>
+        <div class="alert" th:if="${param.success}">
 
-
-
-
+            <div class="alert alert-info">
+                You have successfully bought the stock!
+                <p th:text="${successMessage}"></p>
+            </div>
         </div>
-        <p>©2023 TradeWave. All rights reserved.</p>
-    </footer>
-</body>
+        <div class="alert" th:if="${param.marketClosed}">
+            <div class="alert alert-info">
+                Trading is currently closed. Buy order cannot be executed.
+            </div>
+        </div>
+        <div class="alert" th:if="${param.insufficientFunds}">
+            <div class="alert alert-info">
+                Insufficient funds to execute the buy order.
+            </div>
+        </div>
+        <div class="alert" th:if="${param.notInRange}">
+            <div class="alert alert-info">
+                Buy price is not within the acceptable range.
+            </div>
+        </div>
+        <p class="buy">Buy</p>
+        <hr>
+        <form
+                method="post"
+                th:action="@{'/buy/' + ${symbol}+'/save'}"
+                th:object="${buyStock}"
+        >
+            <ul>
+                <li><label id="symbol" th:text="${symbol}">(Stock)</label></li>
+                <li><label id="marketPrice" th:text="${marketPrice}">(Market Price)</label></li>
+                <li>
+                    <label>Lots:</label>
+                    <input
+                            id="lots"
+                            name="lots"
+                            placeholder="1-5 Lots Only"
+                            th:field="*{lots}"
+                            type="text">
+                </li>
+                <li>
+                    <label for="buyPrice">Price:</label>
+                    <input
+                            id="buyPrice"
+                            name="buyPrice"
+                            placeholder="1% Within Market Price"
+                            th:field="*{buyPrice}"
+                            type="text">
+                </li>
+                <button id="btn" type="submit">BUY</button>
+            </ul>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+    </div>
+    <p>©2023 TradeWave. All rights reserved.</p>
+</footer>
 </html>
