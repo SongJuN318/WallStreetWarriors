@@ -6,16 +6,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/css/styleBuy.css" rel="stylesheet">
     <title>TradeWave</title>
-    <script>
-
-function calculateTotalPrice() {
-    var lots = document.getElementById("lots").value;
-    var buyPrice = document.getElementById("buyPrice").value;
-    var totalPrice = lots * buyPrice;
-    document.getElementById("totalPrice").value = totalPrice;
-}
-
-    </script>
 </head>
 <div class="video-bg-container">
     <video autoplay class="video-bg" loop muted>
@@ -67,7 +57,7 @@ function calculateTotalPrice() {
                     <input
                             id="lots"
                             name="lots"
-                            oninput="calculateTotalPrice();"
+                            oninput="calculateTotalPrice()"
                             placeholder="1-5 Lots Only"
                             th:field="*{lots}"
                             type="text"> 
@@ -77,7 +67,7 @@ function calculateTotalPrice() {
                     <input
                             id="buyPrice"
                             name="buyPrice"
-                            oninput="calculateTotalPrice();"
+                            oninput="calculateTotalPrice()"
                             placeholder="1% Within Market Price"
                             th:field="*{buyPrice}"
                             type="text">

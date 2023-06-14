@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = ("https://icons8.com/icons/set/stocks");
     })
 
+    
 
     function toggleMenu() {
         subMenu.classList.toggle("open-menu");
