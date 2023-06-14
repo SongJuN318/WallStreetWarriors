@@ -17,13 +17,13 @@
     <header>
         <a class="logo" href="/homepage">TradeWave</a>
     </header>
-    <div th:if="${param.success}">
+    <div class = "alert" th:if="${param.success}">
         <div class="alert alert-info">
             You have successfully bought the stock!
             <p th:text="${successMessage}"></p>
         </div>
     </div>
-    <div th:if="${param.pending}">
+    <div class = "alert" th:if="${param.pending}">
         <div class="alert alert-danger">
             The stock is added to the pending order!
             <p th:text="${errorMessage}"></p>

@@ -53,7 +53,7 @@ public class BuyController {
 //        else
 //            return "redirect:/buy/{symbol}?pending";
 //    }
-    @PostMapping("/{symbol}/save")
+    @PostMapping("/{symbol}")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO, @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
         long currentUserId = authController.currentUserId(principal);
