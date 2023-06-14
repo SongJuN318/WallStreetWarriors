@@ -1,6 +1,7 @@
 package com.example.registration_login_demo.controller;
 
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
+import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.service.BuyService;
 import java.security.Principal;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+=======
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+>>>>>>> d0c30ad97856ac199bc4e5f68f4bbb66bc980c3f
 
 @Controller
 @RequestMapping("/buy")
@@ -52,5 +62,12 @@ public class BuyController {
         }
 
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/leaderboard")
+    public String showLeaderboard(Model model) {
+        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
+        model.addAttribute("users", topUsers);
+        return "leaderboard";
     }
 }
