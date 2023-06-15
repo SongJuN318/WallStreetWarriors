@@ -31,11 +31,6 @@ public class AuthController {
         return "index";
     }
 
-    @GetMapping("/leaderboard")
-    public String leaderboard() {
-        return "leaderboard";
-    }
-
      @GetMapping("/sellList")
     public String sellList() {
         return "sellList";

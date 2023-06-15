@@ -65,13 +65,4 @@ public class BuyController {
         }
     }
 
-
-    @GetMapping("/leaderboard")
-    public String showLeaderboard(Model model) {
-        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
-        List<String> usernames = userService.getUsernamesForBuyUsers(topUsers);
-        model.addAttribute("usernames", usernames);
-        model.addAttribute("users", topUsers);
-        return "leaderboard";
-    }
 }

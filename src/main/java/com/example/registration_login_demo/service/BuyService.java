@@ -169,9 +169,21 @@ public class BuyService {
         return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
     }
 
-    public List<BuyUser> getTopUsersByPoints(int limit) {
-        List<BuyUser> allUsers = buyUserRepository.findAll();
-        allUsers.sort(Comparator.comparing(BuyUser::getPoint).reversed());
-        return allUsers.subList(0, Math.min(limit, allUsers.size()));
+   public List<BuyUser> getTopUsersByPoints(int limit) {
+    List<BuyUser> allUsers = buyUserRepository.findAll();
+
+    // Skip the first user if present
+    if (!allUsers.isEmpty()) {
+        allUsers = allUsers.subList(1, allUsers.size());
     }
+
+    // Sort the remaining users by points in descending order
+    allUsers.sort(Comparator.comparing(BuyUser::getPoint).reversed());
+
+    // Return the top users up to the specified limit
+    return allUsers.subList(0, Math.min(limit, allUsers.size()));
+}
+
+    
+    
 }
