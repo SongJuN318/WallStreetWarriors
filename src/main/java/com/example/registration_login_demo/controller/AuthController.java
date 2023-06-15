@@ -1,17 +1,25 @@
 package com.example.registration_login_demo.controller;
 
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.entity.User;
 import com.example.registration_login_demo.repository.BuyUserRepository;
 import com.example.registration_login_demo.service.UserService;
-import jakarta.validation.Valid;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.List;
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
