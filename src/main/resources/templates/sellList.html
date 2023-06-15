@@ -54,18 +54,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr class = "details" th:each="user, userStat : ${users}" th:limit="10">        <!--Change this line too-->
-                <td th:text="${userStat.index + 1}"></td>          <!--Change this to RANK 1,2,3,4...-->
-                <td th:text="${usernames[userStat.index+1]}"></td>   <!--Change this to NAME-->
-                <td th:text="${user.point}"></td> 
-                <td>  
-                <form th:action="@{/delete/{id}(id=${user.id})}">           <!---Change this one to sell-->
+            <tr class = "details" th:each="stock: ${stocks}">        <!--Change this line too-->
+                <td th:text="${stock.symbol}"></td>          <!--Change this to RANK 1,2,3,4...-->
+                <td th:text="${stock.lots}"></td>   <!--Change this to NAME-->
+                <td th:text="${stock.buyPrice}"></td>
+                <td>
+                <form th:action="@{/}">           <!---Change this one to sell-->
                     <input name="_method" type="hidden" value="delete"/>    <!---Change this one to sell-->
                     <button class="btn btn-danger" type="submit">Sell</button>
-                </form>  
-            </td>  
+                </form>
+            </td>
             </tr>
-            <tr th:if="${#lists.isEmpty(users)}">
+            <tr th:if="${#lists.isEmpty(stocks)}">
                 <td colspan="3" class = "noUsers">No available stocks to sell.</td>
             </tr>
             </tbody>

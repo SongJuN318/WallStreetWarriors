@@ -1,5 +1,6 @@
 package com.example.registration_login_demo.service;
 
+import com.example.registration_login_demo.dto.BuyDto;
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyPendingOrder;
@@ -7,6 +8,7 @@ import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
 import com.example.registration_login_demo.repository.BuyRepository;
 import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.repository.UserRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,6 +23,7 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BuyService {
@@ -29,14 +32,18 @@ public class BuyService {
     private final BuyRepository buyRepository;
     private final BuyUserRepository buyUserRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
     public BuyService(
             BuyPendingOrderRepository buyPendingOrderRepository,
             BuyRepository buyRepository,
-            BuyUserRepository buyUserRepository) {
+            BuyUserRepository buyUserRepository,
+            UserRepository userRepository) {
         this.buyPendingOrderRepository = buyPendingOrderRepository;
         this.buyRepository = buyRepository;
         this.buyUserRepository = buyUserRepository;
+        this.userRepository = userRepository;
     }
 
     public ResponseEntity<String> executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
@@ -173,5 +180,26 @@ public class BuyService {
         List<BuyUser> allUsers = buyUserRepository.findAll();
         allUsers.sort(Comparator.comparing(BuyUser::getPoint).reversed());
         return allUsers.subList(0, Math.min(limit, allUsers.size()));
+    }
+
+    public List<BuyDto> findBuysByUserId(Long userId) {
+        List<Buy> buys = buyRepository.findByUser(userId);
+        return buys.stream()
+                .map((buy) -> mapToBuyDto(buy))
+                .collect(Collectors.toList());
+    }
+
+    private BuyDto mapToBuyDto(Buy buy) {
+        BuyDto buyDto = new BuyDto();
+        buyDto.setOrderId(buy.getOrderId());
+        buyDto.setUserId(buy.getUser().getId());
+        buyDto.setSymbol(buy.getSymbol());
+        buyDto.setLots(buy.getLots());
+        buyDto.setBuyPrice(buy.getBuyPrice());
+        return buyDto;
+    }
+
+    public List<Buy> getBuysByUser(long id) {
+        return buyRepository.findByUser(id);
     }
 }
