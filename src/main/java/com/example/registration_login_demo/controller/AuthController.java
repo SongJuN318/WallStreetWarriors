@@ -2,7 +2,6 @@ package com.example.registration_login_demo.controller;
 
 import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.entity.User;
-import com.example.registration_login_demo.repository.BuyUserRepository;
 import com.example.registration_login_demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -18,11 +17,8 @@ public class AuthController {
 
     private UserService userService;
 
-    private BuyUserRepository buyUserRepository;
-
-    public AuthController(UserService userService, BuyUserRepository buyUserRepository) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.buyUserRepository = buyUserRepository;
     }
 
     // handler method to handle home page request
@@ -31,11 +27,6 @@ public class AuthController {
         return "index";
     }
 
-    
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
-    }
 
     // handler method to handle user registration form request
     @GetMapping("/register")

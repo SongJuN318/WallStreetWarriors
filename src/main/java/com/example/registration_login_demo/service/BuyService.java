@@ -221,4 +221,8 @@ public class BuyService {
         }
         throw new RuntimeException("Buy with order ID " + orderId + " not found.");
     }
+
+    public BuyUser findBuyUserById(long id) {
+        return buyUserRepository.findById(id);
+    }
 }
