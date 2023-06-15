@@ -20,9 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let sell = document.getElementById("sell");
     sell.addEventListener("click", function () {
-        window.location.href = ("https://icons8.com/icons/set/stocks");
+        window.location.href = ("/sellList");
     })
 
+    
 
     function toggleMenu() {
         subMenu.classList.toggle("open-menu");

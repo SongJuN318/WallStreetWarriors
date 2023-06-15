@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="#" rel="shortcut icon">
     <meta charset="UTF-8">
-    <title>LeaderBoard</title>
+    <title>Sell</title>
     <link crossorigin="anonymous"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -24,7 +24,6 @@
     table th {
         font-size: 1.4em;
         letter-spacing: 2px;
-        padding-left: 3px   ;
     }
 </style>
 </head>
@@ -35,30 +34,39 @@
     </header>
     <div class="container">
         <div class="row col-md-10">
-            <h2>LeaderBoard</h2>
+            <h2>Sell Your Stocks!</h2>
         </div>
 
         <table class="table table-bordered table-hover">
             <colgroup>
-                <col style="width: 7%;">
-                <col style="width: 75%;"> 
+                <col>
+                <col style="width: 10%;"> 
+                <col>
                 <col>
             </colgroup>
             <thead class="table-dark">
             <tr class = "details">
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Points</th>
+                <th>Stock Symbol</th>
+                <th>Lots</th>
+                <th>Price</th>
+                <th>Sell</th>
+
             </tr>
             </thead>
             <tbody>
-            <tr class = "details" th:each="user, userStat : ${users}" >        <!--Change this line too-->
+            <tr class = "details" th:each="user, userStat : ${users}" th:limit="10">        <!--Change this line too-->
                 <td th:text="${userStat.index + 1}"></td>          <!--Change this to RANK 1,2,3,4...-->
-                <td th:text="${usernames[userStat.index]}"></td>   <!--Change this to NAME-->
-                <td th:text="${user.point}"></td>       <!--Change this to POINTS-->
+                <td th:text="${usernames[userStat.index+1]}"></td>   <!--Change this to NAME-->
+                <td th:text="${user.point}"></td> 
+                <td>  
+                <form th:action="@{/delete/{id}(id=${user.id})}">           <!---Change this one to sell-->
+                    <input name="_method" type="hidden" value="delete"/>    <!---Change this one to sell-->
+                    <button class="btn btn-danger" type="submit">Sell</button>
+                </form>  
+            </td>  
             </tr>
             <tr th:if="${#lists.isEmpty(users)}">
-                <td colspan="3" class = "noUsers">No users found in the leaderboard.</td>
+                <td colspan="3" class = "noUsers">No available stocks to sell.</td>
             </tr>
             </tbody>
         </table>
