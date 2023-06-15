@@ -31,14 +31,10 @@ public class AuthController {
         return "index";
     }
 
-    @GetMapping("/leaderboard")
-    public String leaderboard() {
-        return "leaderboard";
-    }
-
-     @GetMapping("/sellList")
-    public String sellList() {
-        return "sellList";
+    
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
     }
 
     // handler method to handle user registration form request
@@ -108,9 +104,10 @@ public class AuthController {
 
     @RequestMapping(value = "/uid", method = RequestMethod.GET)
     @ResponseBody
-    public long currentUserId(Principal principal) {
+    public Long currentUserId(Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
-        long userId = user.getId();
+        Long userId = user.getId();
         return userId;
     }
+
 }

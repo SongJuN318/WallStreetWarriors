@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BuyUserRepository extends JpaRepository<BuyUser, Long> {
+    BuyUser findById(long id);
 }

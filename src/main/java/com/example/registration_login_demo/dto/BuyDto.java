@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyPendingOrderDTO {
+public class BuyDto {
+    private int orderId;
     private long userId;
     private String symbol;
     private int lots;

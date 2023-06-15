@@ -9,13 +9,13 @@
 
 body {
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: hidden;     
 
 }
 
 .container {
     width: 100%;
-    background: #21094e;    
+    background: #321070;    
     background-position: center;
     background-size: cover;
     background-position-y: 80px;
@@ -172,4 +172,5 @@ th,td
     height: 5px;
     background: #fff;; 
 }
+
 
