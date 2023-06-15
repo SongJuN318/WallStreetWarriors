@@ -6,24 +6,18 @@ import java.util.TimerTask;
 import com.example.registration_login_demo.dto.Notification;
 import com.example.registration_login_demo.dto.UserSettings;
 
-public class NotificationService {
+public class NotificationService2 {
     private final EmailSender emailSender;
+    private UserSettings userSettings;
 
-    public NotificationService() {
+    public NotificationService2() {
         this.emailSender = new EmailSender();
     }
 
-    // public void configureUserSettings(String email, double profitThreshold, double lossThreshold,
-    //         boolean notificationsEnabled, Principal principal) {
-    //     this.userSettings = new UserSettings(principal.getName(), profitThreshold, lossThreshold, notificationsEnabled);
-    // }
-
-    // public void configureUserSettings(String email, double profitThreshold, double lossThreshold,
-    //         boolean notificationsEnabled, UserSettings userSettings) {
-    //     this.userSettings = new UserSettings(email, userSettings.getProfitThreshold(), userSettings.getLossThreshold(), notificationsEnabled);
-    // }
-
-    private UserSettings userSettings = new UserSettings("kahchunlim885@gmail.com");
+    public void configureUserSettings(String email, double profitThreshold, double lossThreshold,
+            boolean notificationsEnabled) {
+        this.userSettings = new UserSettings(email, profitThreshold, lossThreshold, notificationsEnabled);
+    }
 
     public void enableNotifications() {
         if (userSettings != null) {
@@ -37,7 +31,7 @@ public class NotificationService {
         }
     }
 
-    public void startThresholdChecking(UserSettings userSettings) {
+    public void startThresholdChecking() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
