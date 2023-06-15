@@ -56,7 +56,7 @@ public class StockEmailTest {
                             Notification notification = new Notification("UP GENTING MALAYSIA BERHAD",
                                     "Buy Price is " + currentPnL);
                             emailSender.sendEmail(userSettings.getEmail(), notification);
-                        } else if(currentPnL < 2.550){
+                        } else if (currentPnL < 2.550) {
                             Notification notification = new Notification("DOWN GENTING MALAYSIA BERHAD",
                                     "Buy Price is " + currentPnL);
                             emailSender.sendEmail(userSettings.getEmail(), notification);
@@ -64,6 +64,7 @@ public class StockEmailTest {
                             Notification notification = new Notification("NO CHANGE GENTING MALAYSIA BERHAD",
                                     "Buy Price is " + currentPnL);
                             emailSender.sendEmail(userSettings.getEmail(), notification);
+                        }
                     }
                 }
             }
@@ -96,7 +97,8 @@ public class StockEmailTest {
         // Start threshold checking
         notificationService.startThresholdChecking();
 
-        // Sleep for some time to allow the threshold checking to occur (e.g., 5 minutes)
+        // Sleep for some time to allow the threshold checking to occur (e.g., 5
+        // minutes)
         try {
             Thread.sleep(5 * 60 * 1000);
         } catch (InterruptedException e) {
