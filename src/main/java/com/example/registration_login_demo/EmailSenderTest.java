@@ -1,20 +1,18 @@
-package com.example.registration_login_demo.service;
+package com.example.registration_login_demo;
 
 import com.example.registration_login_demo.dto.Notification;
+import com.example.registration_login_demo.service.EmailSender;
 
 public class EmailSenderTest {
     public static void main(String[] args) {
         EmailSender emailSender = new EmailSender();
 
-        // Create a sample notification
         Notification notification = new Notification();
-        notification.setSubject("Testing EmailSender");
+        notification.setSubject("HAHAHA");
         notification.setMessage("This is a test email");
 
-        // Set the recipient email address
         String recipientEmail = "kahchunlim885@gmail.com";
 
-        // Send the email
         emailSender.sendEmail(recipientEmail, notification);
     }
 }

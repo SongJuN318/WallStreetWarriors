@@ -48,10 +48,9 @@ public class BuyController {
         return "buy";
     }
 
-
     @PostMapping("/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
-                                  @PathVariable String symbol, Principal principal, Model model) {
+            @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
         long currentUserId = authController.currentUserId(principal);
         buyPendingOrderDTO.setUserId(currentUserId);
@@ -62,15 +61,15 @@ public class BuyController {
             model.addAttribute("successMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?success";
         } else {
-//            model.addAttribute("errorMessage", responseEntity.getBody());
+            // model.addAttribute("errorMessage", responseEntity.getBody());
             if (message.equalsIgnoreCase("A"))
                 return "redirect:/buy/{symbol}?marketClosed";
             else if (message.equalsIgnoreCase("B")) {
                 return "redirect:/buy/{symbol}?insufficientFunds";
-            } else return "redirect:/buy/{symbol}?notInRange";
+            } else
+                return "redirect:/buy/{symbol}?notInRange";
         }
     }
-
 
     @GetMapping("/leaderboard")
     public String showLeaderboard(Model model) {
