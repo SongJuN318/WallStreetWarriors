@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,39 +12,53 @@
 <div class="video-bg-container">
     <video class="video-bg" autoplay muted loop>
         <source src="https://assets.mixkit.co/videos/preview/mixkit-the-stock-market-trend-on-screen-9607-large.mp4"
-            type="video/mp4">
+                type="video/mp4">
     </video>
 </div>
 <div class="container">
-<header>
-    <a class="logo" href="#">TradeWave</a>
-</header>
-<body>  
+    <header>
+        <a class="logo" href="#">TradeWave</a>
+    </header>
+    <body>
     <div class="flex-container">
         <p class = "buy">Sell</p>
         <hr>
         <ul>
+            <li><label id="symbol">Order ID: <span th:text="${symbol}"></span></label></li>
             <li><label id="symbol">Stock Symbol: <span th:text="${symbol}"></span></label></li>
             <li><label id="marketPrice">Market Price: <span th:text="${marketPrice}"></span></label></li>
-            <li><label for="Lots">Lots:</label>
-                <input type="text" id="Lots" name="Lots" placeholder="1-5 Lots Only"></li>
-                <li><label for="Price">Price:</label>
-                    <input type="text" id="Price" name="Price" placeholder="1% Within Market Price"></li>
-                    <li><label>Total Price: (Total Price)</label></li>
-                    <button id="btn">SELL</button>
+            <li>
+                <label>Lots:</label>
+                <input
+                        id="lots"
+                        name="lots"
+                        oninput="calculateTotalPrice()"
+                        placeholder="1-5 Lots Only"
+                        type="text">
+            </li>
+            <li>       <!--th:field="*{lots}"-->
+                <label for="sellPrice">Price:</label>
+                <input
+                        id="sellPrice"
+                        name="sellPrice"
+                        oninput="calculateTotalPrice()"
+                        placeholder="1% Within Market Price"
+                        type="text">
+            </li>                         <!-- th:field="*{sellPrice}"        -->
+            <li><label for="">Total Price:</label><input type="text" id= "totalPrice" name = ""></li>
+            <button id="btn">SELL</button>
         </ul>
     </div>
+</div>
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+
+
+
     </div>
-    <footer>
-        <div class="waves">
-            <div class="wave" id="wave1"></div>
-            <div class="wave" id="wave2"></div>
-
-
-
-
-        </div>
-        <p>©2023 TradeWave. All rights reserved.</p>
-    </footer>
+    <p>©2023 TradeWave. All rights reserved.</p>
+</footer>
 </body>
 </html>
