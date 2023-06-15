@@ -39,8 +39,7 @@ public class BuyController {
         model.addAttribute("buyStock", buyPendingOrderDTO);
         return "buy";
     }
-
-
+    
     @PostMapping("/buy/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
                                   @PathVariable String symbol, Principal principal, Model model) {
