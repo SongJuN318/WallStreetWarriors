@@ -46,12 +46,9 @@ public class SpringSecurity {
                                         "/username/**",
                                         "/buy/**",
                                         "/leaderboard",
+                                        "/uid",
                                         "/sellList",
-                                        "/dashboard",
-                                        "/uid").permitAll()
-
-
-                                        "/uid").permitAll()
+                                        "/dashboard").permitAll()
 
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
