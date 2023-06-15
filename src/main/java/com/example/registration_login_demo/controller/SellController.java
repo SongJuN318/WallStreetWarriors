@@ -1,7 +1,6 @@
 package com.example.registration_login_demo.controller;
 
 import com.example.registration_login_demo.dto.BuyDto;
-import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,15 +24,6 @@ public class SellController {
         this.buyService = buyService;
         this.authController = authController;
         this.userService = userService;
-    }
-
-    @GetMapping("/leaderboard")
-    public String showLeaderboard(Model model) {
-        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
-        List<String> usernames = userService.getUsernamesForBuyUsers(topUsers);
-        model.addAttribute("usernames", usernames);
-        model.addAttribute("users", topUsers);
-        return "leaderboard";
     }
 
     @GetMapping("/sellList")
