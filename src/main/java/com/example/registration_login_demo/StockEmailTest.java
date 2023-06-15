@@ -52,15 +52,18 @@ public class StockEmailTest {
                     if (userSettings.isNotificationsEnabled()) {
                         double currentPnL = fetchBuyValue("4715");
                         /* Obtain current P&L for the user */;
-                        if (currentPnL >= 2.550) {
+                        if (currentPnL > 2.550) {
                             Notification notification = new Notification("UP GENTING MALAYSIA BERHAD",
                                     "Buy Price is " + currentPnL);
                             emailSender.sendEmail(userSettings.getEmail(), notification);
-                        } else if(currentPnL <= 2.550){
+                        } else if(currentPnL < 2.550){
                             Notification notification = new Notification("DOWN GENTING MALAYSIA BERHAD",
                                     "Buy Price is " + currentPnL);
                             emailSender.sendEmail(userSettings.getEmail(), notification);
-                        }
+                        } else if (currentPnL == 2.550) {
+                            Notification notification = new Notification("NO CHANGE GENTING MALAYSIA BERHAD",
+                                    "Buy Price is " + currentPnL);
+                            emailSender.sendEmail(userSettings.getEmail(), notification);
                     }
                 }
             }
