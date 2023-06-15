@@ -214,12 +214,8 @@ public class BuyService {
     }
 
     public BuyDto findBuyById(long orderId) {
-        Optional<Buy> optionalBuy = buyRepository.findById(orderId);
-        if (optionalBuy.isPresent()) {
-            Buy buy = optionalBuy.get();
-            return mapToBuyDto(buy);
-        }
-        throw new RuntimeException("Buy with order ID " + orderId + " not found.");
+        Buy buy = buyRepository.findByOrderId(orderId);
+        return mapToBuyDto(buy);
     }
 
     public BuyUser findBuyUserById(long id) {

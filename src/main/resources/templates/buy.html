@@ -31,14 +31,14 @@
                 Trading is currently closed. Buy order cannot be executed.
             </div>
         </div>
-        <div class="alert" th:if="${param.insufficientFunds}">
-            <div class="alert alert-info">
-                Insufficient funds to execute the buy order.
-            </div>
-        </div>
         <div class="alert" th:if="${param.notInRange}">
             <div class="alert alert-info">
-                Buy price is not within the acceptable range.
+                Sell price or sell lots is invalid.
+            </div>
+        </div>
+        <div class="alert" th:if="${param.insufficientLots}">
+            <div class="alert alert-info">
+                Insufficient lots to execute the sell order.
             </div>
         </div>
         <p class="buy">Buy</p>

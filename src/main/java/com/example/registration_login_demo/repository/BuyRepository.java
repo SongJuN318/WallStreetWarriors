@@ -10,4 +10,8 @@ import java.util.List;
 @Repository
 public interface BuyRepository extends JpaRepository<Buy, Long> {
     List<Buy> findByUser(BuyUser user);
+
+    Buy findByOrderId(long id);
+
+    Buy findByUserAndOrderId(BuyUser user, long id);
 }
