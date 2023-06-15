@@ -46,6 +46,7 @@ public class SellController {
 
     @GetMapping("/sell/{orderId}")
     public String showSellPage(@PathVariable long orderId, Model model) {
+        model.addAttribute("orderId", orderId);
         String symbol = buyService.findBuyById(orderId).getSymbol();
         model.addAttribute("symbol", symbol);
         Optional<String> buyValue = buyService.fetchBuyValue(symbol);
