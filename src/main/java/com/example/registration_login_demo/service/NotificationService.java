@@ -1,38 +1,61 @@
-// package com.example.registration_login_demo.service;
+package com.example.registration_login_demo.service;
 
-// import javax.mail.MessagingException;
-// import javax.mail.Session;
-// import javax.mail.internet.MimeMessage;
+import java.security.Principal;
+import java.util.Timer;
+import java.util.TimerTask;
 
-// import org.springframework.stereotype.Service;
+import com.example.registration_login_demo.dto.Notification;
+import com.example.registration_login_demo.dto.UserSettings;
 
-// import com.example.registration_login_demo.entity.Notification;
+public class NotificationService {
+    private final EmailSender emailSender;
+    private UserSettings userSettings;
 
-// @Service
-// public class NotificationService {
-//    private Session javaMailSender;
+    public NotificationService() {
+        this.emailSender = new EmailSender();
+    }
 
-//    public NotificationService(Session javaMailSender) {
-//        this.javaMailSender = javaMailSender;
-//    }
+    public void configureUserSettings(String email, double profitThreshold, double lossThreshold,
+            boolean notificationsEnabled) {
+        this.userSettings = new UserSettings(email, profitThreshold, lossThreshold, notificationsEnabled);
+    }
 
-//    public void sendNotification(Notification notification) {
-//        MimeMessage mail = new MimeMessage(javaMailSender);
+    public void enableNotifications() {
+        if (userSettings != null) {
+            userSettings.setNotificationsEnabled(true);
+        }
+    }
 
-//        try {
-//            mail.setRecipient(javax.mail.Message.RecipientType.TO,
-//                    new javax.mail.internet.InternetAddress(notification.getUserEmail()));
-//            mail.setSubject(notification.getSubject());
-//            mail.setText(notification.getMessage());
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
+    public void disableNotifications() {
+        if (userSettings != null) {
+            userSettings.setNotificationsEnabled(false);
+        }
+    }
 
-//        try (javax.mail.Transport transport = javaMailSender.getTransport("smtp")) {
-//            transport.connect();
-//            transport.sendMessage(mail, mail.getAllRecipients());
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
-//    }
-// }
+    public void startThresholdChecking() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (userSettings != null && userSettings.isNotificationsEnabled()) {
+                    double currentPnL = 2000; /* Obtain current P&L for the user */
+                    if (currentPnL >= userSettings.getProfitThreshold()) {
+                        Notification notification = new Notification("Profit Threshold Crossed",
+                                "Your P&L has crossed the profit threshold.");
+                        emailSender.sendEmail(userSettings.getEmail(), notification);
+                        timer.cancel();
+                    } else if (currentPnL <= userSettings.getLossThreshold()) {
+                        Notification notification = new Notification("Loss Threshold Crossed",
+                                "Your P&L has crossed the loss threshold.");
+                        emailSender.sendEmail(userSettings.getEmail(), notification);
+                        timer.cancel();
+                    }
+                }
+            }
+        }, 0, 60 * 1000); // Check thresholds every 60 seconds
+    }
+
+    public String getEmail(Principal principal) {
+        return principal.getName();
+    }
+}
