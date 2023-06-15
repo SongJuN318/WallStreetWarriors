@@ -74,4 +74,12 @@ public class BuyController {
         model.addAttribute("users", topUsers);
         return "leaderboard";
     }
+
+    @GetMapping("/sellList")
+    public String sellList() {
+//        Long currentUserId = authController.currentUserId(principal);
+//        List<BuyDto> stockByUser = buyService.findBuysByUserId(currentUserId);
+//        model.addAttribute("stocks", stockByUser);
+        return "sellList";
+    }
 }
