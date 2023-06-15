@@ -31,13 +31,8 @@ public class AuthController {
         return "index";
     }
 
-    @GetMapping("/leaderboard")
-    public String leaderboard() {
-        return "leaderboard";
-    }
-
-
-       @GetMapping("/dashboard")
+    
+    @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard";
     }
@@ -114,4 +109,5 @@ public class AuthController {
         Long userId = user.getId();
         return userId;
     }
+
 }

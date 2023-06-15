@@ -59,8 +59,7 @@
                 <td th:text="${stock.lots}"></td>   <!--Change this to NAME-->
                 <td th:text="${stock.buyPrice}"></td>
                 <td>
-                <form th:action="@{/}">           <!---Change this one to sell-->
-                    <input name="_method" type="hidden" value="delete"/>    <!---Change this one to sell-->
+                <form th:action="@{/sell/{id}(id=${stock.orderId})}">           <!---Change this one to sell-->
                     <button class="btn btn-danger" type="submit">Sell</button>
                 </form>
             </td>

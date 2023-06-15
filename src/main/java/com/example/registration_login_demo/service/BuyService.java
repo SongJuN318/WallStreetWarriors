@@ -182,11 +182,15 @@ public class BuyService {
         return allUsers.subList(0, Math.min(limit, allUsers.size()));
     }
 
-    public List<BuyDto> findBuysByUserId(Long userId) {
-        List<Buy> buys = buyRepository.findByUser(userId);
-        return buys.stream()
-                .map((buy) -> mapToBuyDto(buy))
-                .collect(Collectors.toList());
+    public List<BuyDto> findBuysByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<Buy> buys = buyRepository.findByUser(user);
+            return buys.stream()
+                    .map(this::mapToBuyDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
     }
 
     private BuyDto mapToBuyDto(Buy buy) {
@@ -199,7 +203,12 @@ public class BuyService {
         return buyDto;
     }
 
-    public List<Buy> getBuysByUser(long id) {
-        return buyRepository.findByUser(id);
+    public BuyDto findBuyById(long orderId) {
+        Optional<Buy> optionalBuy = buyRepository.findById(orderId);
+        if (optionalBuy.isPresent()) {
+            Buy buy = optionalBuy.get();
+            return mapToBuyDto(buy);
+        }
+        throw new RuntimeException("Buy with order ID " + orderId + " not found.");
     }
 }

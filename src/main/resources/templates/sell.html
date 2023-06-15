@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/WallStreetWarriors/src/main/resources/static/js/sell.js"></script>
+    <script src="/js/sell.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/WallStreetWarriors/src/main/resources/static/css/styleBuy.css">
+    <link rel="stylesheet" href="/css/styleBuy.css">
     <title>TradeWave</title>
 </head>
 <div class="video-bg-container">
@@ -22,8 +22,8 @@
         <p class = "buy">Sell</p>
         <hr>
         <ul>
-            <li><label for="Name">(Stock)</label></li>
-            <li><label for="Market">(Price)</label></li>
+            <li><label id="symbol">Stock Symbol: <span th:text="${symbol}"></span></label></li>
+            <li><label id="marketPrice">Market Price: <span th:text="${marketPrice}"></span></label></li>
             <li><label for="Lots">Lots:</label>
                 <input type="text" id="Lots" name="Lots" placeholder="1-5 Lots Only"></li>
                 <li><label for="Price">Price:</label>
