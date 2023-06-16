@@ -5,10 +5,8 @@ import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyPendingOrder;
 import com.example.registration_login_demo.entity.BuyUser;
-import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
-import com.example.registration_login_demo.repository.BuyRepository;
-import com.example.registration_login_demo.repository.BuyUserRepository;
-import com.example.registration_login_demo.repository.UserRepository;
+import com.example.registration_login_demo.entity.TradingHistory;
+import com.example.registration_login_demo.repository.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,7 +29,7 @@ public class BuyService {
     private final BuyPendingOrderRepository buyPendingOrderRepository;
     private final BuyRepository buyRepository;
     private final BuyUserRepository buyUserRepository;
-
+    private final TradingHistoryRepository tradingHistoryRepository;
     private final UserRepository userRepository;
 
     @Autowired
@@ -39,11 +37,13 @@ public class BuyService {
             BuyPendingOrderRepository buyPendingOrderRepository,
             BuyRepository buyRepository,
             BuyUserRepository buyUserRepository,
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            TradingHistoryRepository tradingHistoryRepository) {
         this.buyPendingOrderRepository = buyPendingOrderRepository;
         this.buyRepository = buyRepository;
         this.buyUserRepository = buyUserRepository;
         this.userRepository = userRepository;
+        this.tradingHistoryRepository = tradingHistoryRepository;
     }
 
     public ResponseEntity<String> executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
@@ -87,6 +87,8 @@ public class BuyService {
 
                 if (isSufficientFunds(totalCost, userFunds)) {
                     executeBuyOrder(buyPendingOrder, totalCost, userFunds);
+                    TradingHistory tradingHistory = createTradingHistory(buyPendingOrder);
+                    tradingHistoryRepository.save(tradingHistory);
                     return ResponseEntity.ok("Order executed successfully.");
                 } else {
                     return ResponseEntity.badRequest().body("B");
@@ -132,6 +134,17 @@ public class BuyService {
         return executedOrder;
     }
 
+    private TradingHistory createTradingHistory(BuyPendingOrder buyPendingOrder) {
+        TradingHistory tradingHistory = new TradingHistory();
+        tradingHistory.setOrderId(buyPendingOrder.getOrderId());
+        tradingHistory.setUser(buyPendingOrder.getUser());
+        tradingHistory.setSymbol(buyPendingOrder.getSymbol());
+        tradingHistory.setLots(buyPendingOrder.getLots());
+        tradingHistory.setBuyPrice(buyPendingOrder.getBuyPrice());
+        tradingHistory.setOrderPendingTime(buyPendingOrder.getOrderPendingTime());
+        return tradingHistory;
+    }
+
     private void updateFundsAndSaveBuyOrder(Buy executedOrder, double totalCost, double userFunds, BuyUser user) {
         user.setCurrentFund(userFunds - totalCost);
         buyUserRepository.save(user);
@@ -171,7 +184,7 @@ public class BuyService {
 
         boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
         boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
-        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
+        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(23, 0));
 
         return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
     }

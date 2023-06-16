@@ -5,10 +5,7 @@ import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.entity.Sell;
 import com.example.registration_login_demo.entity.SellPendingOrder;
-import com.example.registration_login_demo.repository.BuyRepository;
-import com.example.registration_login_demo.repository.BuyUserRepository;
-import com.example.registration_login_demo.repository.SellPendingOrderRepository;
-import com.example.registration_login_demo.repository.SellRepository;
+import com.example.registration_login_demo.repository.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -29,17 +26,20 @@ public class SellService {
     private final SellRepository sellRepository;
     private final BuyRepository buyRepository;
     private final BuyUserRepository buyUserRepository;
+    private final TradingHistoryRepository tradingHistoryRepository;
 
     @Autowired
     public SellService(
             SellPendingOrderRepository sellPendingOrderRepository,
             SellRepository sellRepository,
             BuyRepository buyRepository,
-            BuyUserRepository buyUserRepository) {
+            BuyUserRepository buyUserRepository,
+            TradingHistoryRepository tradingHistoryRepository) {
         this.sellPendingOrderRepository = sellPendingOrderRepository;
         this.sellRepository = sellRepository;
         this.buyRepository = buyRepository;
         this.buyUserRepository = buyUserRepository;
+        this.tradingHistoryRepository = tradingHistoryRepository;
     }
 
     public ResponseEntity<String> executeSellOrder(SellPendingOrderDTO sellPendingOrderDTO) {
