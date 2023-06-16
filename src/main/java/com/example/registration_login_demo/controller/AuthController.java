@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.registration_login_demo.dto.UserDto;
+import com.example.registration_login_demo.dto.UserSettings;
 import com.example.registration_login_demo.entity.User;
 import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.UserService;
 
 import jakarta.validation.Valid;
@@ -44,7 +46,7 @@ public class AuthController {
         return "leaderboard";
     }
 
-     @GetMapping("/sellList")
+    @GetMapping("/sellList")
     public String sellList() {
         return "sellList";
     }
@@ -61,8 +63,8 @@ public class AuthController {
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-                               BindingResult result,
-                               Model model) {
+            BindingResult result,
+            Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
@@ -101,8 +103,13 @@ public class AuthController {
 
     @GetMapping("/homepage")
     public String homepage(Model model, Principal principal) {
-        String username = currentUserName(principal); // Call the /username endpoint to get the email
-        model.addAttribute("profileName", username);
+
+        String recipientEmail = principal.getName();
+        model.addAttribute("profileName", currentUserName(principal));
+        NotificationService notificationService = new NotificationService(recipientEmail);
+        UserSettings userSettings = new UserSettings(recipientEmail);
+        notificationService.startThresholdChecking(userSettings);
+
         return "homepage";
     }
 

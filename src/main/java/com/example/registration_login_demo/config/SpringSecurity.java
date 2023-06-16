@@ -43,6 +43,7 @@ public class SpringSecurity {
                                         "/search/**",
                                         "/stock/**",
                                         "/homepage/**",
+                                        "/homepage",
                                         "/username/**",
                                         "/buy/**",
                                         "/leaderboard",

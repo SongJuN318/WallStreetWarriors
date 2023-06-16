@@ -8,22 +8,29 @@ import com.example.registration_login_demo.dto.UserSettings;
 
 public class NotificationService {
     private final EmailSender emailSender;
+    private final String recipientEmail;
+    private final UserSettings userSettings;
 
-    public NotificationService() {
+    public NotificationService(String recipientEmail) {
         this.emailSender = new EmailSender();
+        this.recipientEmail = recipientEmail;
+        this.userSettings = new UserSettings(recipientEmail);
     }
 
-    // public void configureUserSettings(String email, double profitThreshold, double lossThreshold,
-    //         boolean notificationsEnabled, Principal principal) {
-    //     this.userSettings = new UserSettings(principal.getName(), profitThreshold, lossThreshold, notificationsEnabled);
+    // public void configureUserSettings(String email, double profitThreshold,
+    // double lossThreshold,
+    // boolean notificationsEnabled, Principal principal) {
+    // this.userSettings = new UserSettings(principal.getName(), profitThreshold,
+    // lossThreshold, notificationsEnabled);
     // }
 
-    // public void configureUserSettings(String email, double profitThreshold, double lossThreshold,
-    //         boolean notificationsEnabled, UserSettings userSettings) {
-    //     this.userSettings = new UserSettings(email, userSettings.getProfitThreshold(), userSettings.getLossThreshold(), notificationsEnabled);
+    // public void configureUserSettings(String email, double profitThreshold,
+    // double lossThreshold,
+    // boolean notificationsEnabled, UserSettings userSettings) {
+    // this.userSettings = new UserSettings(email,
+    // userSettings.getProfitThreshold(), userSettings.getLossThreshold(),
+    // notificationsEnabled);
     // }
-
-    private UserSettings userSettings = new UserSettings("kahchunlim885@gmail.com");
 
     public void enableNotifications() {
         if (userSettings != null) {

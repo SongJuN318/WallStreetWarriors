@@ -15,7 +15,7 @@ body {
 
 .container {
     width: 100%;
-    background: #21094e;    
+    background: #21094e;
     background-position: center;
     background-size: cover;
     background-position-y: 80px;
@@ -97,6 +97,7 @@ footer .wave#wave2 {
     0% {
         background-position-x: 1000px;
     }
+
     100% {
         background-position-x: 0px;
     }
@@ -106,14 +107,16 @@ footer .wave#wave2 {
     0% {
         background-position-x: 0px;
     }
+
     100% {
         background-position-x: 1000px;
     }
 }
 
 
-form,h2,h1
-{
+form,
+h2,
+h1 {
     font-family: 'Welcome-Font';
     font-size: 1.7em;
     margin: 10px;
@@ -121,55 +124,50 @@ form,h2,h1
     margin: 15px;
 }
 
-table
-{
+table {
     font-family: 'Welcome-Font';
     text-align: center;
-    transform: translate(75%,-350px);
+    transform: translate(75%, -350px);
     font-size: 1.2em;
 }
 
-hr
-{
-    margin: 10px 0 ;
+hr {
+    margin: 10px 0;
     transform: translateY(-350px);
     height: 5px;
-    background: #fff;;
+    background: #fff;
+    ;
 }
 
-input
-{
+input {
     height: 35px;
     font-family: 'Welcome-Font';
     font-size: 0.8em;
 }
 
-button
-{
+button {
     font-family: 'Welcome-Font';
     height: 30px;
     padding: 5px;
 }
 
-table 
-{
+table {
     margin: auto;
     font-size: 1.2em;
     margin-bottom: -560px;
 }
 
-th,td
-{
+th,
+td {
     text-align: center;
     transform: translateX(-550px);
     font-size: 1.3em;
     padding-right: 20px;
 }
 
-.topLine
-{
-    transform: translateY(-345px); 
+.topLine {
+    transform: translateY(-345px);
     height: 5px;
-    background: #fff;; 
+    background: #fff;
+    ;
 }
-
