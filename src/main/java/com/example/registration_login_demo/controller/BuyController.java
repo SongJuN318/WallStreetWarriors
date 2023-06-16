@@ -1,7 +1,6 @@
 package com.example.registration_login_demo.controller;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
-import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.UserService;
 
@@ -47,8 +45,7 @@ public class BuyController {
         return "buy";
     }
 
-
-    @PostMapping("/{symbol}/save")
+    @PostMapping("/buy/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
             @PathVariable String symbol, Principal principal, Model model) {
         buyPendingOrderDTO.setSymbol(symbol);
@@ -61,7 +58,6 @@ public class BuyController {
             model.addAttribute("successMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?success";
         } else {
-//            model.addAttribute("errorMessage", responseEntity.getBody());
             if (message.equalsIgnoreCase("A"))
                 return "redirect:/buy/{symbol}?marketClosed";
             else if (message.equalsIgnoreCase("B")) {
@@ -69,15 +65,5 @@ public class BuyController {
             } else
                 return "redirect:/buy/{symbol}?notInRange";
         }
-    }
-
-
-    @GetMapping("/leaderboard")
-    public String showLeaderboard(Model model) {
-        List<BuyUser> topUsers = buyService.getTopUsersByPoints(10);
-        List<String> usernames = userService.getUsernamesForBuyUsers(topUsers);
-        model.addAttribute("usernames", usernames);
-        model.addAttribute("users", topUsers);
-        return "leaderboard";
     }
 }
