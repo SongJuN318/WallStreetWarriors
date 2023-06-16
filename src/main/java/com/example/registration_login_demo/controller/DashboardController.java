@@ -1,8 +1,9 @@
 package com.example.registration_login_demo.controller;
 
-import com.example.registration_login_demo.dto.BuyDto;
-import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.dto.SellDto;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
 import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.SellService;
 import com.example.registration_login_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,22 +16,28 @@ import java.util.List;
 @Controller
 public class DashboardController {
     private final BuyService buyService;
-    private UserService userService;
+    private final SellService sellService;
+    private final UserService userService;
     private AuthController authController;
 
 
     @Autowired
-    public DashboardController(BuyService buyService, UserService userService, AuthController authController, BuyUserRepository buyUserRepository) {
+    public DashboardController(BuyService buyService,
+                               UserService userService,
+                               AuthController authController,
+                               SellService sellService) {
         this.buyService = buyService;
         this.authController = authController;
         this.userService = userService;
+        this.sellService = sellService;
     }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
         long currentUserId = authController.currentUserId(principal);
         String currentUsername = authController.currentUserName(principal);
-        List<BuyDto> stockByUser = buyService.findBuysByUserId(currentUserId);
+        List<TradingHistoryDto> stockByUser = buyService.findHistoryByUserId(currentUserId);
+        List<SellDto> sellDtoList = sellService.findSellsByUserId(currentUserId);
         double funds = buyService.findBuyUserById(currentUserId).getCurrentFund();
         double pnl = buyService.findBuyUserById(currentUserId).getPnl();
         double points = buyService.findBuyUserById(currentUserId).getPoint();
@@ -38,7 +45,8 @@ public class DashboardController {
         model.addAttribute("pnl", pnl);
         model.addAttribute("points", points);
         model.addAttribute("username", currentUsername);
-        model.addAttribute("stocks", stockByUser);
+        model.addAttribute("Buystocks", stockByUser);
+        model.addAttribute("Sellstocks", sellDtoList);
         return "dashboard";
     }
 }

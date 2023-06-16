@@ -2,6 +2,7 @@ package com.example.registration_login_demo.service;
 
 import com.example.registration_login_demo.dto.BuyDto;
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
 import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyPendingOrder;
 import com.example.registration_login_demo.entity.BuyUser;
@@ -214,6 +215,27 @@ public class BuyService {
                     .collect(Collectors.toList());
         }
         throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    public List<TradingHistoryDto> findHistoryByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<TradingHistory> tradingHistories = tradingHistoryRepository.findByUser(user);
+            return tradingHistories.stream()
+                    .map(this::mapToTradingHistoryDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    private TradingHistoryDto mapToTradingHistoryDto(TradingHistory tradingHistory) {
+        TradingHistoryDto tradingHistoryDto = new TradingHistoryDto();
+        tradingHistoryDto.setOrderId(tradingHistory.getOrderId());
+        tradingHistoryDto.setUserId(tradingHistory.getUser().getId());
+        tradingHistoryDto.setSymbol(tradingHistory.getSymbol());
+        tradingHistoryDto.setLots(tradingHistory.getLots());
+        tradingHistoryDto.setBuyPrice(tradingHistory.getBuyPrice());
+        return tradingHistoryDto;
     }
 
     private BuyDto mapToBuyDto(Buy buy) {

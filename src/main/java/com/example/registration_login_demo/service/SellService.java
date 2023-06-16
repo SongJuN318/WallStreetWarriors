@@ -1,5 +1,6 @@
 package com.example.registration_login_demo.service;
 
+import com.example.registration_login_demo.dto.SellDto;
 import com.example.registration_login_demo.dto.SellPendingOrderDTO;
 import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyUser;
@@ -17,7 +18,9 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SellService {
@@ -198,5 +201,26 @@ public class SellService {
             e.printStackTrace();
             return Optional.empty();
         }
+    }
+
+    public List<SellDto> findSellsByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<Sell> sells = sellRepository.findByUser(user);
+            return sells.stream()
+                    .map(this::mapToSellDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    private SellDto mapToSellDto(Sell sell) {
+        SellDto sellDto = new SellDto();
+        sellDto.setOrderId(sell.getOrderId());
+        sellDto.setUserId(sell.getUser().getId());
+        sellDto.setSymbol(sell.getSymbol());
+        sellDto.setLots(sell.getLots());
+        sellDto.setSellPrice(sell.getBuyPrice());
+        return sellDto;
     }
 }

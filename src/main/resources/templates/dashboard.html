@@ -85,14 +85,20 @@
             </tr>
             </thead>
             <tbody>
-            <tr class = "details" th:each="stock:${stocks}" th:limit="10">        <!--Change this to symbol too-->
+            <tr class = "details" th:each="stock:${Buystocks}">        <!--Change this to symbol too-->
                 <td th:text="${stock.symbol}"></td>          <!--Change this to lots-->
                 <td th:text="${stock.lots}"></td>   <!--Change this to price-->
                 <td th:text="${stock.buyPrice}"></td>
                 <td th:text="${stock.type}"></td>
             </tr>
-            <tr th:if="${#lists.isEmpty(stocks)}">
-                <td colspan="3" class = "noUsers">No available stocks to sell.</td>
+            <tr class="details" th:each="stock : ${Sellstocks}">
+                <td th:text="${stock.symbol}"></td>
+                <td th:text="${stock.lots}"></td>
+                <td th:text="${stock.sellPrice}"></td>
+                <td th:text="${stock.type}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(Buystocks) && #lists.isEmpty(Sellstocks)}">
+                <td colspan="4" class="noUsers">No available trading history</td>
             </tr>
             </tbody>
         </table>
