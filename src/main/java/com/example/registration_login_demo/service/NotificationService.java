@@ -17,21 +17,6 @@ public class NotificationService {
         this.userSettings = new UserSettings(recipientEmail);
     }
 
-    // public void configureUserSettings(String email, double profitThreshold,
-    // double lossThreshold,
-    // boolean notificationsEnabled, Principal principal) {
-    // this.userSettings = new UserSettings(principal.getName(), profitThreshold,
-    // lossThreshold, notificationsEnabled);
-    // }
-
-    // public void configureUserSettings(String email, double profitThreshold,
-    // double lossThreshold,
-    // boolean notificationsEnabled, UserSettings userSettings) {
-    // this.userSettings = new UserSettings(email,
-    // userSettings.getProfitThreshold(), userSettings.getLossThreshold(),
-    // notificationsEnabled);
-    // }
-
     public void enableNotifications() {
         if (userSettings != null) {
             userSettings.setNotificationsEnabled(true);
