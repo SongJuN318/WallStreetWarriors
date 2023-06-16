@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyPendingOrderDTO {
+public class TradingHistoryDto {
+    private final String type = "BUY";
+    private long orderId;
     private long userId;
     private String symbol;
     private int lots;

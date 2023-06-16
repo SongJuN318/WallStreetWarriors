@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="#" rel="shortcut icon">
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+
+</head>
+<body>
+<section>
+    <header>
+        <a th:href="@{/homepage}" class="logo">TradeWave</a>
+    </header>
+    <div class="container">
+        <h1 th:text="${username}"></h1>
+        <img src="/images/dashboard.png" id = "dashboardImage">
+        <div class="row col-md-10">
+            <div class="flex-container">
+            <div class="flex-box" id="sell">
+                <p>Account Balance:<br><span th:text="${funds}"></span></p>
+            </div>
+            <div class="flex-box" id="search">
+                <p>Current P&L:<br><span th:text="${pnl}"></span></p>
+            </div>
+            <div class="flex-box" id="leaderboard">
+                <p>Points:<br><span th:text="${points}"></span></p>
+            </div>
+        </div>
+            <h2>Open Positions:</h2>
+        </div>
+        <div class="container1">
+        <table class="table table-bordered table-hover">
+            <colgroup>
+                <col>
+                <col style="width: 10%;"> 
+                <col>
+                <col>
+            </colgroup>
+            <thead class="table-dark">
+            <tr class = "details">
+                <th>Stock Symbol</th>
+                <th>Lot(s)</th>
+                <th>Price</th>
+                <th>Type</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr class = "details" th:each="user, userStat : ${users}" th:limit="10">        <!--Change this symbol too-->
+                <td th:text="${userStat.index + 1}"></td>          <!--Change this to lots-->
+                <td th:text="${usernames[userStat.index+1]}"></td>   <!--Change this to price-->
+                <td th:text="${user.point}"></td> 
+                <td>  <!--BUY/SELL--></td>  
+            </tr>
+            <tr th:if="${#lists.isEmpty(users)}">
+                <td colspan="3" class = "noUsers">No available stocks to sell.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="container2">
+        <table class="table table-bordered table-hover">
+            <h2>Trade History:</h2>
+            <colgroup>
+                <col>
+                <col style="width: 10%;"> 
+                <col>
+                <col>
+            </colgroup>
+            <thead class="table-dark">
+            <tr class = "details">
+                <th>Stock Symbol</th>
+                <th>Lot(s)</th>
+                <th>Price</th>
+                <th>Type</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr class = "details" th:each="stock:${Buystocks}">        <!--Change this to symbol too-->
+                <td th:text="${stock.symbol}"></td>          <!--Change this to lots-->
+                <td th:text="${stock.lots}"></td>   <!--Change this to price-->
+                <td th:text="${stock.buyPrice}"></td>
+                <td th:text="${stock.type}"></td>
+            </tr>
+            <tr class="details" th:each="stock : ${Sellstocks}">
+                <td th:text="${stock.symbol}"></td>
+                <td th:text="${stock.lots}"></td>
+                <td th:text="${stock.sellPrice}"></td>
+                <td th:text="${stock.type}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(Buystocks) && #lists.isEmpty(Sellstocks)}">
+                <td colspan="4" class="noUsers">No available trading history</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</section>
+<footer>
+    <div class="waves">
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+    </div>
+    <p>©2023 TradeWave. All rights reserved.</p></footer>
+</body>
+</body>
+</html>

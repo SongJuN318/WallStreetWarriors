@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.dto.UserSettings;
 import com.example.registration_login_demo.entity.User;
-import com.example.registration_login_demo.repository.BuyUserRepository;
 import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.UserService;
 
@@ -28,27 +27,14 @@ public class AuthController {
 
     private UserService userService;
 
-    private BuyUserRepository buyUserRepository;
-
-    public AuthController(UserService userService, BuyUserRepository buyUserRepository) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.buyUserRepository = buyUserRepository;
     }
 
     // handler method to handle home page request
     @GetMapping("/")
     public String home() {
         return "index";
-    }
-
-    @GetMapping("/leaderboard")
-    public String leaderboard() {
-        return "leaderboard";
-    }
-
-    @GetMapping("/sellList")
-    public String sellList() {
-        return "sellList";
     }
 
     // handler method to handle user registration form request
@@ -123,9 +109,10 @@ public class AuthController {
 
     @RequestMapping(value = "/uid", method = RequestMethod.GET)
     @ResponseBody
-    public long currentUserId(Principal principal) {
+    public Long currentUserId(Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
-        long userId = user.getId();
+        Long userId = user.getId();
         return userId;
     }
+
 }

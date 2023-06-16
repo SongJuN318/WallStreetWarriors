@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.entity.BuyUser;
@@ -21,7 +20,7 @@ import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.UserService;
 
 @Controller
-@RequestMapping("/buy")
+
 public class BuyController {
 
     private final BuyService buyService;
@@ -35,7 +34,7 @@ public class BuyController {
         this.authController = authController;
     }
 
-    @GetMapping("/{symbol}")
+    @GetMapping("/buy/{symbol}")
     public String showBuyPage(@PathVariable String symbol, Model model) {
         model.addAttribute("symbol", symbol);
         Optional<String> buyValue = buyService.fetchBuyValue(symbol);
@@ -47,6 +46,7 @@ public class BuyController {
         model.addAttribute("buyStock", buyPendingOrderDTO);
         return "buy";
     }
+
 
     @PostMapping("/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
@@ -61,7 +61,7 @@ public class BuyController {
             model.addAttribute("successMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?success";
         } else {
-            // model.addAttribute("errorMessage", responseEntity.getBody());
+//            model.addAttribute("errorMessage", responseEntity.getBody());
             if (message.equalsIgnoreCase("A"))
                 return "redirect:/buy/{symbol}?marketClosed";
             else if (message.equalsIgnoreCase("B")) {
@@ -70,6 +70,7 @@ public class BuyController {
                 return "redirect:/buy/{symbol}?notInRange";
         }
     }
+
 
     @GetMapping("/leaderboard")
     public String showLeaderboard(Model model) {

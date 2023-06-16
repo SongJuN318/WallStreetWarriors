@@ -1,12 +1,13 @@
 package com.example.registration_login_demo.service;
 
+import com.example.registration_login_demo.dto.BuyDto;
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
 import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyPendingOrder;
 import com.example.registration_login_demo.entity.BuyUser;
-import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
-import com.example.registration_login_demo.repository.BuyRepository;
-import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.entity.TradingHistory;
+import com.example.registration_login_demo.repository.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,6 +22,7 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BuyService {
@@ -28,15 +30,21 @@ public class BuyService {
     private final BuyPendingOrderRepository buyPendingOrderRepository;
     private final BuyRepository buyRepository;
     private final BuyUserRepository buyUserRepository;
+    private final TradingHistoryRepository tradingHistoryRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public BuyService(
             BuyPendingOrderRepository buyPendingOrderRepository,
             BuyRepository buyRepository,
-            BuyUserRepository buyUserRepository) {
+            BuyUserRepository buyUserRepository,
+            UserRepository userRepository,
+            TradingHistoryRepository tradingHistoryRepository) {
         this.buyPendingOrderRepository = buyPendingOrderRepository;
         this.buyRepository = buyRepository;
         this.buyUserRepository = buyUserRepository;
+        this.userRepository = userRepository;
+        this.tradingHistoryRepository = tradingHistoryRepository;
     }
 
     public ResponseEntity<String> executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
@@ -80,6 +88,8 @@ public class BuyService {
 
                 if (isSufficientFunds(totalCost, userFunds)) {
                     executeBuyOrder(buyPendingOrder, totalCost, userFunds);
+                    TradingHistory tradingHistory = createTradingHistory(buyPendingOrder);
+                    tradingHistoryRepository.save(tradingHistory);
                     return ResponseEntity.ok("Order executed successfully.");
                 } else {
                     return ResponseEntity.badRequest().body("B");
@@ -123,6 +133,17 @@ public class BuyService {
         executedOrder.setLots(buyPendingOrder.getLots());
         executedOrder.setBuyPrice(buyPendingOrder.getBuyPrice());
         return executedOrder;
+    }
+
+    private TradingHistory createTradingHistory(BuyPendingOrder buyPendingOrder) {
+        TradingHistory tradingHistory = new TradingHistory();
+        tradingHistory.setOrderId(buyPendingOrder.getOrderId());
+        tradingHistory.setUser(buyPendingOrder.getUser());
+        tradingHistory.setSymbol(buyPendingOrder.getSymbol());
+        tradingHistory.setLots(buyPendingOrder.getLots());
+        tradingHistory.setBuyPrice(buyPendingOrder.getBuyPrice());
+        tradingHistory.setOrderPendingTime(buyPendingOrder.getOrderPendingTime());
+        return tradingHistory;
     }
 
     private void updateFundsAndSaveBuyOrder(Buy executedOrder, double totalCost, double userFunds, BuyUser user) {
@@ -171,7 +192,68 @@ public class BuyService {
 
     public List<BuyUser> getTopUsersByPoints(int limit) {
         List<BuyUser> allUsers = buyUserRepository.findAll();
+
+        // Skip the first user if present
+        if (!allUsers.isEmpty()) {
+            allUsers = allUsers.subList(1, allUsers.size());
+        }
+
+        // Sort the remaining users by points in descending order
         allUsers.sort(Comparator.comparing(BuyUser::getPoint).reversed());
+
+        // Return the top users up to the specified limit
         return allUsers.subList(0, Math.min(limit, allUsers.size()));
+    }
+
+
+    public List<BuyDto> findBuysByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<Buy> buys = buyRepository.findByUser(user);
+            return buys.stream()
+                    .map(this::mapToBuyDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    public List<TradingHistoryDto> findHistoryByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<TradingHistory> tradingHistories = tradingHistoryRepository.findByUser(user);
+            return tradingHistories.stream()
+                    .map(this::mapToTradingHistoryDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    private TradingHistoryDto mapToTradingHistoryDto(TradingHistory tradingHistory) {
+        TradingHistoryDto tradingHistoryDto = new TradingHistoryDto();
+        tradingHistoryDto.setOrderId(tradingHistory.getOrderId());
+        tradingHistoryDto.setUserId(tradingHistory.getUser().getId());
+        tradingHistoryDto.setSymbol(tradingHistory.getSymbol());
+        tradingHistoryDto.setLots(tradingHistory.getLots());
+        tradingHistoryDto.setBuyPrice(tradingHistory.getBuyPrice());
+        return tradingHistoryDto;
+    }
+
+    private BuyDto mapToBuyDto(Buy buy) {
+        BuyDto buyDto = new BuyDto();
+        buyDto.setOrderId(buy.getOrderId());
+        buyDto.setUserId(buy.getUser().getId());
+        buyDto.setSymbol(buy.getSymbol());
+        buyDto.setLots(buy.getLots());
+        buyDto.setBuyPrice(buy.getBuyPrice());
+        return buyDto;
+    }
+
+    public BuyDto findBuyById(long orderId) {
+        Buy buy = buyRepository.findByOrderId(orderId);
+        return mapToBuyDto(buy);
+    }
+
+    public BuyUser findBuyUserById(long id) {
+        return buyUserRepository.findById(id);
     }
 }
