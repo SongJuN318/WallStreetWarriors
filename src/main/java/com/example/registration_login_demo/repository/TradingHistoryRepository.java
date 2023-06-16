@@ -10,5 +10,4 @@ public interface TradingHistoryRepository extends JpaRepository<TradingHistory, 
 
     @Override
     <S extends TradingHistory> S save(S entity);
-
 }

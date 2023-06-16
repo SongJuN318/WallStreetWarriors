@@ -45,10 +45,10 @@ public class BuyService {
     }
 
     public ResponseEntity<String> executeBuyOrder(BuyPendingOrderDTO buyPendingOrderDTO) {
-//        if (!isTradingHours()) {
-//            System.out.println("Trading is currently closed. Buy order cannot be executed.");
-//            return ResponseEntity.badRequest().body("A");
-//        }
+        if (!isTradingHours()) {
+            System.out.println("Trading is currently closed. Buy order cannot be executed.");
+            return ResponseEntity.badRequest().body("A");
+        }
 
         if (buyPendingOrderDTO.getBuyPrice() <= 0 || buyPendingOrderDTO.getLots() <= 0) {
             System.out.println("Buy price or buy lots are invalid");
