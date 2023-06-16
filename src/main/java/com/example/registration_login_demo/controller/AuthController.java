@@ -89,13 +89,12 @@ public class AuthController {
 
     @GetMapping("/homepage")
     public String homepage(Model model, Principal principal) {
-
         String recipientEmail = principal.getName();
         model.addAttribute("profileName", currentUserName(principal));
         NotificationService notificationService = new NotificationService(recipientEmail);
         UserSettings userSettings = new UserSettings(recipientEmail);
+        notificationService.sendRegistrationEmail(recipientEmail, currentUserName(principal));
         notificationService.startThresholdChecking(userSettings);
-
         return "homepage";
     }
 
