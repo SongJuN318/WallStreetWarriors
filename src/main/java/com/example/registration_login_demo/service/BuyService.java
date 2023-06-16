@@ -248,6 +248,27 @@ public class BuyService {
         return buyDto;
     }
 
+    public List<BuyPendingOrderDTO> findBuysPendingByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<BuyPendingOrder> buyPendingOrders = buyPendingOrderRepository.findByUser(user);
+            return buyPendingOrders.stream()
+                    .map(this::mapToBuyPendingDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    private BuyPendingOrderDTO mapToBuyPendingDto(BuyPendingOrder buyPendingOrder) {
+        BuyPendingOrderDTO buyPendingOrderDTO = new BuyPendingOrderDTO();
+        buyPendingOrderDTO.setOrderId(buyPendingOrder.getOrderId());
+        buyPendingOrderDTO.setUserId(buyPendingOrder.getUser().getId());
+        buyPendingOrderDTO.setSymbol(buyPendingOrder.getSymbol());
+        buyPendingOrderDTO.setLots(buyPendingOrder.getLots());
+        buyPendingOrderDTO.setBuyPrice(buyPendingOrder.getBuyPrice());
+        return buyPendingOrderDTO;
+    }
+
     public BuyDto findBuyById(long orderId) {
         Buy buy = buyRepository.findByOrderId(orderId);
         return mapToBuyDto(buy);

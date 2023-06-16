@@ -223,4 +223,25 @@ public class SellService {
         sellDto.setSellPrice(sell.getBuyPrice());
         return sellDto;
     }
+
+    public List<SellPendingOrderDTO> findSellsPendingByUserId(long userId) {
+        BuyUser user = buyUserRepository.findById(userId);
+        if (user != null) {
+            List<SellPendingOrder> sellPendingOrders = sellPendingOrderRepository.findByUser(user);
+            return sellPendingOrders.stream()
+                    .map(this::mapToSellPendingDto)
+                    .collect(Collectors.toList());
+        }
+        throw new RuntimeException("User with ID " + userId + " not found.");
+    }
+
+    private SellPendingOrderDTO mapToSellPendingDto(SellPendingOrder sellPendingOrder) {
+        SellPendingOrderDTO sellPendingOrderDTO = new SellPendingOrderDTO();
+        sellPendingOrderDTO.setOrderId(sellPendingOrder.getOrderId());
+        sellPendingOrderDTO.setUserId(sellPendingOrder.getUser().getId());
+        sellPendingOrderDTO.setSymbol(sellPendingOrder.getSymbol());
+        sellPendingOrderDTO.setLots(sellPendingOrder.getLots());
+        sellPendingOrderDTO.setSellPrice(sellPendingOrder.getBuyPrice());
+        return sellPendingOrderDTO;
+    }
 }
