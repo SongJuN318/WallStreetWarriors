@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyDto {
-    private final String type = "BUY";
+public class SellDto {
+    private final String type = "SELL";
     private long orderId;
     private long userId;
     private String symbol;
     private int lots;
-    private double buyPrice;
+    private double sellPrice;
 }

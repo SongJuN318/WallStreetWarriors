@@ -34,13 +34,17 @@
 <body>
 <section>
     <header>
-        <a th:href="@{/}" class="logo">TradeWave</a>
+        <a th:href="@{/homepage}" class="logo">TradeWave</a>
     </header>
     <div class="container">
         <div class="row col-md-10">
             <h2>Sell Your Stocks!</h2>
         </div>
-
+        <div th:if="${param.success}">
+            <div class="alert alert-info">
+                You have successfully sold the stock!
+            </div>
+        </div>
         <table class="table table-bordered table-hover">
             <colgroup>
                 <col style ="width: 10%;">
@@ -61,7 +65,7 @@
             </thead>
             <tbody>
             <tr class = "details" th:each="stock: ${stocks}">        <!--Change this line too-->
-                <td th:text="${stock.lots}"></td>
+                <td th:text="${stock.orderId}"></td>
                 <td th:text="${stock.symbol}"></td>          <!--Change this to RANK 1,2,3,4...-->
                 <td th:text="${stock.lots}"></td>   <!--Change this to NAME-->
                 <td th:text="${stock.buyPrice}"></td>

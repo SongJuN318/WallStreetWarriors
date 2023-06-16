@@ -39,7 +39,7 @@ public class BuyController {
         model.addAttribute("buyStock", buyPendingOrderDTO);
         return "buy";
     }
-    
+
     @PostMapping("/buy/{symbol}/save")
     public String executeBuyOrder(@ModelAttribute("buyStock") @RequestBody BuyPendingOrderDTO buyPendingOrderDTO,
                                   @PathVariable String symbol, Principal principal, Model model) {
@@ -53,7 +53,6 @@ public class BuyController {
             model.addAttribute("successMessage", responseEntity.getBody());
             return "redirect:/buy/{symbol}?success";
         } else {
-//            model.addAttribute("errorMessage", responseEntity.getBody());
             if (message.equalsIgnoreCase("A"))
                 return "redirect:/buy/{symbol}?marketClosed";
             else if (message.equalsIgnoreCase("B")) {
