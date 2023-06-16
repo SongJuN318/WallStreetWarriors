@@ -19,7 +19,7 @@ public class TradingHistory {
 
     @Id
     @Column(name = "order_id")
-    private int OrderId;
+    private long orderId;
 
     @ManyToOne
     @JoinColumn(name = "UID")

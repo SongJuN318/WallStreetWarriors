@@ -17,7 +17,7 @@ public class Sell {
 
     @Id
     @Column(name = "order_id")
-    private int orderId;
+    private long orderId;
 
     @ManyToOne
     @JoinColumn(name = "Id")  // Assuming the column name in the table is "Id"

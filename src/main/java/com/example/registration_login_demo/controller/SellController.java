@@ -68,7 +68,7 @@ public class SellController {
         String message = responseEntity.getBody();
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             model.addAttribute("successMessage", responseEntity.getBody());
-            return "redirect:/sell/{orderId}?success";
+            return "redirect:/sellList?success";
         } else {
             if (message.equalsIgnoreCase("A"))
                 return "redirect:/sell/{orderId}?marketClosed";

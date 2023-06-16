@@ -116,13 +116,15 @@ public class SellService {
         double profitOrLoss = calculateProfitOrLoss(totalSellPrice, totalCost);
 
         Sell executedOrder = createSellOrder(sellPendingOrder, profitOrLoss);
-        updateFundsAndSaveSellOrder(executedOrder, userFunds + totalSellPrice, sellPendingOrder.getUser());
-//        removeExecutedOrderFromBuy(sellPendingOrder.getOrderId(), lots, sellPendingOrder.getUser());
+        updateFundsPnLPointsAndSaveSellOrder(executedOrder, userFunds + totalSellPrice, sellPendingOrder.getUser(), profitOrLoss);
+        removeExecutedOrderFromBuy(sellPendingOrder.getOrderId(), lots, sellPendingOrder.getUser());
         removeExecutedOrderFromPending(sellPendingOrder);
     }
 
     private Sell createSellOrder(SellPendingOrder sellPendingOrder, double profitOrLoss) {
         Sell executedOrder = new Sell();
+        executedOrder.setOrderId(sellPendingOrder.getOrderId());
+        executedOrder.setBuyPrice(sellPendingOrder.getBuyPrice());
         executedOrder.setUser(sellPendingOrder.getUser());
         executedOrder.setSymbol(sellPendingOrder.getSymbol());
         executedOrder.setLots(sellPendingOrder.getLots());
@@ -131,12 +133,15 @@ public class SellService {
         return executedOrder;
     }
 
-    private void updateFundsAndSaveSellOrder(Sell executedOrder, double updatedFunds, BuyUser user) {
+    private void updateFundsPnLPointsAndSaveSellOrder(Sell executedOrder, double updatedFunds, BuyUser user, double profitOrLoss) {
         user.setCurrentFund(updatedFunds);
+        user.setPnl(user.getPnl() + profitOrLoss);
+        user.setPoint(user.getPoint() + (profitOrLoss / 50000) * 100);
         buyUserRepository.save(user);
         sellRepository.save(executedOrder);
         System.out.println("Sell order executed successfully.");
     }
+
 
     private void removeExecutedOrderFromBuy(long id, int lots, BuyUser user) {
         Buy purchase = buyRepository.findByUserAndOrderId(user, id);
@@ -169,7 +174,7 @@ public class SellService {
 
         boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
         boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
-        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
+        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(23, 59));
 
         return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
     }

@@ -40,7 +40,11 @@
         <div class="row col-md-10">
             <h2>Sell Your Stocks!</h2>
         </div>
-
+        <div th:if="${param.success}">
+            <div class="alert alert-info">
+                You have successfully sold the stock!
+            </div>
+        </div>
         <table class="table table-bordered table-hover">
             <colgroup>
                 <col style ="width: 10%;">
