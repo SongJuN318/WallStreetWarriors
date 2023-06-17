@@ -1,6 +1,13 @@
 package com.example.registration_login_demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +39,12 @@ public class BuyUser {
     @Column(name = "Point")
     private Double point;
 
+    @Column(name = "Profit_Threshold")
+    private Double profitThreshold;
+
+    @Column(name = "Loss_Threshold")
+    private Double lossThreshold;
+
+    @Column(name = "NotiOnOff")
+    private int NotiOnOff;
 }

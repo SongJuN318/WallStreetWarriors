@@ -23,9 +23,9 @@ public class DashboardController {
 
     @Autowired
     public DashboardController(BuyService buyService,
-                               UserService userService,
-                               AuthController authController,
-                               SellService sellService) {
+            UserService userService,
+            AuthController authController,
+            SellService sellService) {
         this.buyService = buyService;
         this.authController = authController;
         this.userService = userService;
@@ -47,11 +47,10 @@ public class DashboardController {
         model.addAttribute("username", currentUsername);
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
+        // String recipientEmail = principal.getName();
+        // NotificationService notificationService = new NotificationService(recipientEmail);
+        // UserSettings userSettings = new UserSettings(recipientEmail);
+        // notificationService.startThresholdChecking(userSettings, pnl);
         return "dashboard";
-    }
-
-    public double fetchPnl(Principal principal){
-        long currentUserId = authController.currentUserId(principal);
-        return buyService.findBuyUserById(currentUserId).getPnl();
     }
 }

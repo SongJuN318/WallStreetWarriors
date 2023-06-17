@@ -4,14 +4,18 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.registration_login_demo.controller.AuthController;
 import com.example.registration_login_demo.dto.Notification;
 import com.example.registration_login_demo.dto.UserSettings;
 import com.example.registration_login_demo.entity.BuyUser;
+import com.example.registration_login_demo.repository.BuyUserRepository;
 
 public class NotificationService {
     private final EmailSender emailSender;
     private final String recipientEmail;
     private final UserSettings userSettings;
+    private BuyUserRepository buyUserRepository;
+    private AuthController authController;
 
     public NotificationService(String recipientEmail) {
         this.emailSender = new EmailSender();
@@ -38,10 +42,12 @@ public class NotificationService {
             public void run() {
                 if (userSettings != null && userSettings.isNotificationsEnabled()) {
                     double currentPnL = 2000; /* Obtain current P&L for the user */
-                    if (currentPnL >= userSettings.getProfitThreshold()) {
+                    if (currentPnL >= 1) {
                         Notification notification = new Notification("Profit Threshold Crossed",
                                 "Your P&L has crossed the profit threshold.");
                         emailSender.sendEmail(userSettings.getEmail(), notification);
+                        // double abc = fetchPnL(authController.currentUserId(principal));
+                        // System.out.println(abc);
                         timer.cancel();
                     } else if (currentPnL <= userSettings.getLossThreshold()) {
                         Notification notification = new Notification("Loss Threshold Crossed",
@@ -107,7 +113,6 @@ public class NotificationService {
             BuyUser buyUser = buyUserOptional.get();
             return buyUser.getPnl();
         }
-
-        return null; // Return null if the user's PnL is not found
-    }
+        return null;
+    }
 }
