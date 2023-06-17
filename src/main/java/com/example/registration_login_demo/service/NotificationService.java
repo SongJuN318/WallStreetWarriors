@@ -1,24 +1,18 @@
 package com.example.registration_login_demo.service;
 
-import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.registration_login_demo.controller.AuthController;
-import com.example.registration_login_demo.dto.Notification;
+import com.example.registration_login_demo.dto.NotificationDto;
 import com.example.registration_login_demo.dto.UserSettings;
-import com.example.registration_login_demo.entity.BuyUser;
-import com.example.registration_login_demo.repository.BuyUserRepository;
 
 public class NotificationService {
-    private final EmailSender emailSender;
+    private final EmailSenderService emailSender;
     private final String recipientEmail;
     private final UserSettings userSettings;
-    private BuyUserRepository buyUserRepository;
-    private AuthController authController;
 
     public NotificationService(String recipientEmail) {
-        this.emailSender = new EmailSender();
+        this.emailSender = new EmailSenderService();
         this.recipientEmail = recipientEmail;
         this.userSettings = new UserSettings(recipientEmail);
     }
@@ -35,22 +29,19 @@ public class NotificationService {
         }
     }
 
-    public void startThresholdChecking(UserSettings userSettings) {
+    public void startThresholdChecking(UserSettings userSettings, double currentPnL) {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (userSettings != null && userSettings.isNotificationsEnabled()) {
-                    double currentPnL = 2000; /* Obtain current P&L for the user */
-                    if (currentPnL >= 1) {
-                        Notification notification = new Notification("Profit Threshold Crossed",
+                    if (currentPnL >= userSettings.getProfitThreshold()) {
+                        NotificationDto notification = new NotificationDto("Profit Threshold Crossed",
                                 "Your P&L has crossed the profit threshold.");
                         emailSender.sendEmail(userSettings.getEmail(), notification);
-                        // double abc = fetchPnL(authController.currentUserId(principal));
-                        // System.out.println(abc);
                         timer.cancel();
                     } else if (currentPnL <= userSettings.getLossThreshold()) {
-                        Notification notification = new Notification("Loss Threshold Crossed",
+                        NotificationDto notification = new NotificationDto("Loss Threshold Crossed",
                                 "Your P&L has crossed the loss threshold.");
                         emailSender.sendEmail(userSettings.getEmail(), notification);
                         timer.cancel();
@@ -61,7 +52,7 @@ public class NotificationService {
     }
 
     public void sendRegistrationEmail(String recipientEmail, String username) {
-        Notification notification = new Notification("Welcome to Tradewave - Your Gateway to Financial Opportunities!",
+        NotificationDto notification = new NotificationDto("Welcome to Tradewave - Your Gateway to Financial Opportunities!",
                 "Dear Mr/Mrs " + username + ",\r\n" + //
                         "\r\n" + //
                         "Welcome to Tradewave! We are thrilled to have you join our community of enthusiastic investors and traders. Congratulations on successfully registering and taking the first step towards unlocking a world of financial opportunities.\r\n"
@@ -104,15 +95,5 @@ public class NotificationService {
                         "Tradewave Official\r\n" + //
                         "tradewaveofficial@gmail.com");
         emailSender.sendEmail(recipientEmail, notification);
-    }
-
-    public Double fetchPnL(Long userId) {
-        Optional<BuyUser> buyUserOptional = buyUserRepository.findById(userId);
-
-        if (buyUserOptional.isPresent()) {
-            BuyUser buyUser = buyUserOptional.get();
-            return buyUser.getPnl();
-        }
-        return null;
     }
 }

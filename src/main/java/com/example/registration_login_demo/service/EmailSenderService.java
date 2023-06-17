@@ -11,13 +11,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.example.registration_login_demo.dto.Notification;
+import com.example.registration_login_demo.dto.NotificationDto;
 
-public class EmailSender {
+public class EmailSenderService {
     private final String senderEmail = "tradewaveofficial@gmail.com";
     private final String senderPassword = "eauvnfwylgjztzdm";
 
-    public void sendEmail(String recipientEmail, Notification notification) {
+    public void sendEmail(String recipientEmail, NotificationDto notification) {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");

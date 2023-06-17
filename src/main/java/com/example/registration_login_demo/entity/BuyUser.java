@@ -39,12 +39,4 @@ public class BuyUser {
     @Column(name = "Point")
     private Double point;
 
-    @Column(name = "Profit_Threshold")
-    private Double profitThreshold;
-
-    @Column(name = "Loss_Threshold")
-    private Double lossThreshold;
-
-    @Column(name = "NotiOnOff")
-    private int NotiOnOff;
 }

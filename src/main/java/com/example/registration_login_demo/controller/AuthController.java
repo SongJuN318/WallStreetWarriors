@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.registration_login_demo.dto.UserDto;
-import com.example.registration_login_demo.dto.UserSettings;
 import com.example.registration_login_demo.entity.User;
 import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.UserService;
@@ -97,12 +96,14 @@ public class AuthController {
     }
 
     @GetMapping("/homepage")
-    public String homepage(Model model, Principal principal) {
-        String recipientEmail = principal.getName();
+    public String homepage(Model model, Principal principal/*, AuthController authController, BuyService buyService*/) {
+        // String recipientEmail = principal.getName();
         model.addAttribute("profileName", currentUserName(principal));
-        NotificationService notificationService = new NotificationService(recipientEmail);
-        UserSettings userSettings = new UserSettings(recipientEmail);
-        notificationService.startThresholdChecking(userSettings);
+        // NotificationService notificationService = new NotificationService(recipientEmail);
+        // UserSettings userSettings = new UserSettings(recipientEmail);
+        // long currentUserId = authController.currentUserId(principal);
+        // double pnl = buyService.findBuyUserById(currentUserId).getPnl();
+        // notificationService.startThresholdChecking(userSettings, pnl);
         return "homepage";
     }
 

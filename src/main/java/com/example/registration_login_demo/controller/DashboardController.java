@@ -1,6 +1,5 @@
 package com.example.registration_login_demo.controller;
 
-
 import java.security.Principal;
 import java.util.List;
 
@@ -13,7 +12,9 @@ import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.dto.SellDto;
 import com.example.registration_login_demo.dto.SellPendingOrderDTO;
 import com.example.registration_login_demo.dto.TradingHistoryDto;
+import com.example.registration_login_demo.dto.UserSettings;
 import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.SellService;
 import com.example.registration_login_demo.service.UserService;
 
@@ -54,6 +55,10 @@ public class DashboardController {
         model.addAttribute("Sellstocks", sellDtoList);
         model.addAttribute("BuyPendingstocks", stockByUser);
         model.addAttribute("SellPendingstocks", sellDtoList);
+        String recipientEmail = principal.getName();
+        NotificationService notificationService = new NotificationService(recipientEmail);
+        UserSettings userSettings = new UserSettings(recipientEmail);
+        notificationService.startThresholdChecking(userSettings, pnl);
         return "dashboard";
     }
 }
