@@ -1,19 +1,23 @@
 package com.example.registration_login_demo.service;
 
+import com.example.registration_login_demo.dto.Notification;
+import com.example.registration_login_demo.dto.UserSettings;
+import com.example.registration_login_demo.entity.BuyUser;
+import com.example.registration_login_demo.repository.BuyUserRepository;
+
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.registration_login_demo.dto.Notification;
-import com.example.registration_login_demo.dto.UserSettings;
-import com.example.registration_login_demo.entity.BuyUser;
 
 public class NotificationService {
     private final EmailSender emailSender;
     private final String recipientEmail;
     private final UserSettings userSettings;
+    private BuyUserRepository buyUserRepository;
 
     public NotificationService(String recipientEmail) {
+        this.buyUserRepository = buyUserRepository;
         this.emailSender = new EmailSender();
         this.recipientEmail = recipientEmail;
         this.userSettings = new UserSettings(recipientEmail);
@@ -102,12 +106,31 @@ public class NotificationService {
 
     public Double fetchPnL(Long userId) {
         Optional<BuyUser> buyUserOptional = buyUserRepository.findById(userId);
-
         if (buyUserOptional.isPresent()) {
             BuyUser buyUser = buyUserOptional.get();
             return buyUser.getPnl();
         }
 
         return null; // Return null if the user's PnL is not found
-    }
+    }
+
+    public Double fetchTreshold(Long userId) {
+        Optional<BuyUser> buyUserOptional = buyUserRepository.findById(userId);
+        if (buyUserOptional.isPresent()) {
+            BuyUser buyUser = buyUserOptional.get();
+            return buyUser.getThreshold();
+        }
+
+        return null; // Return null if the user's PnL is not found
+    }
+
+    public Integer fetchNoti(Long userId) {
+        Optional<BuyUser> buyUserOptional = buyUserRepository.findById(userId);
+        if (buyUserOptional.isPresent()) {
+            BuyUser buyUser = buyUserOptional.get();
+            return buyUser.getNotiOnOff();
+        }
+
+        return null; // Return null if the user's PnL is not found
+    }
 }
