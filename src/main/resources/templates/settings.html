@@ -15,18 +15,22 @@
 <body>
     <div class="container">
         <h1>Settings</h1>
-        <label for="threshold">Set your current threshold for P&L:</label>
-        <input type="number" id="threshold" placeholder="Enter your threshold amount (RM)">
-        <button id="btn">Set</button> <!--You have done setting ur threshold-->
+        <label for="profitThreshold">Set your current threshold for profit:</label>
+        <input type="number" id="profitThreshold" placeholder="Enter your profit threshold (RM)">
+        <button id="setProfitBtn">Set</button>
+
+        <label for="lossThreshold">Set your current threshold for loss:</label>
+        <input type="number" id="lossThreshold" placeholder="Enter your loss threshold (RM)">
+        <button id="setLossBtn">Set</button>
+
         <p class="noti">Notifications (ON/OFF)?</p>
         <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" id="notificationSwitch">
             <span class="slider"></span>
             <img src="/images/mail.png">
         </label>
-
-
     </div>
+
     <footer>
         <div class="waves">
             <div class="wave" id="wave1"></div>
@@ -34,6 +38,8 @@
         </div>
         <p>©2023 TradeWave. All rights reserved.</p>
     </footer>
+
+    <script src="settings.js"></script>
 </body>
 
 </html>
