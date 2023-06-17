@@ -114,7 +114,7 @@ public class NotificationService {
         return null; // Return null if the user's PnL is not found
     }
 
-    public Double fetchTreshold(Long userId) {
+    public Double fetchThreshold(Long userId) {
         Optional<BuyUser> buyUserOptional = buyUserRepository.findById(userId);
         if (buyUserOptional.isPresent()) {
             BuyUser buyUser = buyUserOptional.get();
@@ -124,7 +124,7 @@ public class NotificationService {
         return null; // Return null if the user's PnL is not found
     }
 
-    public Integer fetchNoti(Long userId) {
+    public Integer fetchNotiOnOff(Long userId) {
         Optional<BuyUser> buyUserOptional = buyUserRepository.findById(userId);
         if (buyUserOptional.isPresent()) {
             BuyUser buyUser = buyUserOptional.get();
