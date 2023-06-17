@@ -12,12 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SellPendingOrderDTO {
 
+    private final String type = "SELL";
     private long orderId;
     private long userId;
     private String symbol;
     private int lots;
     private double buyPrice;
     private double sellPrice;
-
-
 }

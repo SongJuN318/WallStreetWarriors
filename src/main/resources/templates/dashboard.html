@@ -51,45 +51,45 @@
                             <th>Pending Time</th>
                             <th>Type</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="details" th:each="stock:${BuyPendingstocks}">
-                            <td th:text="${stock.symbol}"></td>
-                            <td th:text="${stock.lots}"></td>
-                            <td th:text="${stock.buyPrice}"></td>
-                            <td th:text="${stock.type}"></td>
-                        </tr>
-                        <tr class="details" th:each="stock : ${SellPendingstocks}">
-                            <td th:text="${stock.symbol}"></td>
-                            <td th:text="${stock.lots}"></td>
-                            <td th:text="${stock.sellPrice}"></td>
-                            <td th:text="${stock.type}"></td>
-                        </tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class = "details" th:each="stock:${BuyPendingstocks}">
+                <td th:text="${stock.symbol}"></td>
+                <td th:text="${stock.lots}"></td>
+                <td th:text="${stock.buyPrice}"></td>
+                <td th:text="${stock.type}"></td>
+            </tr>
+            <tr class="details" th:each="stock : ${SellPendingstocks}">
+                <td th:text="${stock.symbol}"></td>
+                <td th:text="${stock.lots}"></td>
+                <td th:text="${stock.sellPrice}"></td>
+                <td th:text="${stock.type}"></td>
+            </tr>
 
 
-                        <tr th:if="${#lists.isEmpty(BuyPendingstocks) && #lists.isEmpty(SellPendingstocks)}">
-                            <td colspan="4" class="noUsers">No available open position</td>
+            <tr th:if="${#lists.isEmpty(BuyPendingstocks) && #lists.isEmpty(SellPendingstocks)}">
+                <td colspan="4" class="noUsers">No available open position</td>
 
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="container2">
-                <table class="table table-bordered table-hover">
-                    <h2>Trade History:</h2>
-                    <colgroup>
-                        <col>
-                        <col style="width: 10%;">
-                        <col>
-                        <col>
-                    </colgroup>
-                    <thead class="table-dark">
-                        <tr class="details">
-                            <th>Stock Symbol</th>
-                            <th>Lot(s)</th>
-                            <th>Price</th>
-                            <th>Type</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="container2">
+        <table class="table table-bordered table-hover">
+            <h2>Trade History:</h2>
+            <colgroup>
+                <col>
+                <col style="width: 10%;"> 
+                <col>
+                <col>
+            </colgroup>
+            <thead class="table-dark">
+            <tr class = "details">
+                <th>Stock Symbol</th>
+                <th>Lot(s)</th>
+                <th>Price</th>
+                <th>Type</th>
 
                         </tr>
                     </thead>
