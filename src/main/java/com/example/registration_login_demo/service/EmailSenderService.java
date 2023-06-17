@@ -11,8 +11,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.stereotype.Service;
+
 import com.example.registration_login_demo.dto.NotificationDto;
 
+@Service
 public class EmailSenderService {
     private final String senderEmail = "tradewaveofficial@gmail.com";
     private final String senderPassword = "eauvnfwylgjztzdm";

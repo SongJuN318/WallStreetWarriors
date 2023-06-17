@@ -1,58 +1,47 @@
 package com.example.registration_login_demo.service;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.registration_login_demo.dto.NotificationDto;
 import com.example.registration_login_demo.dto.UserSettings;
 
+@Service
 public class NotificationService {
     private final EmailSenderService emailSender;
-    private final String recipientEmail;
     private final UserSettings userSettings;
+    private final ThresholdNotificationScheduler thresholdNotificationScheduler;
 
-    public NotificationService(String recipientEmail) {
-        this.emailSender = new EmailSenderService();
-        this.recipientEmail = recipientEmail;
-        this.userSettings = new UserSettings(recipientEmail);
+    @Autowired
+    public NotificationService(EmailSenderService emailSender, UserSettings userSettings) {
+        this.emailSender = emailSender;
+        this.userSettings = userSettings;
+        this.thresholdNotificationScheduler = new ThresholdNotificationScheduler(userSettings);
     }
 
     public void enableNotifications() {
-        if (userSettings != null) {
-            userSettings.setNotificationsEnabled(true);
-        }
+        userSettings.setNotificationsEnabled(true);
     }
 
     public void disableNotifications() {
-        if (userSettings != null) {
-            userSettings.setNotificationsEnabled(false);
-        }
+        userSettings.setNotificationsEnabled(false);
     }
 
-    public void startThresholdChecking(UserSettings userSettings, double currentPnL) {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (userSettings != null && userSettings.isNotificationsEnabled()) {
-                    if (currentPnL >= userSettings.getProfitThreshold()) {
-                        NotificationDto notification = new NotificationDto("Profit Threshold Crossed",
-                                "Your P&L has crossed the profit threshold.");
-                        emailSender.sendEmail(userSettings.getEmail(), notification);
-                        timer.cancel();
-                    } else if (currentPnL <= userSettings.getLossThreshold()) {
-                        NotificationDto notification = new NotificationDto("Loss Threshold Crossed",
-                                "Your P&L has crossed the loss threshold.");
-                        emailSender.sendEmail(userSettings.getEmail(), notification);
-                        timer.cancel();
-                    }
-                }
-            }
-        }, 0, 60 * 1000); // Check thresholds every 60 seconds
+    public void setProfitThreshold(double profitThreshold) {
+        userSettings.setProfitThreshold(profitThreshold);
+    }
+
+    public void setLossThreshold(double lossThreshold) {
+        userSettings.setLossThreshold(lossThreshold);
+    }
+
+    public void startThresholdChecking(double currentPnL) {
+        thresholdNotificationScheduler.startThresholdChecking(currentPnL);
     }
 
     public void sendRegistrationEmail(String recipientEmail, String username) {
-        NotificationDto notification = new NotificationDto("Welcome to Tradewave - Your Gateway to Financial Opportunities!",
+        NotificationDto notification = new NotificationDto(
+                "Welcome to Tradewave - Your Gateway to Financial Opportunities!",
                 "Dear Mr/Mrs " + username + ",\r\n" + //
                         "\r\n" + //
                         "Welcome to Tradewave! We are thrilled to have you join our community of enthusiastic investors and traders. Congratulations on successfully registering and taking the first step towards unlocking a world of financial opportunities.\r\n"

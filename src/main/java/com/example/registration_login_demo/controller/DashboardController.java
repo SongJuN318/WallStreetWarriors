@@ -1,5 +1,6 @@
 package com.example.registration_login_demo.controller;
 
+
 import java.security.Principal;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.example.registration_login_demo.dto.SellPendingOrderDTO;
 import com.example.registration_login_demo.dto.TradingHistoryDto;
 import com.example.registration_login_demo.dto.UserSettings;
 import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.EmailSenderService;
 import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.SellService;
 import com.example.registration_login_demo.service.UserService;
@@ -27,9 +29,9 @@ public class DashboardController {
 
     @Autowired
     public DashboardController(BuyService buyService,
-            UserService userService,
-            AuthController authController,
-            SellService sellService) {
+                               UserService userService,
+                               AuthController authController,
+                               SellService sellService) {
         this.buyService = buyService;
         this.authController = authController;
         this.userService = userService;
@@ -56,9 +58,15 @@ public class DashboardController {
         model.addAttribute("BuyPendingstocks", stockByUser);
         model.addAttribute("SellPendingstocks", sellDtoList);
         String recipientEmail = principal.getName();
-        NotificationService notificationService = new NotificationService(recipientEmail);
         UserSettings userSettings = new UserSettings(recipientEmail);
-        notificationService.startThresholdChecking(userSettings, pnl);
+        EmailSenderService emailSender = new EmailSenderService();
+        NotificationService notificationService = new NotificationService(emailSender, userSettings);
+        notificationService.startThresholdChecking(pnl);
         return "dashboard";
+    }
+
+    public double fetchPnl(Principal principal){
+        long currentUserId = authController.currentUserId(principal);
+        return buyService.findBuyUserById(currentUserId).getPnl();
     }
 }

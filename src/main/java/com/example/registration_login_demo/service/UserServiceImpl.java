@@ -4,6 +4,13 @@
  */
 package com.example.registration_login_demo.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.example.registration_login_demo.dto.UserDto;
 import com.example.registration_login_demo.entity.BuyUser;
@@ -12,13 +19,6 @@ import com.example.registration_login_demo.entity.User;
 import com.example.registration_login_demo.repository.BuyUserRepository;
 import com.example.registration_login_demo.repository.RoleRepository;
 import com.example.registration_login_demo.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,9 +29,9 @@ public class UserServiceImpl implements UserService {
     private BuyUserRepository buyUserRepository;
 
     public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder,
-                           BuyUserRepository buyUserRepository) {
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder,
+            BuyUserRepository buyUserRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -69,6 +69,9 @@ public class UserServiceImpl implements UserService {
         buyUser.setCurrentFund(50000.0);
         buyUser.setPnl(0.0);
         buyUser.setPoint(0.0);
+        buyUser.setProfitThreshold(5000.0);
+        buyUser.setLossThreshold(-5000.0);
+        buyUser.setNotiOnOff(true);
         buyUserRepository.save(buyUser);
     }
 
@@ -86,7 +89,6 @@ public class UserServiceImpl implements UserService {
     public User findUserByName(String name) {
         return userRepository.findByName(name);
     }
-
 
     @Override
     public List<UserDto> findAllUsers() {

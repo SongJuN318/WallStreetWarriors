@@ -17,11 +17,11 @@
         <h1>Settings</h1>
         <label for="profitThreshold">Set your current threshold for profit:</label>
         <input type="number" id="profitThreshold" placeholder="Enter your profit threshold (RM)">
-        <button id="setProfitBtn">Set</button>
+        <button id="setProfitBtn" onclick="setProfitThreshold()">Set Profit Threshold</button>
 
         <label for="lossThreshold">Set your current threshold for loss:</label>
         <input type="number" id="lossThreshold" placeholder="Enter your loss threshold (RM)">
-        <button id="setLossBtn">Set</button>
+        <button id="setLossBtn" onclick="setLossThreshold()">Set Loss Threshold</button>
 
         <p class="noti">Notifications (ON/OFF)?</p>
         <label class="switch">
@@ -30,7 +30,7 @@
             <img src="/images/mail.png">
         </label>
     </div>
-
+    <script src="settings.js"></script>
     <footer>
         <div class="waves">
             <div class="wave" id="wave1"></div>
