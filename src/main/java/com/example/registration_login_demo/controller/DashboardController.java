@@ -1,17 +1,18 @@
 package com.example.registration_login_demo.controller;
 
-import com.example.registration_login_demo.dto.SellDto;
-import com.example.registration_login_demo.dto.TradingHistoryDto;
-import com.example.registration_login_demo.service.BuyService;
-import com.example.registration_login_demo.service.SellService;
-import com.example.registration_login_demo.service.UserService;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
-import java.util.List;
+import com.example.registration_login_demo.dto.SellDto;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
+import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.SellService;
+import com.example.registration_login_demo.service.UserService;
 
 @Controller
 public class DashboardController {

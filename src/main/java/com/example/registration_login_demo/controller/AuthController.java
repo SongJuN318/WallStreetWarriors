@@ -62,8 +62,12 @@ public class AuthController {
             model.addAttribute("user", userDto);
             return "/register";
         }
-
         userService.saveUser(userDto);
+
+        String recipientEmail = userDto.getEmail();
+        NotificationService notificationService = new NotificationService(recipientEmail);
+        notificationService.sendRegistrationEmail(recipientEmail,userDto.getLastName());
+
         return "redirect:/register?success";
     }
 
@@ -93,7 +97,6 @@ public class AuthController {
         model.addAttribute("profileName", currentUserName(principal));
         NotificationService notificationService = new NotificationService(recipientEmail);
         UserSettings userSettings = new UserSettings(recipientEmail);
-        notificationService.sendRegistrationEmail(recipientEmail, currentUserName(principal));
         notificationService.startThresholdChecking(userSettings);
         return "homepage";
     }

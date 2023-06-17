@@ -1,13 +1,12 @@
 package com.example.registration_login_demo.service;
 
-import com.example.registration_login_demo.dto.BuyDto;
-import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
-import com.example.registration_login_demo.dto.TradingHistoryDto;
-import com.example.registration_login_demo.entity.Buy;
-import com.example.registration_login_demo.entity.BuyPendingOrder;
-import com.example.registration_login_demo.entity.BuyUser;
-import com.example.registration_login_demo.entity.TradingHistory;
-import com.example.registration_login_demo.repository.*;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,14 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.example.registration_login_demo.dto.BuyDto;
+import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
+import com.example.registration_login_demo.entity.Buy;
+import com.example.registration_login_demo.entity.BuyPendingOrder;
+import com.example.registration_login_demo.entity.BuyUser;
+import com.example.registration_login_demo.entity.TradingHistory;
+import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
+import com.example.registration_login_demo.repository.BuyRepository;
+import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.repository.TradingHistoryRepository;
+import com.example.registration_login_demo.repository.UserRepository;
 
 @Service
 public class BuyService {
@@ -180,14 +183,14 @@ public class BuyService {
     }
 
     private boolean isTradingHours() {
-        DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
-        LocalTime currentTime = LocalTime.now();
+        // DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
+        // LocalTime currentTime = LocalTime.now();
 
-        boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
-        boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
-        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
+        // boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
+        // boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
+        // boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
 
-        return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
+        return true;/*isWeekday && (isWithinMorningSession || isWithinAfternoonSession);*/
     }
 
     public List<BuyUser> getTopUsersByPoints(int limit) {

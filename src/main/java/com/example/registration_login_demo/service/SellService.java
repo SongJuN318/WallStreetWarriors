@@ -1,12 +1,11 @@
 package com.example.registration_login_demo.service;
 
-import com.example.registration_login_demo.dto.SellDto;
-import com.example.registration_login_demo.dto.SellPendingOrderDTO;
-import com.example.registration_login_demo.entity.Buy;
-import com.example.registration_login_demo.entity.BuyUser;
-import com.example.registration_login_demo.entity.Sell;
-import com.example.registration_login_demo.entity.SellPendingOrder;
-import com.example.registration_login_demo.repository.*;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,13 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.example.registration_login_demo.dto.SellDto;
+import com.example.registration_login_demo.dto.SellPendingOrderDTO;
+import com.example.registration_login_demo.entity.Buy;
+import com.example.registration_login_demo.entity.BuyUser;
+import com.example.registration_login_demo.entity.Sell;
+import com.example.registration_login_demo.entity.SellPendingOrder;
+import com.example.registration_login_demo.repository.BuyRepository;
+import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.repository.SellPendingOrderRepository;
+import com.example.registration_login_demo.repository.SellRepository;
+import com.example.registration_login_demo.repository.TradingHistoryRepository;
 
 @Service
 public class SellService {
@@ -172,14 +175,14 @@ public class SellService {
     }
 
     private boolean isTradingHours() {
-        DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
-        LocalTime currentTime = LocalTime.now();
+        // DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
+        // LocalTime currentTime = LocalTime.now();
 
-        boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
-        boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
-        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 00));
+        // boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
+        // boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
+        // boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 00));
 
-        return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
+        return true;/*isWeekday && (isWithinMorningSession || isWithinAfternoonSession);*/
     }
 
     public Optional<String> fetchSellValue(String symbol) {

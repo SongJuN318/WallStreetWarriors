@@ -52,9 +52,9 @@ public class NotificationService {
         }, 0, 60 * 1000); // Check thresholds every 60 seconds
     }
 
-    public void sendRegistrationEmail(String recipientEmail, String userName) {
+    public void sendRegistrationEmail(String recipientEmail, String username) {
         Notification notification = new Notification("Welcome to Tradewave - Your Gateway to Financial Opportunities!",
-                                "Dear " + userName + ",\r\n" + //
+                                "Dear Mr/Mrs " + username + ",\r\n" + //
                                         "\r\n" + //
                                         "Welcome to Tradewave! We are thrilled to have you join our community of enthusiastic investors and traders. Congratulations on successfully registering and taking the first step towards unlocking a world of financial opportunities.\r\n" + //
                                         "\r\n" + //
@@ -86,4 +86,12 @@ public class NotificationService {
                                         "tradewaveofficial@gmail.com");
         emailSender.sendEmail(recipientEmail, notification);
     }
+
+    // private AuthController authController;
+    // private final BuyService buyService;
+    // public double fetchPnl(Principal principal){
+    //     long currentUserId = authController.currentUserId(principal);
+    //     double pnl = buyService.findBuyUserById(currentUserId).getPnl();
+    //     return pnl;
+    // }
 }
