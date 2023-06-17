@@ -42,13 +42,15 @@
                 <col>
                 <col style="width: 10%;"> 
                 <col>
-                <col>
+                <col>  
+                <col>     
             </colgroup>
             <thead class="table-dark">
             <tr class = "details">
                 <th>Stock Symbol</th>
                 <th>Lot(s)</th>
                 <th>Price</th>
+                <th>Pending Time</th>
                 <th>Type</th>
 
             </tr>
@@ -66,8 +68,11 @@
                 <td th:text="${stock.sellPrice}"></td>
                 <td th:text="${stock.type}"></td>
             </tr>
+
+
             <tr th:if="${#lists.isEmpty(BuyPendingstocks) && #lists.isEmpty(SellPendingstocks)}">
                 <td colspan="4" class="noUsers">No available open position</td>
+
             </tr>
             </tbody>
         </table>

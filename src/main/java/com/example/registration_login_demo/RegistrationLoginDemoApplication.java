@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EntityScan("com.example.registration_login_demo.entity")
 public class RegistrationLoginDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RegistrationLoginDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RegistrationLoginDemoApplication.class, args);
+    }
 }

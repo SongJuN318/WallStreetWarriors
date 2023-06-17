@@ -11,36 +11,37 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.example.registration_login_demo.dto.Notification;
+
 public class EmailSender {
-    public static void sendEmail(String recipient, String subject, String body) {
-        String host = "smtp.google.com";
-        String username = "tradewaveofficial@gmail.com";
-        String password = "eauvnfwylgjztzdm";
+    private final String senderEmail = "tradewaveofficial@gmail.com";
+    private final String senderPassword = "eauvnfwylgjztzdm";
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
+    public void sendEmail(String recipientEmail, Notification notification) {
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
 
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
+        Session session = Session.getInstance(properties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication(senderEmail, senderPassword);
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
-            message.setSubject(subject);
-            message.setText(body);
+
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject(notification.getSubject());
+            message.setText(notification.getMessage());
 
             Transport.send(message);
-
-            System.out.println("Notification email sent successfully.");
+            System.out.println("Email sent successfully!");
         } catch (MessagingException e) {
+            System.out.println("Failed to send email:");
             e.printStackTrace();
         }
     }

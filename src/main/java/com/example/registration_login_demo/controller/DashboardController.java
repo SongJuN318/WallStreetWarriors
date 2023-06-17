@@ -1,5 +1,9 @@
 package com.example.registration_login_demo.controller;
 
+
+import java.security.Principal;
+import java.util.List;
+
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.dto.SellDto;
 import com.example.registration_login_demo.dto.SellPendingOrderDTO;
@@ -7,13 +11,17 @@ import com.example.registration_login_demo.dto.TradingHistoryDto;
 import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.SellService;
 import com.example.registration_login_demo.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
-import java.util.List;
+import com.example.registration_login_demo.dto.SellDto;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
+import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.SellService;
+import com.example.registration_login_demo.service.UserService;
 
 @Controller
 public class DashboardController {
@@ -21,7 +29,6 @@ public class DashboardController {
     private final SellService sellService;
     private final UserService userService;
     private AuthController authController;
-
 
     @Autowired
     public DashboardController(BuyService buyService,
@@ -54,5 +61,10 @@ public class DashboardController {
         model.addAttribute("BuyPendingstocks", stockByUser);
         model.addAttribute("SellPendingstocks", sellDtoList);
         return "dashboard";
+    }
+
+    public double fetchPnl(Principal principal){
+        long currentUserId = authController.currentUserId(principal);
+        return buyService.findBuyUserById(currentUserId).getPnl();
     }
 }
