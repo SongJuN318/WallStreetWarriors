@@ -1,7 +1,16 @@
 package com.example.registration_login_demo.controller;
 
+
 import java.security.Principal;
 import java.util.List;
+
+import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
+import com.example.registration_login_demo.dto.SellDto;
+import com.example.registration_login_demo.dto.SellPendingOrderDTO;
+import com.example.registration_login_demo.dto.TradingHistoryDto;
+import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.SellService;
+import com.example.registration_login_demo.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +47,8 @@ public class DashboardController {
         String currentUsername = authController.currentUserName(principal);
         List<TradingHistoryDto> stockByUser = buyService.findHistoryByUserId(currentUserId);
         List<SellDto> sellDtoList = sellService.findSellsByUserId(currentUserId);
+        List<BuyPendingOrderDTO> buyPendingOrderByUser = buyService.findBuysPendingByUserId(currentUserId);
+        List<SellPendingOrderDTO> sellPendingOrderByUser = sellService.findSellsPendingByUserId(currentUserId);
         double funds = buyService.findBuyUserById(currentUserId).getCurrentFund();
         double pnl = buyService.findBuyUserById(currentUserId).getPnl();
         double points = buyService.findBuyUserById(currentUserId).getPoint();
@@ -47,6 +58,8 @@ public class DashboardController {
         model.addAttribute("username", currentUsername);
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
+        model.addAttribute("BuyPendingstocks", stockByUser);
+        model.addAttribute("SellPendingstocks", sellDtoList);
         return "dashboard";
     }
 
