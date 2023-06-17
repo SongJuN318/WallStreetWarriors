@@ -31,7 +31,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-        @GetMapping("/settings")
+    @GetMapping("/settings")
     public String settings() {
         return "settings";
     }
@@ -71,7 +71,7 @@ public class AuthController {
 
         String recipientEmail = userDto.getEmail();
         NotificationService notificationService = new NotificationService(recipientEmail);
-        notificationService.sendRegistrationEmail(recipientEmail,userDto.getLastName());
+        notificationService.sendRegistrationEmail(recipientEmail, userDto.getLastName());
 
         return "redirect:/register?success";
     }

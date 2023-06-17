@@ -21,7 +21,6 @@ public class DashboardController {
     private final UserService userService;
     private AuthController authController;
 
-
     @Autowired
     public DashboardController(BuyService buyService,
                                UserService userService,
@@ -49,5 +48,10 @@ public class DashboardController {
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
         return "dashboard";
+    }
+
+    public double fetchPnl(Principal principal){
+        long currentUserId = authController.currentUserId(principal);
+        return buyService.findBuyUserById(currentUserId).getPnl();
     }
 }
