@@ -42,13 +42,15 @@
                 <col>
                 <col style="width: 10%;"> 
                 <col>
-                <col>
+                <col>  
+                <col>     
             </colgroup>
             <thead class="table-dark">
             <tr class = "details">
                 <th>Stock Symbol</th>
                 <th>Lot(s)</th>
                 <th>Price</th>
+                <th>Pending Time</th>
                 <th>Type</th>
 
             </tr>
@@ -61,7 +63,7 @@
                 <td>  <!--BUY/SELL--></td>  
             </tr>
             <tr th:if="${#lists.isEmpty(users)}">
-                <td colspan="3" class = "noUsers">No available stocks to sell.</td>
+                <td colspan="3" class = "noUsers">No open positions.</td>
             </tr>
             </tbody>
         </table>
