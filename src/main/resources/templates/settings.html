@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="#" rel="shortcut icon">
     <meta charset="UTF-8">
-    <title>LeaderBoard</title>
+    <title>Settings</title>
     <link rel="stylesheet" th:href="@{/css/settings.css}">
 </head> 
     <header>
@@ -16,9 +16,16 @@
         <div class="container">
             <h1>Settings</h1>
             <label  for="threshold">Set your current threshold for P&L:</label>
-            <input type="text" id="threshold">
+            <input type="number" id="threshold" placeholder="Enter your threshold amount (RM)">
             <button id="btn">Set</button>               <!--You have done setting ur threshold-->
-            <p>Notifications (ON/OFF)?</p>
+            <p class="noti">Notifications (ON/OFF)?</p>
+            <label class ="switch">
+                <input type="checkbox">
+                <span class = "slider"></span>
+                <img src="/images/mail.png">
+            </label>
+
+
         </div>
 <footer>
     <div class="waves">
