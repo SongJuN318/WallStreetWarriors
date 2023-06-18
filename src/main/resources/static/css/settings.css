@@ -1,0 +1,237 @@
+@import url(font.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow: auto;
+    background-color: #321567;
+}
+
+header {
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    color: #fff;
+    font-weight: 100;
+    text-decoration: none;
+    font-size: 2.5em;
+    letter-spacing: 10px;
+    font-family: 'Wave-Font';
+    display: block;
+}
+
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background: #3586ff;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+footer p {
+    font-size: 1.5em;
+    font-family: 'Welcome-Font';
+    color: white;
+
+}
+
+footer .wave {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url("../images/wave.png");
+    background-size: 1000px 100px;
+}
+
+footer .wave#wave1 {
+    z-index: 1000;
+    opacity: 1;
+    bottom: 0;
+    animation: animateWave 3s linear infinite;
+
+}
+
+footer .wave#wave2 {
+    z-index: 999;
+    opacity: 0.65;
+    bottom: 10px;
+    animation: animateWave_02 3s linear infinite;
+
+}
+
+
+@keyframes animateWave {
+    0% {
+        background-position-x: 1000px;
+    }
+    100% {
+        background-position-x: 0px;
+    }
+}
+
+@keyframes animateWave_02 {
+    0% {
+        background-position-x: 0px;
+    }
+    100% {
+        background-position-x: 1000px;
+    }
+}
+
+h1
+{
+    color: #fff;
+    font-family: 'Welcome-Font';
+    font-size: 3.5em;
+    margin-left: 95px;
+    margin-bottom: 35px;
+    width: fit-content;
+}
+
+label[for="threshold"]{
+    color: #fff;
+    font-family: 'Welcome-Font';
+    font-size: 1.5em;
+    margin-left: 20px;
+    display: inline-block;
+    padding-bottom: 40px;
+}
+
+input[type=number]
+{
+    font-size: 0.9em;
+    font-family: 'Welcome-Font';
+    color: #000000;
+    width: 25%;
+    line-height: 35px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
+
+button
+{
+    font-size: 0.9em;
+    font-family: 'Welcome-Font';
+    border-radius: 15px;
+    padding: 10px;
+    margin-left: 15px;
+    border: none;
+    background-color: #a286d7;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.noti
+{
+    color: #fff;
+    font-family: 'Welcome-Font';
+    font-size: 1.5em;
+    margin: 30px 0 10px 20px;
+}
+
+.switch
+{
+    position: relative;
+    display: inline-block;
+    width: 96px;
+    height: 38px;
+    margin: 0px 10px;
+}
+
+.slider 
+{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    transition: 0.4s;
+    border-radius: 34px;
+    transform: translateX(110px);
+}
+
+.switch input {
+    display:none ;
+}
+
+.slider:before
+{
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 31px;
+    left: 5px;
+    bottom: 4px;
+    background: #a286d7;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider
+{
+    background: #7453b0;
+}
+
+input:checked + .slider:before
+{
+    transform: translateX(50px);
+}
+
+button:hover
+{
+    background: #7453b0;
+}
+
+
+img {
+    position: relative;
+    margin: 10px;
+    transition: opacity 0.3s, transform 0.3s ease-out;
+    transform: translate(370px, -70px)scale(0);
+    opacity: 0;
+    height: 0;
+
+}
+
+input:checked + .slider ~ img {
+    transform: translate(370px,-70px)scale(1);
+    opacity: 1;    
+    height: auto; 
+  }
+
+#flex-box 
+{
+    background-color: #5c32a9;
+    color: #fff;
+    padding: 10px;
+
+}

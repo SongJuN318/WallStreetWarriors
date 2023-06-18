@@ -16,4 +16,5 @@ public class SellDto {
     private String symbol;
     private int lots;
     private double sellPrice;
+    private double profit_lost;
 }

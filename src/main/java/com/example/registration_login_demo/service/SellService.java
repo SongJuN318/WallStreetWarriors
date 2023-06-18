@@ -242,6 +242,7 @@ public class SellService {
         sellPendingOrderDTO.setSymbol(sellPendingOrder.getSymbol());
         sellPendingOrderDTO.setLots(sellPendingOrder.getLots());
         sellPendingOrderDTO.setSellPrice(sellPendingOrder.getBuyPrice());
+        sellPendingOrderDTO.setOrderPendingTime(sellPendingOrder.getSellPendingTime());
         return sellPendingOrderDTO;
     }
 }

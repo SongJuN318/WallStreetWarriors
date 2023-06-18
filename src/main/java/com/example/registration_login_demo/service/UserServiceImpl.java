@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.example.registration_login_demo.service;
 
 
@@ -69,6 +65,8 @@ public class UserServiceImpl implements UserService {
         buyUser.setCurrentFund(50000.0);
         buyUser.setPnl(0.0);
         buyUser.setPoint(0.0);
+        buyUser.setThreshold(2000.0);
+        buyUser.setNotiOnOff(1);
         buyUserRepository.save(buyUser);
     }
 
@@ -132,6 +130,8 @@ public class UserServiceImpl implements UserService {
 
         // Check if the user exists
         if (user != null) {
+            user.getRoles().clear();
+            userRepository.save(user);
             List<Role> roles = user.getRoles();
             for (Role role : roles) {
                 // Delete the role
@@ -144,7 +144,6 @@ public class UserServiceImpl implements UserService {
             // Delete the user
             userRepository.delete(user);
         }
-
     }
 
     public List<String> getUsernamesForBuyUsers(List<BuyUser> buyUsers) {

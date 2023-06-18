@@ -1,10 +1,8 @@
 package com.example.registration_login_demo.controller;
 
-import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
-import com.example.registration_login_demo.dto.SellDto;
-import com.example.registration_login_demo.dto.SellPendingOrderDTO;
-import com.example.registration_login_demo.dto.TradingHistoryDto;
+import com.example.registration_login_demo.dto.*;
 import com.example.registration_login_demo.service.BuyService;
+import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.SellService;
 import com.example.registration_login_demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.security.Principal;
 import java.util.List;
 
+
 @Controller
 public class DashboardController {
     private final BuyService buyService;
     private final SellService sellService;
     private final UserService userService;
     private AuthController authController;
-
 
     @Autowired
     public DashboardController(BuyService buyService,
@@ -51,8 +49,14 @@ public class DashboardController {
         model.addAttribute("username", currentUsername);
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
-        model.addAttribute("BuyPendingstocks", stockByUser);
-        model.addAttribute("SellPendingstocks", sellDtoList);
+        model.addAttribute("BuyPendingStocks", buyPendingOrderByUser);
+        model.addAttribute("SellPendingStocks", sellPendingOrderByUser);
+        String recipientEmail = principal.getName();
+        NotificationService notificationService = new NotificationService(recipientEmail);
+        UserSettings userSettings = new UserSettings(recipientEmail);
+        notificationService.startThresholdChecking(userSettings, pnl);
         return "dashboard";
     }
 }
+
+

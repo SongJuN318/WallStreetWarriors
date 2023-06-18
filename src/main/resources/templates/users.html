@@ -18,9 +18,9 @@
 <section>
     <img src="/images/background.jpg" id="background">
     <header>
-        <a th:href="@{/}" class="logo">TradeWave</a>
+        <a href="@{/}" class="logo">TradeWave</a>
         <ul>
-            <li><a th:href="@{/}" ><span></span>Log Out</a></li>
+            <li><a th:href="@{/logout}" ><span></span>Log Out</a></li>
         </ul>
     </header>
     <div class="container">
@@ -29,7 +29,7 @@
         </div>
         <div th:if="${param.success}">
             <div class="alert alert-info">
-                You have successfully deleted an user!
+                You have successfully deleted the user!
             </div>
         </div>
         <table class="table table-bordered table-hover">

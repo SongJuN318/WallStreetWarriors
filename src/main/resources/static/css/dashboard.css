@@ -39,61 +39,6 @@ header .logo {
 }
 
 
-ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-ul li {
-    list-style: none;
-    margin-left: 20px;
-}
-
-ul li a {
-    text-decoration: none;
-    font-size: 1em;
-    color: #fff;
-    padding: 6px 15px;
-    border-radius: 25px;
-    text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
-
-}
-
-a:not(.logo):not(#btn):not(#here):not(#sign):not(.btn.btn-primary):not(#noeffect):hover {
-
-    background: #00ff99;
-    box-shadow: 0 0 10px #00ff99, 0 0 40px #00ff99, 0 0 80px #00ff99;
-    transition-delay: 0.35s; /* can change lower*/
-    color: #fff;
-
-
-}
-
-
-a span {
-    position: absolute;
-    display: block;
-}
-
-a span:nth-child(1) {
-    top: 10px;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00fd2e);
-}
-
-a:hover span:nth-child(1) {
-    left: -5%;
-    transition: 0.5s;
-    height: 4px;
-    border-radius: 20px;
-
-}
-
-
 section {
     position: relative;
     width: 100%;
@@ -247,7 +192,7 @@ footer .wave#wave2 {
 
 .table.table-bordered.table-hover
 {
-    background: #3E3255;
+    background: #6746a4;
 }
 
 h2 {
@@ -279,7 +224,7 @@ table th {
 .flex-box {
     width: 300px;
     height: 100px;
-    background: #3E3255;
+    background: #6746a4;
     color: #fff;
     align-items: center;
     border-radius: 25px;
