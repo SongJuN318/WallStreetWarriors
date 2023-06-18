@@ -227,3 +227,11 @@ input:checked + .slider ~ img {
     opacity: 1;    
     height: auto; 
   }
+
+#flex-box 
+{
+    background-color: #5c32a9;
+    color: #fff;
+    padding: 10px;
+
+}
