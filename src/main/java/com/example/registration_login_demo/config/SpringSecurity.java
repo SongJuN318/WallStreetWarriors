@@ -30,28 +30,29 @@ public class SpringSecurity {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeHttpRequests((authorize) -> authorize.requestMatchers("/register/**").permitAll()
-                        .requestMatchers("/",
-                                "/resources/**",
-                                "/static/**",
-                                "/css/**",
-                                "/images/**",
-                                "/js/**",
-                                "/stocks",
-                                "/search/**",
-                                "/stock/**",
-                                "/homepage/**",
-                                "/homepage",
-                                "/username/**",
-                                "/buy/**",
-                                "/leaderboard",
-                                "/uid",
-                                "/sellList",
-                                "/dashboard",
-                                "/sell/**",
-                                "/settings",
-                                "report/**")
-                        .permitAll()
+
+        http.csrf().disable().
+                authorizeHttpRequests((authorize) ->
+                        authorize.requestMatchers("/register/**").permitAll()
+                                .requestMatchers("/",
+                                        "/resources/**",
+                                        "/static/**",
+                                        "/css/**",
+                                        "/images/**",
+                                        "/js/**",
+                                        "/stocks",
+                                        "/search/**",
+                                        "/stock/**",
+                                        "/homepage/**",
+                                        "/username/**",
+                                        "/buy/**",
+                                        "/leaderboard",
+                                        "/uid",
+                                        "/sellList",
+                                        "/dashboard",
+                                        "/sell/**",
+                                        "/settings",
+                                        "/report/**").permitAll()
 
                         .requestMatchers("/users").hasRole("ADMIN")
                         .requestMatchers("/delete/**").hasRole("ADMIN")).formLogin(
