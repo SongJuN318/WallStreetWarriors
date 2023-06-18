@@ -7,7 +7,10 @@ import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyPendingOrder;
 import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.entity.TradingHistory;
-import com.example.registration_login_demo.repository.*;
+import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
+import com.example.registration_login_demo.repository.BuyRepository;
+import com.example.registration_login_demo.repository.BuyUserRepository;
+import com.example.registration_login_demo.repository.TradingHistoryRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,19 +34,16 @@ public class BuyService {
     private final BuyRepository buyRepository;
     private final BuyUserRepository buyUserRepository;
     private final TradingHistoryRepository tradingHistoryRepository;
-    private final UserRepository userRepository;
 
     @Autowired
     public BuyService(
             BuyPendingOrderRepository buyPendingOrderRepository,
             BuyRepository buyRepository,
             BuyUserRepository buyUserRepository,
-            UserRepository userRepository,
             TradingHistoryRepository tradingHistoryRepository) {
         this.buyPendingOrderRepository = buyPendingOrderRepository;
         this.buyRepository = buyRepository;
         this.buyUserRepository = buyUserRepository;
-        this.userRepository = userRepository;
         this.tradingHistoryRepository = tradingHistoryRepository;
     }
 
