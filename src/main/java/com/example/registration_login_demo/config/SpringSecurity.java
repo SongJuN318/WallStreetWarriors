@@ -50,7 +50,8 @@ public class SpringSecurity {
                                         "/sellList",
                                         "/dashboard",
                                         "/sell/**",
-                                        "/settings").permitAll()
+                                        "/settings",
+                                        "/report/**").permitAll()
 
                                 .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/delete/**").hasRole("ADMIN")
