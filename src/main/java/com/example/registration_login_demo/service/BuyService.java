@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -178,14 +180,14 @@ public class BuyService {
     }
 
     private boolean isTradingHours() {
-        // DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
-        // LocalTime currentTime = LocalTime.now();
+        DayOfWeek currentDay = LocalDateTime.now().getDayOfWeek();
+        LocalTime currentTime = LocalTime.now();
 
-        // boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
-        // boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
-        // boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
+        boolean isWeekday = currentDay != DayOfWeek.SATURDAY && currentDay != DayOfWeek.SUNDAY;
+        boolean isWithinMorningSession = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(12, 30));
+        boolean isWithinAfternoonSession = currentTime.isAfter(LocalTime.of(14, 30)) && currentTime.isBefore(LocalTime.of(17, 0));
 
-        return true;/*isWeekday && (isWithinMorningSession || isWithinAfternoonSession);*/
+        return isWeekday && (isWithinMorningSession || isWithinAfternoonSession);
     }
 
     public List<BuyUser> getTopUsersByPoints(int limit) {
