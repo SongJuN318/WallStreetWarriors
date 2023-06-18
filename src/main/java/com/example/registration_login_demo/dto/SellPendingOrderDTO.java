@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,4 +21,5 @@ public class SellPendingOrderDTO {
     private int lots;
     private double buyPrice;
     private double sellPrice;
+    private LocalDateTime OrderPendingTime;
 }

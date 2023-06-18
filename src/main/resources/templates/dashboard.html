@@ -56,21 +56,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr class = "details" th:each="stock:${BuyPendingstocks}">
+            <tr class = "details" th:each="stock:${BuyPendingStocks}">
                 <td th:text="${stock.symbol}"></td>
                 <td th:text="${stock.lots}"></td>
                 <td th:text="${stock.buyPrice}"></td>
+                <td th:text="${stock.OrderPendingTime}"></td>
                 <td th:text="${stock.type}"></td>
             </tr>
-            <tr class="details" th:each="stock : ${SellPendingstocks}">
+            <tr class="details" th:each="stock : ${SellPendingStocks}">
                 <td th:text="${stock.symbol}"></td>
                 <td th:text="${stock.lots}"></td>
                 <td th:text="${stock.sellPrice}"></td>
+                <td th:text="${stock.OrderPendingTime}"></td>
                 <td th:text="${stock.type}"></td>
             </tr>
 
 
-            <tr th:if="${#lists.isEmpty(BuyPendingstocks) && #lists.isEmpty(SellPendingstocks)}">
+            <tr th:if="${#lists.isEmpty(BuyPendingStocks) && #lists.isEmpty(SellPendingStocks)}">
                 <td colspan="4" class="noUsers">No available open position</td>
 
             </tr>

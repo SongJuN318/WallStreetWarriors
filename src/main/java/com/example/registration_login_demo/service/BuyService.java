@@ -1,19 +1,5 @@
 package com.example.registration_login_demo.service;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import com.example.registration_login_demo.dto.BuyDto;
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.dto.TradingHistoryDto;
@@ -21,11 +7,20 @@ import com.example.registration_login_demo.entity.Buy;
 import com.example.registration_login_demo.entity.BuyPendingOrder;
 import com.example.registration_login_demo.entity.BuyUser;
 import com.example.registration_login_demo.entity.TradingHistory;
-import com.example.registration_login_demo.repository.BuyPendingOrderRepository;
-import com.example.registration_login_demo.repository.BuyRepository;
-import com.example.registration_login_demo.repository.BuyUserRepository;
-import com.example.registration_login_demo.repository.TradingHistoryRepository;
-import com.example.registration_login_demo.repository.UserRepository;
+import com.example.registration_login_demo.repository.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BuyService {
@@ -269,6 +264,7 @@ public class BuyService {
         buyPendingOrderDTO.setSymbol(buyPendingOrder.getSymbol());
         buyPendingOrderDTO.setLots(buyPendingOrder.getLots());
         buyPendingOrderDTO.setBuyPrice(buyPendingOrder.getBuyPrice());
+        buyPendingOrderDTO.setOrderPendingTime(buyPendingOrder.getOrderPendingTime());
         return buyPendingOrderDTO;
     }
 
