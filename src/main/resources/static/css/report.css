@@ -103,7 +103,7 @@ button
     font-family: 'Welcome-Font';
     border-radius: 25px;
     padding: 15px;
-    margin-top: 7%;
+    margin-top: 2%;
     margin-left: 40px;
     border: none;
     background-color: #a286d7;
@@ -131,7 +131,6 @@ h1 {
     position: relative;
     align-items: center;
     text-align: center;
-    z-index: 1;
 
 }
 
@@ -149,6 +148,5 @@ h1 {
     /* top: 43%; */
     /* left: 85%; */
     /* transform: translate(-50%, -50%); */
-    z-index: 2;
 
 }

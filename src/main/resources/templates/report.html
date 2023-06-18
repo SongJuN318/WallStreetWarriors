@@ -16,23 +16,22 @@
     <body>
         <h1>REPORT</h1>
         <div class="flex-container">
-            <div class = "alert" th:if="${param.success}">  
-    
+            <div class = "alert" th:if="${param.pdf}">  
                 <div class="alert alert-info">
-                    Downlaoded as PDF!
-                    <p th:text="${successMessage}"></p>
+                    Downloaded as PDF!
                 </div>
             </div>
-            <div class="alert" th:if="${param.marketClosed}">
+            <div class="alert" th:if="${param.txt}">
                 <div class="alert alert-info">
                     Downloaded as TXT!
                 </div>
             </div>
-            <div class="alert" th:if="${param.insufficientFunds}">
+            <div class="alert" th:if="${param.csv}">
                 <div class="alert alert-info">
                     Downloaded as CSV!
                 </div>
             </div>
+        </div>
        <div class="container">
         <button id="PDF">Download as PDF</button>
         <button id="TXT">Download as TXT</button>

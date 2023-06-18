@@ -4,16 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
         var CSV = document.getElementById('CSV');
         
         PDF.addEventListener('click', function() {
-            window.location.href = '';
+            window.location.href = '/report/pdf';
         });
 
         TXT.addEventListener('click', function() {
-            window.location.href = '';
+            window.location.href = '/report/txt';
         });
         
         CSV.addEventListener('click', function() {
         
-            window.location.href = '';
+            window.location.href = '/report/csv';
         });
         
         });

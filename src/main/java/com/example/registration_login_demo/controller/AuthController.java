@@ -36,10 +36,6 @@ public class AuthController {
         return "settings";
     }
 
-          @GetMapping("/report")
-    public String reporting() {
-        return "report";
-    }
 
     // handler method to handle home page request
     @GetMapping("/")
