@@ -41,7 +41,7 @@ public class ReportController {
     @GetMapping("/report/txt")
     public String downloadAsTxt(Principal principal) {
         long currentUserId = authController.currentUserId(principal);
-        reportService.downloadAsCSV(currentUserId);
+        reportService.downloadAsTXT(currentUserId);
         return "redirect:/report?txt";
     }
 }
