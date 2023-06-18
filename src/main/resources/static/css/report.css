@@ -104,7 +104,6 @@ button
     border-radius: 25px;
     padding: 15px;
     margin-top: 2%;
-    margin-left: 40px;
     border: none;
     background-color: #a286d7;
     cursor: pointer;
@@ -124,29 +123,31 @@ h1 {
 }
 
 .flex-container {
-    background: #3E3255;
-    padding: 50px 15px;
-    margin: 0 80px;
-    transform: translateY(-350px);
+    padding: 50px 15px 25px 15px;
+    width: 100%;
     position: relative;
     align-items: center;
     text-align: center;
-
 }
 
+
+
 .alert {
-    position: absolute;
+    position: relative;
     font-size: 1.2em;
-    top: 25%;
-    right: 3%;
-    border-radius: 25px;
-    background: #463565;    
-    padding: 10px;
+    left: 100;
+    border-radius: 20px;
+    background: #3586ff;
+    padding: 6px;
     color: #fff;
     text-align: center;
     font-family: 'Welcome-Font';
-    /* top: 43%; */
-    /* left: 85%; */
-    /* transform: translate(-50%, -50%); */
 
+}
+
+.container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
