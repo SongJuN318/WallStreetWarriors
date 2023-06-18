@@ -262,7 +262,6 @@ footer .wave#wave2 {
     0% {
         background-position-x: 1000px;
     }
-
     100% {
         background-position-x: 0px;
     }
@@ -272,7 +271,6 @@ footer .wave#wave2 {
     0% {
         background-position-x: 0px;
     }
-
     100% {
         background-position-x: 1000px;
     }
@@ -303,12 +301,10 @@ footer .wave#wave2 {
 }
 
 @keyframes typing {
-
     40%,
     60% {
         left: calc(18.5% + 40px);
     }
-
     100% {
         left: 0;
     }

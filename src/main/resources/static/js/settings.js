@@ -1,23 +1,14 @@
-// Enable/disable notifications
-const notificationSwitch = document.getElementById('notificationSwitch');
-notificationSwitch.addEventListener('change', function() {
-    if (this.checked) {
-        enableNotifications();
-    } else {
-        disableNotifications();
-    }
+document.addEventListener("DOMContentLoaded", function () {
+var myButton = document.getElementById('btn1');
+var myButton2 = document.getElementById('btn2');
+
+myButton.addEventListener('click', function() {
+    window.location.href = '';
 });
 
-// Set profit threshold
-const setProfitBtn = document.getElementById('setProfitBtn');
-setProfitBtn.addEventListener('click', function() {
-    const profitThreshold = document.getElementById('profitThreshold').value;
-    setProfitThreshold(profitThreshold);
+myButton2.addEventListener('click', function() {
+
+    window.location.href = 'XXXX';
 });
 
-// Set loss threshold
-const setLossBtn = document.getElementById('setLossBtn');
-setLossBtn.addEventListener('click', function() {
-    const lossThreshold = document.getElementById('lossThreshold').value;
-    setLossThreshold(lossThreshold);
 });
