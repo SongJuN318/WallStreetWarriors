@@ -56,19 +56,14 @@ public class DashboardController {
         model.addAttribute("username", currentUsername);
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
-
-        model.addAttribute("BuyPendingstocks", stockByUser);
-        model.addAttribute("SellPendingstocks", sellDtoList);
+        model.addAttribute("BuyPendingstocks", buyPendingOrderByUser);
+        model.addAttribute("SellPendingstocks", sellPendingOrderByUser);
         String recipientEmail = principal.getName();
         NotificationService notificationService = new NotificationService(recipientEmail);
         UserSettings userSettings = new UserSettings(recipientEmail);
         notificationService.startThresholdChecking(userSettings, pnl);
         return "dashboard";
     }
-
-        model.addAttribute("BuyPendingStocks", buyPendingOrderByUser);
-        model.addAttribute("SellPendingStocks", sellPendingOrderByUser);
-        return "dashboard";
     }
 
 
