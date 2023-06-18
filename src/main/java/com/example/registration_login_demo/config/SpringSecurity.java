@@ -53,9 +53,9 @@ public class SpringSecurity {
                                         "/sell/**",
                                         "/settings",
                                         "/report/**").permitAll()
-
-                        .requestMatchers("/users").hasRole("ADMIN")
-                        .requestMatchers("/delete/**").hasRole("ADMIN")).formLogin(
+                                .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/delete/**").hasRole("ADMIN"))
+                .formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")

@@ -134,6 +134,8 @@ public class UserServiceImpl implements UserService {
 
         // Check if the user exists
         if (user != null) {
+            user.getRoles().clear();
+            userRepository.save(user);
             List<Role> roles = user.getRoles();
             for (Role role : roles) {
                 // Delete the role
@@ -146,7 +148,6 @@ public class UserServiceImpl implements UserService {
             // Delete the user
             userRepository.delete(user);
         }
-
     }
 
     public List<String> getUsernamesForBuyUsers(List<BuyUser> buyUsers) {
