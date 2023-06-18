@@ -17,7 +17,7 @@ public class UserSettings {
 
     public UserSettings(String email) {
         this.email = email;
-        profitThreshold = 10000.0; // default profitThreshold
+        profitThreshold = 0.0; // default profitThreshold
         lossThreshold = -5000.0; // default lossThreshold
         notificationsEnabled = true;
     }
