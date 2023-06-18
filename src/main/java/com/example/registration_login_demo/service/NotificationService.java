@@ -1,15 +1,18 @@
 package com.example.registration_login_demo.service;
 
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.registration_login_demo.dto.NotificationDto;
 import com.example.registration_login_demo.dto.UserSettings;
 
+
 public class NotificationService {
     private final EmailSenderService emailSender;
     private final String recipientEmail;
     private final UserSettings userSettings;
+    private BuyUserRepository buyUserRepository;
 
     public NotificationService(String recipientEmail) {
         this.emailSender = new EmailSenderService();
@@ -96,4 +99,7 @@ public class NotificationService {
                         "tradewaveofficial@gmail.com");
         emailSender.sendEmail(recipientEmail, notification);
     }
+
 }
+
+

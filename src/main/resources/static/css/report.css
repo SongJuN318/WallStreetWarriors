@@ -9,30 +9,16 @@
 
 body {
     min-height: 100vh;
-    overflow-x: hidden;     
-
-}
-
-.container {
-    width: 100%;
-    background: #321070;    
-    background-position: center;
-    background-size: cover;
-    background-position-y: 80px;
-    padding: 30% 0;
-    color: #fff;
-    text-align: center
+    overflow: auto;
+    background-color: #321567;
 }
 
 header {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     padding: 30px 100px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-
 }
 
 header .logo {
@@ -42,11 +28,12 @@ header .logo {
     font-size: 2.5em;
     letter-spacing: 10px;
     font-family: 'Wave-Font';
+    display: block;
 }
 
 
 footer {
-    position: relative;
+    position: fixed;
     width: 100%;
     bottom: 0;
     background: #3586ff;
@@ -54,7 +41,6 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -100px;
 
 
 }
@@ -111,66 +97,56 @@ footer .wave#wave2 {
     }
 }
 
-
-form,h2,h1
-{
-    font-family: 'Welcome-Font';
-    font-size: 1.7em;
-    margin: 10px;
-    transform: translateY(-350px);
-    margin: 15px;
-}
-
-table
-{
-    font-family: 'Welcome-Font';
-    text-align: center;
-    transform: translate(75%,-350px);
-    font-size: 1.2em;
-}
-
-hr
-{
-    margin: 10px 0 ;
-    transform: translateY(-350px);
-    height: 5px;
-    background: #fff;;
-}
-
-input
-{
-    height: 35px;
-    font-family: 'Welcome-Font';
-    font-size: 0.8em;
-}
-
 button
 {
+    font-size: 1.8em;
     font-family: 'Welcome-Font';
-    height: 30px;
-    padding: 5px;
+    border-radius: 25px;
+    padding: 15px;
+    margin-top: 2%;
+    margin-left: 40px;
+    border: none;
+    background-color: #a286d7;
+    cursor: pointer;
+    transition: 0.4s;
 }
 
-table 
+button:hover
 {
-    margin: auto;
-    font-size: 1.2em;
-    margin-bottom: -560px;
+    background-color: #d7c6ff;
+    transform: translateY(-5px);
+}
+h1 {
+    color: #fff;
+    font-family: 'Welcome-Font';
+    font-size: 4.5em;
+    margin-left: 103px
 }
 
-th,td
-{
+.flex-container {
+    background: #3E3255;
+    padding: 50px 15px;
+    margin: 0 80px;
+    transform: translateY(-350px);
+    position: relative;
+    align-items: center;
     text-align: center;
-    transform: translateX(-550px);
-    font-size: 1.3em;
-    padding-right: 20px;
+
 }
 
-.topLine
-{
-    transform: translateY(-345px); 
-    height: 5px;
-    background: #fff;; 
+.alert {
+    position: absolute;
+    font-size: 1.2em;
+    top: 25%;
+    right: 3%;
+    border-radius: 25px;
+    background: #463565;    
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    font-family: 'Welcome-Font';
+    /* top: 43%; */
+    /* left: 85%; */
+    /* transform: translate(-50%, -50%); */
+
 }
-
-

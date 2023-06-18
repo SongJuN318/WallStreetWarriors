@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let report = document.getElementById("report");
     report.addEventListener("click", function () {
-        window.location.href = "https://icons8.com/icons/set/stocks";
+        window.location.href = "/report";
     })
 
     let sell = document.getElementById("sell");

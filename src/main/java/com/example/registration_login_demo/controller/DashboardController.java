@@ -1,12 +1,11 @@
 package com.example.registration_login_demo.controller;
 
-import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 import com.example.registration_login_demo.dto.BuyPendingOrderDTO;
 import com.example.registration_login_demo.dto.SellDto;
@@ -17,6 +16,10 @@ import com.example.registration_login_demo.service.BuyService;
 import com.example.registration_login_demo.service.NotificationService;
 import com.example.registration_login_demo.service.SellService;
 import com.example.registration_login_demo.service.UserService;
+
+import java.security.Principal;
+import java.util.List;
+
 
 @Controller
 public class DashboardController {
@@ -53,6 +56,7 @@ public class DashboardController {
         model.addAttribute("username", currentUsername);
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
+
         model.addAttribute("BuyPendingstocks", stockByUser);
         model.addAttribute("SellPendingstocks", sellDtoList);
         String recipientEmail = principal.getName();
@@ -61,4 +65,11 @@ public class DashboardController {
         notificationService.startThresholdChecking(userSettings, pnl);
         return "dashboard";
     }
+
+        model.addAttribute("BuyPendingStocks", buyPendingOrderByUser);
+        model.addAttribute("SellPendingStocks", sellPendingOrderByUser);
+        return "dashboard";
+    }
+
+
 }

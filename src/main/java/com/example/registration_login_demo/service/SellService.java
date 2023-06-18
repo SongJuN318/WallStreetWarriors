@@ -1,11 +1,12 @@
 package com.example.registration_login_demo.service;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import com.example.registration_login_demo.dto.SellDto;
+import com.example.registration_login_demo.dto.SellPendingOrderDTO;
+import com.example.registration_login_demo.entity.Buy;
+import com.example.registration_login_demo.entity.BuyUser;
+import com.example.registration_login_demo.entity.Sell;
+import com.example.registration_login_demo.entity.SellPendingOrder;
+import com.example.registration_login_demo.repository.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,17 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.registration_login_demo.dto.SellDto;
-import com.example.registration_login_demo.dto.SellPendingOrderDTO;
-import com.example.registration_login_demo.entity.Buy;
-import com.example.registration_login_demo.entity.BuyUser;
-import com.example.registration_login_demo.entity.Sell;
-import com.example.registration_login_demo.entity.SellPendingOrder;
-import com.example.registration_login_demo.repository.BuyRepository;
-import com.example.registration_login_demo.repository.BuyUserRepository;
-import com.example.registration_login_demo.repository.SellPendingOrderRepository;
-import com.example.registration_login_demo.repository.SellRepository;
-import com.example.registration_login_demo.repository.TradingHistoryRepository;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SellService {
@@ -245,6 +240,7 @@ public class SellService {
         sellPendingOrderDTO.setSymbol(sellPendingOrder.getSymbol());
         sellPendingOrderDTO.setLots(sellPendingOrder.getLots());
         sellPendingOrderDTO.setSellPrice(sellPendingOrder.getBuyPrice());
+        sellPendingOrderDTO.setOrderPendingTime(sellPendingOrder.getSellPendingTime());
         return sellPendingOrderDTO;
     }
 }
