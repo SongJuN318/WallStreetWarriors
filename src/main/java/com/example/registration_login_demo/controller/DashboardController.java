@@ -50,8 +50,8 @@ public class DashboardController {
         model.addAttribute("username", currentUsername);
         model.addAttribute("Buystocks", stockByUser);
         model.addAttribute("Sellstocks", sellDtoList);
-        model.addAttribute("BuyPendingstocks", buyPendingOrderByUser);
-        model.addAttribute("SellPendingstocks", sellPendingOrderByUser);
+        model.addAttribute("BuyPendingStocks", buyPendingOrderByUser);
+        model.addAttribute("SellPendingStocks", sellPendingOrderByUser);
         String recipientEmail = principal.getName();
         NotificationService notificationService = new NotificationService(recipientEmail);
         UserSettings userSettings = new UserSettings(recipientEmail);
