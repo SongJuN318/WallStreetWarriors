@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BuyDto {
+public class TradingHistoryDto {
     private final String type = "BUY";
     private long orderId;
     private long userId;

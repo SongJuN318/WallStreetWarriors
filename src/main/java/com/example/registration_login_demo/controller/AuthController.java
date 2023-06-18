@@ -1,31 +1,37 @@
 package com.example.registration_login_demo.controller;
 
-import com.example.registration_login_demo.dto.UserDto;
-import com.example.registration_login_demo.entity.User;
-import com.example.registration_login_demo.repository.BuyUserRepository;
-import com.example.registration_login_demo.service.UserService;
-import jakarta.validation.Valid;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.security.Principal;
-import java.util.List;
+import com.example.registration_login_demo.dto.UserDto;
+import com.example.registration_login_demo.dto.UserSettings;
+import com.example.registration_login_demo.entity.User;
+import com.example.registration_login_demo.service.NotificationService;
+import com.example.registration_login_demo.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class AuthController {
 
     private UserService userService;
 
-    private BuyUserRepository buyUserRepository;
-
-    public AuthController(UserService userService, BuyUserRepository buyUserRepository) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.buyUserRepository = buyUserRepository;
     }
 
-        @GetMapping("/settings")
+    @GetMapping("/settings")
     public String settings() {
         return "settings";
     }
@@ -41,12 +47,6 @@ public class AuthController {
         return "index";
     }
 
-    
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
-    }
-
     // handler method to handle user registration form request
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -59,8 +59,8 @@ public class AuthController {
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-                               BindingResult result,
-                               Model model) {
+            BindingResult result,
+            Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
@@ -72,8 +72,12 @@ public class AuthController {
             model.addAttribute("user", userDto);
             return "/register";
         }
-
         userService.saveUser(userDto);
+
+        String recipientEmail = userDto.getEmail();
+        NotificationService notificationService = new NotificationService(recipientEmail);
+        notificationService.sendRegistrationEmail(recipientEmail, userDto.getLastName());
+
         return "redirect:/register?success";
     }
 
@@ -99,8 +103,11 @@ public class AuthController {
 
     @GetMapping("/homepage")
     public String homepage(Model model, Principal principal) {
-        String username = currentUserName(principal); // Call the /username endpoint to get the email
-        model.addAttribute("profileName", username);
+        String recipientEmail = principal.getName();
+        model.addAttribute("profileName", currentUserName(principal));
+        NotificationService notificationService = new NotificationService(recipientEmail);
+        UserSettings userSettings = new UserSettings(recipientEmail);
+        notificationService.startThresholdChecking(userSettings);
         return "homepage";
     }
 

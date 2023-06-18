@@ -12,30 +12,30 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styleUsers.css}">
-<style>
+    <style>
 
-    *{
-        color: #fff;
-        letter-spacing: 2px;
-    }
-    body{
-        background-color: #21094e;
-    }
+        *{
+            color: #fff;
+            letter-spacing: 2px;
+        }
+        body{
+            background-color: #21094e;
+        }
 
-    h2 {
-        color: #fff;
-    }
+        h2 {
+            color: #fff;
+        }
 
-    table th {
-        font-size: 1.4em;
-        padding-left: 3px   ;
-    }
-</style>
+        table th {
+            font-size: 1.4em;
+            padding-left: 3px   ;
+        }
+    </style>
 </head>
 <body>
 <section>
     <header>
-        <a href="/homepage" class="logo">TradeWave</a>
+        <a th:href="@{/homepage}" class="logo">TradeWave</a>
     </header>
     <div class="container">
         <div class="row col-md-10">
@@ -45,7 +45,7 @@
         <table class="table table-bordered table-hover">
             <colgroup>
                 <col style="width: 7%;">
-                <col style="width: 75%;"> 
+                <col style="width: 75%;">
                 <col>
             </colgroup>
             <thead class="table-dark">

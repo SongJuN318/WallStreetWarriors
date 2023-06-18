@@ -83,6 +83,7 @@ footer .wave#wave2 {
     0% {
         background-position-x: 1000px;
     }
+
     100% {
         background-position-x: 0px;
     }
@@ -92,13 +93,13 @@ footer .wave#wave2 {
     0% {
         background-position-x: 0px;
     }
+
     100% {
         background-position-x: 1000px;
     }
 }
 
-h1
-{
+h1 {
     color: #fff;
     font-family: 'Welcome-Font';
     font-size: 3.5em;
@@ -107,7 +108,7 @@ h1
     width: fit-content;
 }
 
-label[for="threshold"]{
+label[for="threshold"] {
     color: #fff;
     font-family: 'Welcome-Font';
     font-size: 1.5em;
@@ -116,8 +117,7 @@ label[for="threshold"]{
     padding-bottom: 40px;
 }
 
-input[type=number]
-{
+input[type=number] {
     font-size: 0.9em;
     font-family: 'Welcome-Font';
     color: #000000;
@@ -128,15 +128,14 @@ input[type=number]
 }
 
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button {  
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
 
-   opacity: 1;
+    opacity: 1;
 
 }
 
-button
-{
+button {
     font-size: 0.9em;
     font-family: 'Welcome-Font';
     border-radius: 15px;
@@ -148,16 +147,14 @@ button
     transition: 0.4s;
 }
 
-.noti
-{
+.noti {
     color: #fff;
     font-family: 'Welcome-Font';
     font-size: 1.5em;
     margin: 30px 0 10px 20px;
 }
 
-.switch
-{
+.switch {
     position: relative;
     display: inline-block;
     width: 96px;
@@ -165,8 +162,7 @@ button
     margin: 0px 10px;
 }
 
-.slider 
-{
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -180,11 +176,10 @@ button
 }
 
 .switch input {
-    display:none ;
+    display: none;
 }
 
-.slider:before
-{
+.slider:before {
     position: absolute;
     content: "";
     height: 30px;
@@ -196,18 +191,15 @@ button
     border-radius: 50%;
 }
 
-input:checked + .slider
-{
+input:checked+.slider {
     background: #7453b0;
 }
 
-input:checked + .slider:before
-{
+input:checked+.slider:before {
     transform: translateX(50px);
 }
 
-button:hover
-{
+button:hover {
     background: #7453b0;
 }
 
@@ -222,6 +214,7 @@ img {
 
 }
 
+<<<<<<< HEAD
 input:checked + .slider ~ img {
     transform: translate(370px,-70px)scale(1);
     opacity: 1;    
@@ -234,4 +227,10 @@ input:checked + .slider ~ img {
     color: #fff;
     padding: 10px;
 
+=======
+input:checked+.slider~img {
+    transform: translate(370px, -70px)scale(1);
+    opacity: 1;
+    height: auto;
+>>>>>>> 3cecb95307620e3c63687eb27ca4c7a88fe2afb8
 }
