@@ -38,10 +38,4 @@ public class BuyUser {
 
     @Column(name = "Point")
     private Double point;
-
-    @Column(name = "Threshold")
-    private Double threshold;
-
-    @Column(name = "NotiOnOff")
-    private int NotiOnOff;
 }
