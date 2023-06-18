@@ -97,14 +97,8 @@ public class AuthController {
     }
 
     @GetMapping("/homepage")
-    public String homepage(Model model, Principal principal/*, AuthController authController, BuyService buyService*/) {
-        // String recipientEmail = principal.getName();
+    public String homepage(Model model, Principal principal) {
         model.addAttribute("profileName", currentUserName(principal));
-        // NotificationService notificationService = new NotificationService(recipientEmail);
-        // UserSettings userSettings = new UserSettings(recipientEmail);
-        // long currentUserId = authController.currentUserId(principal);
-        // double pnl = buyService.findBuyUserById(currentUserId).getPnl();
-        // notificationService.startThresholdChecking(userSettings, pnl);
         return "homepage";
     }
 
