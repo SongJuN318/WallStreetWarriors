@@ -20,8 +20,8 @@ public class Sell {
     private long orderId;
 
     @ManyToOne
-    @JoinColumn(name = "Id")  // Assuming the column name in the table is "Id"
-    private BuyUser user;  // Assuming the User entity is correctly defined
+    @JoinColumn(name = "Id")
+    private BuyUser user;
 
     @Column(name = "Symbol")
     private String symbol;
