@@ -30,6 +30,7 @@ public class SpringSecurity {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http.csrf().disable().
                 authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
@@ -53,9 +54,8 @@ public class SpringSecurity {
                                         "/settings",
                                         "/report/**").permitAll()
 
-                                .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/delete/**").hasRole("ADMIN")
-                ).formLogin(
+                        .requestMatchers("/users").hasRole("ADMIN")
+                        .requestMatchers("/delete/**").hasRole("ADMIN")).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")

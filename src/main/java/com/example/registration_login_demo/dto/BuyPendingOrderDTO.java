@@ -5,13 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class BuyPendingOrderDTO {
+    private final String type = "BUY";
+    private long orderId;
     private long userId;
     private String symbol;
     private int lots;
     private double buyPrice;
+    private LocalDateTime OrderPendingTime;
 }

@@ -12,40 +12,44 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styleUsers.css}">
-<style>
+    <style>
 
-    *{
-        color: #fff;
-    }
-    body{
-        background-color: #21094e;
-    }
+        *{
+            color: #fff;
+        }
+        body{
+            background-color: #21094e;
+        }
 
-    h2 {
-        color: #fff;
-    }
+        h2 {
+            color: #fff;
+        }
 
-    table th {
-        font-size: 1.4em;
-        letter-spacing: 2px;
-    }
-</style>
+        table th {
+            font-size: 1.4em;
+            letter-spacing: 2px;
+        }
+    </style>
 </head>
 <body>
 <section>
     <header>
-        <a href="/homepage" class="logo">TradeWave</a>
+        <a th:href="@{/}" class="logo">TradeWave</a>
     </header>
     <div class="container">
         <div class="row col-md-10">
             <h2>Sell Your Stocks!</h2>
         </div>
-
+        <div th:if="${param.success}">
+            <div class="alert alert-info">
+                You have successfully sold the stock!
+            </div>
+        </div>
         <table class="table table-bordered table-hover">
             <colgroup>
                 <col style ="width: 10%;">
                 <col>
-                <col style="width: 10%;"> 
+                <col style="width: 10%;">
                 <col>
                 <col>
             </colgroup>
@@ -61,15 +65,15 @@
             </thead>
             <tbody>
             <tr class = "details" th:each="stock: ${stocks}">        <!--Change this line too-->
-                <td th:text="${stock.lots}"></td>
+                <td th:text="${stock.orderId}"></td>
                 <td th:text="${stock.symbol}"></td>          <!--Change this to RANK 1,2,3,4...-->
                 <td th:text="${stock.lots}"></td>   <!--Change this to NAME-->
                 <td th:text="${stock.buyPrice}"></td>
                 <td>
-                <form th:action="@{/sell/{id}(id=${stock.orderId})}">           <!---Change this one to sell-->
-                    <button class="btn btn-danger" type="submit">Sell</button>
-                </form>
-            </td>
+                    <form th:action="@{/sell/{id}(id=${stock.orderId})}">           <!---Change this one to sell-->
+                        <button class="btn btn-danger" type="submit">Sell</button>
+                    </form>
+                </td>
             </tr>
             <tr th:if="${#lists.isEmpty(stocks)}">
                 <td colspan="3" class = "noUsers">No available stocks to sell.</td>

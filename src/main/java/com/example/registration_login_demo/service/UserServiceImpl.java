@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService {
         buyUser.setCurrentFund(50000.0);
         buyUser.setPnl(0.0);
         buyUser.setPoint(0.0);
+        buyUser.setThreshold(2000.0);
+        buyUser.setNotiOnOff(1);
         buyUserRepository.save(buyUser);
     }
 
