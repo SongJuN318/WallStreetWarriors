@@ -33,12 +33,12 @@
         </div>
         <div class="alert" th:if="${param.notInRange}">
             <div class="alert alert-info">
-                Sell price or sell lots is invalid.
+                Buy price or buy lots is invalid.
             </div>
         </div>
         <div class="alert" th:if="${param.insufficientLots}">
             <div class="alert alert-info">
-                Insufficient lots to execute the sell order.
+                Insufficient lots to execute the buy order.
             </div>
         </div>
         <p class="buy">Buy</p>
